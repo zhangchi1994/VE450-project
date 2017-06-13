@@ -9,23 +9,31 @@ public class sql_connection{
 		public sql_connection() {
 			super();
 		}   	
-		 public String[] gogogo()
+		 public String[] gogogo(String Item_id)
 	     {
-			 String[] byebye = new String[5];
+			 String[] byebye = new String[6];
 	         try 
 	          {
 	            Class.forName("org.postgresql.Driver").newInstance();
 	            String url = "jdbc:postgresql://localhost:5432/example_db" ;
+	            //String url = "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 	            Connection con = DriverManager.getConnection(url, "postgres" , "123456");
 	            Statement st = con.createStatement();
-	            String sql = "select * from equipment";
+	            String sql = "select * from equipment where id="+Item_id;
 	            ResultSet rs = st.executeQuery(sql);
 	            if (rs.next()) {
 	            	byebye[0] = rs.getString("id");
 	            	byebye[1] = rs.getString("name");
 	            	byebye[2] = rs.getString("date_of_birth");
 	            	byebye[3] = rs.getString("last_maintenance_date");
-	            	byebye[4] = rs.getString("dad_id");
+	            	if(rs.getInt("dad_id") == 0){
+	            		byebye[4] = "NULL";
+	            	    byebye[5] = "NULL";
+	            	}
+	            	else {
+	            		byebye[4] = rs.getString("dad_id");
+	            		byebye[5] = "http://192.168.1.186:8080/VE450/Info_"+byebye[4]+".jsp";
+	            	}
 	            	System.out.println(byebye[4]);
 	            }
 	            rs.close();

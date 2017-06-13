@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Info_First</title>
+<title>Info_Second</title>
 <style>
 body
 {
@@ -26,7 +26,9 @@ p
 
 <jsp:useBean id="hi" class="ve450.ruix.sql_connection" scope="page" />
 
-<%String[] op = hi.gogogo();%>
+<%
+	String[] op = hi.gogogo("2");
+%>
 
 <h1>Sample</h1>
 <h2>Main Info</h2>
@@ -34,7 +36,7 @@ p
 <p>ID:&nbsp <%= op[0]%></p>
 <p>date_of_birth:&nbsp <%= op[2]%></p>
 <p>Father:&nbsp <%= op[4]%></p>
-<a href="http://www.baidu.com/">Visit Father</a> 	
+<a href=<%= op[5]%>>Visit Father</a> 	
 
 <h2>Maintenance Info</h2>
 <p>Last fixing time:&nbsp <%= op[3]%></p>
