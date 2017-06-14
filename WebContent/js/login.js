@@ -5,6 +5,7 @@ function clickbutton() {
 		id : username,
 		pd : password
 	}, function(responseText) {
+		//console.log(password);
 		$('#welcometext').text(responseText);
 	});
 };

@@ -20,8 +20,8 @@ public class sql_connection{
 	          {
 	            Class.forName("org.postgresql.Driver").newInstance();
 	            
-	            //String url = "jdbc:postgresql://localhost:5432/postgres" ;
-	            String url = "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
+	            String url = "jdbc:postgresql://localhost:5432/example_db" ;
+	            //String url = "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 	            Connection con = DriverManager.getConnection(url, "postgres" , "123456");
 	            
 	            //Connection con = DriverManager.getConnection(url, "postgres" , "password");
@@ -49,12 +49,10 @@ public class sql_connection{
 	            	System.out.println(byebye[4]);*/
 	            }
 	            else {
-	            	System.out.println(rs.getString("password"));
-	            	
-	            	/*if(rs.getString("password") == password)  {
-	            		System.out.println("OK");
+	            	if(rs.getString("password").equals(password)) 
 	            		find_or_not = true;
-	            	else find_or_not = false;*/
+	            	else 
+	            		find_or_not = false;
 	            }
 	            rs.close();
 	            st.close();
