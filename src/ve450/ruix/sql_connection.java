@@ -1,5 +1,8 @@
 package ve450.ruix;
 import org.postgresql.*;
+
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.sql. * ;
 
 public class sql_connection{
@@ -8,10 +11,11 @@ public class sql_connection{
 		 */
 		public sql_connection() {
 			super();
-		}   	
-		 public String[] gogogo(String Item_id)
-	     {
-			 String[] byebye = new String[6];
+		}
+		
+		 public boolean logIN(String username, String password)
+	     {		
+			 boolean find_or_not = false;
 	         try 
 	          {
 	            Class.forName("org.postgresql.Driver").newInstance();
@@ -19,33 +23,30 @@ public class sql_connection{
 	            //String url = "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 	            Connection con = DriverManager.getConnection(url, "postgres" , "123456");
 	            Statement st = con.createStatement();
-	            String sql = "select * from equipment where id="+Item_id;
+	            String sql = "select * from users where user_id="+username;
 	            ResultSet rs = st.executeQuery(sql);
-	            if (rs.next()) {
-	            	byebye[0] = rs.getString("id");
-	            	byebye[1] = rs.getString("name");
-	            	byebye[2] = rs.getString("date_of_birth");
-	            	byebye[3] = rs.getString("last_maintenance_date");
-	            	if(rs.getInt("dad_id") == 0){
-	            		byebye[4] = "NULL";
-	            	    byebye[5] = "NULL";
-	            	}
-	            	else {
-	            		byebye[4] = rs.getString("dad_id");
-	            		byebye[5] = "http://192.168.1.186:8080/VE450/Info_"+byebye[4]+".jsp";
-	            	}
-	            	System.out.println(byebye[4]);
+	            if(!rs.next()){
+	            	System.out.println("hi_1");
+	            	find_or_not = false;
+	            }
+	            else {
+	            	System.out.println("yes");
+	            	
+	            	/*if(rs.getString("password") == password)  {
+	            		System.out.println("OK");
+	            		find_or_not = true;
+	            	else find_or_not = false;*/
 	            }
 	            rs.close();
 	            st.close();
 	            con.close();
-	            return (byebye);
+	            return (find_or_not);
 
 	        } 
 	         catch (Exception ee)
 	         {
 	            System.out.print("errrrrro");
 	        }
-			return null;
+			return find_or_not;
 	    } 
 }
