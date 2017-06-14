@@ -9,3 +9,7 @@ function clickbutton() {
 		$('#welcometext').text(responseText);
 	});
 };
+
+function checkleave() {
+	alert("欢迎下次再来！");
+};

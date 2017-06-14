@@ -22,8 +22,7 @@ public class sql_connection{
 	            
 	            String url = "jdbc:postgresql://localhost:5432/example_db" ;
 	            //String url = "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
-	            Connection con = DriverManager.getConnection(url, "postgres" , "123456");
-	            
+	            Connection con = DriverManager.getConnection(url, "postgres" , "123456");           
 	            //Connection con = DriverManager.getConnection(url, "postgres" , "password");
 	            Statement st = con.createStatement();
 	            String sql = "select * from users where user_id="+username;
