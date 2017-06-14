@@ -9,6 +9,8 @@ function update() {
 		time : time,
 		size : size
 	}, function(responseText) { 
-		$('#welcometext').text(responseText);
+		jQuery(function(){
+			jQuery('#output').qrcode(responseText);
+		})
 	});
 };
