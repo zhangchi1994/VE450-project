@@ -38,7 +38,7 @@ public class sql_connection {
 			// + " VALUES ('pn', 'manu1', '1989-08-18', '1989-08-18','0',
 			// '17kg',0)";
 			// }
-			st.executeUpdate(sql);
+			st.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 			ResultSet generatedKeys = st.getGeneratedKeys();
 			if (generatedKeys.next()) {
 				returnId = generatedKeys.getString(1);

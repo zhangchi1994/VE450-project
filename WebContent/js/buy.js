@@ -8,11 +8,7 @@ function update() {
 		manu : manufacturer,
 		time : time,
 		size : size
-	}, function(responseText) {
+	}, function(responseText) { 
 		$('#welcometext').text(responseText);
 	});
-};
-
-function checkleave() {
-	alert("欢迎下次再来！");
 };
