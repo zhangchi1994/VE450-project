@@ -19,20 +19,18 @@ public class UploadServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String id = null;
 		String product_name = null;
 		String manufacturer = null;
 		String time = null;
 		String size = null;
 		String answer = "test";
 
-		id = request.getParameter("sp_id").toString();
-		product_name = request.getParameter("sp_id").toString();
+		product_name = request.getParameter("pd_name").toString();
 		manufacturer = request.getParameter("manu").toString();
 		time = request.getParameter("time").toString();
 		size = request.getParameter("size").toString();
 		sql_connection sql_insert = new sql_connection();
-		sql_insert.Insert(id, product_name, manufacturer, time, size);
+		sql_insert.Insert(product_name, manufacturer, time, size);
 		
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
