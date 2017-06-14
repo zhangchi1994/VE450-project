@@ -27,13 +27,13 @@ public class sql_connection{
 	            //Connection con = DriverManager.getConnection(url, "postgres" , "password");
 	            Statement st = con.createStatement();
 	            String sql = "select * from users where user_id="+username;
-	            String sql = "select * from child where equipment_id="+Item_id;
+	            //String sql = "select * from child where equipment_id="+Item_id;
 	            ResultSet rs = st.executeQuery(sql);
 	            if(!rs.next()){
 	            	System.out.println("hi_1");
 	            	find_or_not = false;
 
-	            if (rs.next()) {
+	           /* if (rs.next()) {
 	            	byebye[0] = rs.getString("equipment_id");
 	            	byebye[1] = rs.getString("name");
 	            	byebye[2] = rs.getString("date_of_birth");
@@ -46,10 +46,10 @@ public class sql_connection{
 	            		byebye[4] = rs.getString("dad_id");
 	            		byebye[5] = "http://localhost:8080/VE450/Info_"+byebye[4]+".jsp";
 	            	}
-	            	System.out.println(byebye[4]);
+	            	System.out.println(byebye[4]);*/
 	            }
 	            else {
-	            	System.out.println("yes");
+	            	System.out.println(rs.getString("password"));
 	            	
 	            	/*if(rs.getString("password") == password)  {
 	            		System.out.println("OK");

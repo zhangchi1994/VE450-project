@@ -1,7 +1,6 @@
 function clickbutton() {
 	var username = document.getElementById("name").value;
 	var password = document.getElementById("pswd").value;
-	console.log("oo");
 	$.get('ActionServlet', {
 		id : username,
 		pd : password
