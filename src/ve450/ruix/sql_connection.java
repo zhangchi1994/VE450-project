@@ -34,6 +34,7 @@ public class sql_connection {
 		} catch (Exception ee) {
 			System.out.print("error in updateInfo");
 		}
+	}
 		
 		 public boolean logIN(String username, String password)
 	     {		
@@ -53,23 +54,6 @@ public class sql_connection {
 	            if(!rs.next()){
 	            	System.out.println("hi_1");
 	            	find_or_not = false;
-
-	public boolean logIN(String username, String password) {
-		boolean find_or_not = false;
-		try {
-			Class.forName("org.postgresql.Driver").newInstance();
-
-			// String url = "jdbc:postgresql://localhost:5432/example_db" ;
-			String url = "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db";
-			con = DriverManager.getConnection(url, "postgres", "123456");
-
-			Statement st = con.createStatement();
-			String sql = "select * from users where user_id=" + username;
-			// String sql = "select * from child where equipment_id="+Item_id;
-			ResultSet rs = st.executeQuery(sql);
-			if (!rs.next()) {
-				System.out.println("hi_1");
-				find_or_not = false;
 
 				/*
 				 * if (rs.next()) { byebye[0] = rs.getString("equipment_id");
