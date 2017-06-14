@@ -21,17 +21,27 @@ public class sql_connection {
 	// TODO: this currently does not work because con has been closed!
 	public void Insert(String id, String product_name, String manufacturer, String time, String size) {
 		try {
+			Class.forName("org.postgresql.Driver").newInstance();
+			String url = "jdbc:postgresql://localhost:5432/example_db";
+			// String url =
+			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
+			Connection con = DriverManager.getConnection(url, "postgres", "123456");
 			Statement st = con.createStatement();
 
 			String sql;
 			// if(id.equals("")){
-			sql = "INSERT INTO Equipment"
+			/*sql = "INSERT INTO Equipment"
 					+ "(name, manufacturer, date_of_birth, last_maintenance_date, status, ssize, dad_id) VALUES('"
 					+ product_name + "','" + manufacturer + "','" + time + "','" + time + "','" + "0" + "','" + size
-					+ "'," + "0)";
+					+ "'," + "0)";*/
+			sql = "INSERT INTO Equipment (name, manufacturer, date_of_birth, last_maintenance_date, status, ssize, dad_id)"
+					+ " VALUES ('pn', 'manu1', '1989-08-18', '1989-08-18','0', '17kg',0)";
 			// }
+			System.out.println("hiiiiiii");
 			st.executeQuery(sql);
+			System.out.println("hiiiiiii");
 			st.close();
+			con.close();
 		} catch (Exception ee) {
 			System.out.print("error in updateInfo");
 		}

@@ -31,7 +31,8 @@ public class UploadServlet extends HttpServlet {
 		manufacturer = request.getParameter("manu").toString();
 		time = request.getParameter("time").toString();
 		size = request.getParameter("size").toString();
-		sql_connection sql_login = new sql_connection();
+		sql_connection sql_insert = new sql_connection();
+		sql_insert.Insert(id, product_name, manufacturer, time, size);
 		
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
