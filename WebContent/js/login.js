@@ -9,8 +9,3 @@ function clickbutton() {
 		$('#welcometext').text(responseText);
 	});
 };
-
-function reset() {
-	document.getElementById("name").value="";
-	document.getElementById("pswd").value="";
-};
