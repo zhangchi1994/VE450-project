@@ -40,56 +40,55 @@ public class sql_connection {
 			// }
 			st.executeUpdate(sql);
 			ResultSet generatedKeys = st.getGeneratedKeys();
-	        if (generatedKeys.next()) {
-	             returnId = generatedKeys.getString(1);
-	             System.out.println("The id is " + returnId);
-	        }
+			if (generatedKeys.next()) {
+				returnId = generatedKeys.getString(1);
+				System.out.println("The id is " + returnId);
+			}
 			System.out.println("Someone Upload");
+			generatedKeys.close();
 			st.close();
 			con.close();
-			
+
 		} catch (Exception ee) {
-			System.out.print("error in updateInfo");
+			System.out.print("error in insert");
 		}
 		return returnId;
 	}
 
-	/*public void Read(String id) {
+	public String[] Read(String id) {
+		String[] byebye = new String[5];
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
 			String url = "jdbc:postgresql://localhost:5432/example_db";
-			// String url =
-			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 			Connection con = DriverManager.getConnection(url, "postgres", "123456");
 			Statement st = con.createStatement();
 
-			String sql;
-			if(rs.next()){
-				
-				  if (rs.next()) { byebye[0] = rs.getString("equipment_id");
-				  byebye[1] = rs.getString("name");
-				  byebye[2] = rs.getString("date_of_birth"); byebye[3] =
-				 rs.getString("last_maintenance_date"); if(rs.getInt("dad_id")
-				  == 0){ byebye[4] = "NULL"; byebye[5] = "NULL"; } else {
-				  byebye[4] = rs.getString("dad_id"); byebye[5] =
-				  "http://localhost:8080/VE450/Info_"+byebye[4]+".jsp"; }
-				  System.out.println(byebye[4]);
-				 
+			String sql = "select * from Equipment where equipment_id = " + id;
+			ResultSet rs = st.executeQuery(sql);
+			if (rs.next()) {
+				byebye[0] = rs.getString("equipment_id");
+				byebye[1] = rs.getString("name");
+				byebye[2] = rs.getString("manufacturer");
+						byebye[3] = rs.getString("date_of_birth");
+				byebye[4] = rs.getString("last_maintenance_date");
+				byebye[5] = rs.getString("status");
+				byebye[6] = rs.getString("ssize");
+				if (rs.getInt("dad_id") == 0) {
+					byebye[7] = "NULL";
+				} else {
+					byebye[7] = rs.getString("dad_id");
+				}
+				System.out.println("dad is " + byebye[7]);
+
 			}
-			sql = "INSERT INTO Equipment (name, manufacturer, date_of_birth, last_maintenance_date, status, ssize, dad_id) VALUES ('" 
-					+ product_name + "','" + manufacturer + "','" + time + "','" + time 
-					+ "','" + "0" + "','" + size+ "'," + "0)";
-			//sql = "INSERT INTO Equipment (name, manufacturer, date_of_birth, last_maintenance_date, status, ssize, dad_id)"
-					//+ " VALUES ('pn', 'manu1', '1989-08-18', '1989-08-18','0', '17kg',0)";
-			// }
-			st.executeUpdate(sql);
-			System.out.println("Someone Upload");
+			rs.close();
 			st.close();
 			con.close();
 		} catch (Exception ee) {
-			System.out.print("error in updateInfo");
+			System.out.print("error in read");
 		}
-	}*/
+		return byebye;
+	}
 
 	public boolean logIN(String username, String password) {
 		boolean find_or_not = false;
@@ -104,7 +103,7 @@ public class sql_connection {
 			// "password");
 			Statement st = con.createStatement();
 			String sql = "select * from users where user_id=" + username;
-			
+
 			ResultSet rs = st.executeQuery(sql);
 			if (!rs.next()) {
 				System.out.println("hi_1");
