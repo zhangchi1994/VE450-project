@@ -6,13 +6,10 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5">
-		<attributes>
-			<attribute name="owner.project.facets" value="jst.web"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/dell/Downloads/postgresql-42.1.1.jar"/>
+	<classpathentry kind="lib" path="I:/VE 450/Code/apache-tomcat-8.5.15/lib/postgresql-42.1.1.jar"/>
+	<classpathentry kind="lib" path="I:/VE 450/Code/apache-tomcat-8.5.15/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="I:/VE 450/Code/apache-tomcat-8.5.15"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
