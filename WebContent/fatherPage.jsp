@@ -13,8 +13,8 @@
 </head>
 
 <%
-	System.out.println("here");
-	String value1 = request.getAttribute("value1").toString();
+	//String value1 = request.getAttribute("value1").toString();
+	//System.out.println(value1);
 %>
 <script type="text/javascript">
 	alert("hi");
