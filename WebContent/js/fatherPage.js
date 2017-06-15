@@ -1,3 +1,3 @@
 window.onload = function() {
-	alart('hi');
+	var tvalue = document.getElementById('ifrm').contentWindow.document.getElementById('input').value;
 };
