@@ -10,7 +10,3 @@ function clickbutton() {
 		window.location.href = "http://4607ad2e.nat123.cc/VE450/buy.html";
 	});
 };
-
-function checkleave() {
-	alert("欢迎下次再来！");
-};

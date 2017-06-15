@@ -56,7 +56,7 @@ public class sql_connection {
 	}
 
 	public String[] Read(String id) {
-		String[] byebye = new String[5];
+		String[] byebye = new String[8];
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
 			String url = "jdbc:postgresql://localhost:5432/example_db";
@@ -69,7 +69,7 @@ public class sql_connection {
 				byebye[0] = rs.getString("equipment_id");
 				byebye[1] = rs.getString("name");
 				byebye[2] = rs.getString("manufacturer");
-						byebye[3] = rs.getString("date_of_birth");
+				byebye[3] = rs.getString("date_of_birth");
 				byebye[4] = rs.getString("last_maintenance_date");
 				byebye[5] = rs.getString("status");
 				byebye[6] = rs.getString("ssize");
@@ -78,6 +78,7 @@ public class sql_connection {
 				} else {
 					byebye[7] = rs.getString("dad_id");
 				}
+				System.out.println(byebye[0]);
 				System.out.println("dad is " + byebye[7]);
 
 			}
