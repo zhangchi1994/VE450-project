@@ -1,6 +1,7 @@
 package ve450.ruix;
 
-import java.io.IOException;
+import java.util.*;  
+import java.io.*; 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,13 +25,14 @@ public class GotoServlet extends HttpServlet {
 		System.out.println(value1);
 		
 		response.setContentType("text/plain");
-		response.getWriter().write(value1);
+		response.sendRedirect("father_page.html");
+		System.out.println("jump ready");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		doGet(request, response);  
 	}
 
 }

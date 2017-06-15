@@ -26,14 +26,14 @@ public class ReadInfoServlet extends HttpServlet {
 		id = request.getParameter("id").toString();
 		sql_connection sql_login = new sql_connection();
 		getResult = sql_login.Read(id);
-		//System.out.println(getResult[1]);
+		System.out.println(getResult[1]);
 		
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
-		request.setAttribute("value1",getResult[1]);
-		request.getRequestDispatcher("/fatherPage.jsp").forward(request, response);
-		System.out.println("dispatcher ready");
-		//response.getWriter().write(getResult[1]);
+		//request.setAttribute("value1",getResult[1]);
+		//response.sendRedirect("fatherPage.jsp?name="+getResult[1]);
+		//request.getRequestDispatcher("/GotoServlet").forward(request, response);
+		response.getWriter().write(getResult[1]);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,5 +41,4 @@ public class ReadInfoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 	}
-
 }
