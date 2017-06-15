@@ -23,9 +23,9 @@ public class sql_connection {
 		String returnId = "Haha you fail";
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
-			String url = "jdbc:postgresql://localhost:5432/example_db";
-			// String url =
-			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
+			//String url = "jdbc:postgresql://localhost:5432/example_db";
+			 String url =
+			 "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 			Connection con = DriverManager.getConnection(url, "postgres", "123456");
 			Statement st = con.createStatement();
 
@@ -59,7 +59,7 @@ public class sql_connection {
 		String[] byebye = new String[8];
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
-			String url = "jdbc:postgresql://localhost:5432/example_db";
+			String url = "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 			Connection con = DriverManager.getConnection(url, "postgres", "123456");
 			Statement st = con.createStatement();
 
@@ -96,7 +96,8 @@ public class sql_connection {
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
 
-			String url = "jdbc:postgresql://localhost:5432/example_db";
+			String url =
+					 "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 			// String url =
 			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 			Connection con = DriverManager.getConnection(url, "postgres", "123456");
