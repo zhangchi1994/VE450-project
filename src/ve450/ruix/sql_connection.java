@@ -1,9 +1,7 @@
 package ve450.ruix;
 
 import org.postgresql.*;
-
 import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.sql.*;
 
 public class sql_connection {

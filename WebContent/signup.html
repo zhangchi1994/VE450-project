@@ -2,6 +2,8 @@
 <html>
 <head>
 	<meta charset="utf-8"> 
+	<script type="text/javascript"  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>  
+	<script type="text/javascript" src="./js/login_signup.js"></script>
 	<title>Signup Page</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
@@ -25,20 +27,20 @@
 		<br>
 		<div class="checkbox-inline">
 		<label>
-			<input type="radio" name = "characteristic" id = "radios1" value = "option1" > Buyer
+			<input type="radio" name = "characteristic" id = "radios1" value = "buyer" > Buyer
 		</label>
 		
 		<label>
-			<input type="radio" name = "characteristic" id = "radios2" value = "option2" checked> User
+			<input type="radio" name = "characteristic" id = "radios2" value = "user" checked> User
 		</label>
 		
 		<label>
-			<input type="radio" name = "characteristic" id = "radios3" value = "option3" > Maintainer
+			<input type="radio" name = "characteristic" id = "radios3" value = "maintainer" > Maintainer
 		</label>
 		</div>
 		<br>
 		<br>
-		<button type="button" class="btn btn-default btn-lg">
+		<button type="button" class="btn btn-default btn-lg" onClick="clickbutton_signup()>
 		<span class="glyphicon glyphicon-user"></span> Signup
 		</button>
 
