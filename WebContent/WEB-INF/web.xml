@@ -19,6 +19,10 @@
 		<servlet-name>GotoServlet</servlet-name>
 		<servlet-class>ve450.ruix.GotoServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>SaveIMGServlet</servlet-name>
+		<servlet-class>ve450.ruix.SaveIMGServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ActionServlet</servlet-name>
 		<url-pattern>/ActionServlet</url-pattern>
@@ -31,9 +35,13 @@
 		<servlet-name>ReadInfoServlet</servlet-name>
 		<url-pattern>/ReadInfoServlet</url-pattern>
 	</servlet-mapping>
-		<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>GotoServlet</servlet-name>
 		<url-pattern>/GotoServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SaveIMGServlet</servlet-name>
+		<url-pattern>/SaveIMGServlet</url-pattern>
 	</servlet-mapping>
 
 </web-app>

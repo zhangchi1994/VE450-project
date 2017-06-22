@@ -40,9 +40,9 @@ public class sql_connection {
 			ResultSet generatedKeys = st.getGeneratedKeys();
 			if (generatedKeys.next()) {
 				returnId = generatedKeys.getString(1);
-				System.out.println("The id is " + returnId);
+				//System.out.println("The id is " + returnId);
 			}
-			System.out.println("Someone Upload");
+			//System.out.println("Someone Upload");
 			generatedKeys.close();
 			st.close();
 			con.close();
