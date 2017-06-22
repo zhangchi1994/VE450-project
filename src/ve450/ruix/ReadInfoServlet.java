@@ -30,10 +30,7 @@ public class ReadInfoServlet extends HttpServlet {
 		
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
-		request.setAttribute("value1",getResult[1]);
-		request.getRequestDispatcher("/fatherPage.jsp").forward(request, response);
-		System.out.println("dispatcher ready");
-		//response.getWriter().write(getResult[1]);
+		response.getWriter().write(getResult[1]);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,5 +38,4 @@ public class ReadInfoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 	}
-
 }
