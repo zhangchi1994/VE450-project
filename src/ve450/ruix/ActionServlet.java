@@ -23,13 +23,12 @@ public class ActionServlet extends HttpServlet {
 		String password = null;
 		String answer = "test";
 		
-
 		username = request.getParameter("id").toString();
 		password = request.getParameter("pd").toString();
 		sql_id_connection sql_login = new sql_id_connection();
-		if (sql_login.logIN(username, password))
-			answer = "Welcome";
-		else answer = "NO WAY";
+		if (sql_login.logIN(username, password).find_or_not)
+			answer = sql_login.logIN(username, password).permission;
+		else answer = "Username/Password error";
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(answer);
@@ -40,16 +39,15 @@ public class ActionServlet extends HttpServlet {
 		String username = null;
 		String password = null;
 		String type = null;
-		String answer = "test";
-		
+		String answer = "test";		
 
 		username = request.getParameter("id").toString();
 		password = request.getParameter("pd").toString();
 		type = request.getParameter("ty").toString();
-		sql_id_connection sql_login = new sql_id_connection();
-		if (sql_login.logIN(username, password))
+		sql_id_connection sql_signup = new sql_id_connection();
+		if (sql_signup.SignUp(username, password,type))
 			answer = "Welcome";
-		else answer = "NO WAY";
+		else answer = "ERROR";
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(answer);

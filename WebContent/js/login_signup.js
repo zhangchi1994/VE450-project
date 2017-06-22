@@ -7,11 +7,14 @@ function clickbutton_login() {
 	}, function(responseText) {
 		//console.log(password);
 		$('#welcometext').text(responseText);
-		window.location.href = "http://4607ad2e.nat123.cc/VE450/buy.html";
+		if(responseText == "wm")
+			window.location.href = "http://4607ad2e.nat123.cc/VE450/warehouse_engineer.html";
 	});
 };
 
 function clickbutton_signup() {
+	var username = document.getElementById("name").value;
+	var password = document.getElementById("pswd").value;
 	var characteristic = document.getElementsByName("characteristic");
 	for(var i=0; i<characteristic.length; i++){ 
 		if(characteristic[i].checked){ 
