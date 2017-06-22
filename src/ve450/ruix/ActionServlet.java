@@ -26,7 +26,7 @@ public class ActionServlet extends HttpServlet {
 
 		username = request.getParameter("id").toString();
 		password = request.getParameter("pd").toString();
-		sql_connection sql_login = new sql_connection();
+		sql_id_connection sql_login = new sql_id_connection();
 		if (sql_login.logIN(username, password))
 			answer = "Welcome";
 		else answer = "NO WAY";
@@ -46,7 +46,7 @@ public class ActionServlet extends HttpServlet {
 		username = request.getParameter("id").toString();
 		password = request.getParameter("pd").toString();
 		type = request.getParameter("ty").toString();
-		sql_connection sql_login = new sql_connection();
+		sql_id_connection sql_login = new sql_id_connection();
 		if (sql_login.logIN(username, password))
 			answer = "Welcome";
 		else answer = "NO WAY";

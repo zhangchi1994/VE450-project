@@ -12,13 +12,18 @@ function clickbutton_login() {
 };
 
 function clickbutton_signup() {
-	var username = document.getElementById("name").value;
-	var password = document.getElementById("pswd").value;
-	var type = document.getElementByName("characteristic").value;
+	var characteristic = document.getElementsByName("characteristic");
+	for(var i=0; i<characteristic.length; i++){ 
+		if(characteristic[i].checked){ 
+			chk = i; 
+			break; 
+		} 
+	}  
+	//alert(characteristic[chk].value);
 	$.post('ActionServlet', {
 		id : username,
 		pd : password,
-		ty : type
+		ty : characteristic[chk].value
 	}, function(responseText) {
 		//console.log(password);
 		$('#welcometext').text(responseText);
