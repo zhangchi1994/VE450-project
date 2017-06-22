@@ -30,7 +30,7 @@ public class ReadInfoServlet extends HttpServlet {
 		
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(getResult[1]);
+		response.getWriter().write(getResult[0]);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

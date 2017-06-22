@@ -68,10 +68,10 @@ public class sql_id_connection {
 			// Connection con = DriverManager.getConnection(url, "postgres" ,
 			// "password");
 			Statement st = con.createStatement();
-			//System.out.println("connection DONE");
+			System.out.println("connection DONE");
 			String sql = "select * from users where user_id=" + username;
 			ResultSet rs = st.executeQuery(sql);
-			//System.out.println("sql DONE");
+			System.out.println("sql DONE");
 			if (!rs.next()) {
 				System.out.println("no body");
 				find_or_not = false;

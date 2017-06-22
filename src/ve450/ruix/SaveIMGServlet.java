@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.spi.http.HttpContext;
 
 import sun.misc.BASE64Decoder;
 
@@ -41,11 +42,15 @@ public class SaveIMGServlet extends HttpServlet {
 			// 生成jpeg图片
 			System.out.println("pic ready");
 			String imgFilePath = "C://Users//dell//workspace//VE450-project//WebContent//pic//" + name + ".png";// 新生成的图片
+			//String imgFilePath = Server.MapPath("./pic/" + name + ".png");
 			//System.out.println(imgFilePath);
 			OutputStream out = new FileOutputStream(imgFilePath);
 			out.write(b);
 			out.flush();
 			out.close();
+			response.setContentType("text/plain");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(name);
 			} catch (Exception e) {
 		}
 	}

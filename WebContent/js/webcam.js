@@ -13,12 +13,15 @@ function CatchCode() {
     var imgData = canvans.toDataURL("image/jpg");
     //将图像转换为base64数据
     var base64Data = imgData.split(",")[1];
-    var filename = "test";
+    var filename = sessionStorage.getItem("name");
+    alert(sessionStorage.getItem("name"));
     console.log("goServlet OK");
     $.post('SaveIMGServlet', { 
     	data : base64Data, 
     	name : filename 
-    	}, function(){  
-    		alert("save OK");
-    	});  
+    	}, function(responseText){  
+    		jQuery(function(){
+			jQuery('#output').qrcode(responseText);
+		})
+    });  
  }  

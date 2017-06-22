@@ -9,8 +9,11 @@ function update() {
 		time : time,
 		size : size
 	}, function(responseText) { 
-		jQuery(function(){
+		sessionStorage.setItem("name", responseText); 
+		//alert(responseText);
+		window.location.href = "http://localhost:8080/VE450/webcam.html";
+		/*jQuery(function(){
 			jQuery('#output').qrcode(responseText);
-		})
+		})*/
 	});
 };	

@@ -8,7 +8,7 @@ function clickbutton_login() {
 		//console.log(password);
 		$('#welcometext').text(responseText);
 		if(responseText == "wm")
-			window.location.href = "http://4607ad2e.nat123.cc/VE450/warehouse_engineer.html";
+			window.location.href = "http://localhost:8080/VE450/warehouse_engineer.html";
 	});
 };
 
