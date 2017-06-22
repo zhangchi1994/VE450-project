@@ -11,6 +11,15 @@
 	crossorigin="anonymous">
 
 </head>
+
+<%
+	//String value1 = request.getAttribute("value1").toString();
+	//System.out.println(value1);
+%>
+<script type="text/javascript">
+	alert("hi");
+</script>
+
 <body>
 	<p>
 		<img src="father_pic.png" alt="father_pic" width="308" height="218">
@@ -49,7 +58,6 @@
 				<td><a
 					href="file:///Users/liuqing/Desktop/html/son_page_A.html"
 					target="_blank">A</a></td>
-				<!--子链接1-->
 				<td>003</td>
 				<td>Abnormal</td>
 			</tr>
@@ -57,12 +65,12 @@
 				<td><a
 					href="file:///Users/liuqing/Desktop/html/son_page_B.html"
 					target="_blank">B</a></td>
-				<!--子链接2-->
 				<td>004</td>
 				<td>Normal</td>
 			</tr>
 		</tbody>
 	</table>
-
+	<div id="welcometext"></div>
 </body>
+
 </html>

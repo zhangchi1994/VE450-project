@@ -13,4 +13,4 @@ function update() {
 			jQuery('#output').qrcode(responseText);
 		})
 	});
-};	
+};

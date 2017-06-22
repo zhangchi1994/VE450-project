@@ -2,14 +2,12 @@
 <html>
 <head>
 	<meta charset="utf-8"> 
-	<script type="text/javascript"  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>  
-	<script type="text/javascript" src="./js/login_signup.js"></script>
-	<title>Signup Page</title>
+	<title>Login Page</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
 <div class="page-header">
-	<h1> Maintenance System </h1>
+	<h1> Maintenance System <small>Please login by your Jaccount</small></h1>
 	<form role="form">
 </div>
 
@@ -27,25 +25,25 @@
 		<br>
 		<div class="checkbox-inline">
 		<label>
-			<input type="radio" name = "characteristic" id = "radios1" value = "wm" > Warehouse Manager
+			<input type="radio" name = "characteristic" id = "radios1" value = "option1" > Buyer
 		</label>
 		
 		<label>
-			<input type="radio" name = "characteristic" id = "radios2" value = "ms" > Maintenance Staff
+			<input type="radio" name = "characteristic" id = "radios2" value = "option2" checked> User
 		</label>
 		
 		<label>
-			<input type="radio" name = "characteristic" id = "radios3" value = "eo" > Equipment Operator 
+			<input type="radio" name = "characteristic" id = "radios3" value = "option3" > Maintainer
 		</label>
 		</div>
 		<br>
-		<button type="button" class="btn btn-default btn-lg" id="signup" onClick="clickbutton_signup()">
-		<span class="glyphicon glyphicon-circle-arrow-up"></span> Signup
+		<br>
+		<button type="button" class="btn btn-default btn-lg">
+		<span class="glyphicon glyphicon-user"></span> Login
 		</button>
-		</br>
+
 	</form>
 </div>
-<div id="welcometext"></div>  
 	
 <!--
 	<div class="form-group">
