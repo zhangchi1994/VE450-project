@@ -4,7 +4,7 @@ function update() {
 		id : id
 	}, function(responseText) {
 		$('#welcometext').text(responseText);	
-		sessionStorage.setItem("data", responseText); 
+		sessionStorage.setItem("qr_id_data", responseText); 
 		console.log(responseText);
         //alert("信息已保存到data字段中"); 
 		//window.location.href = "http://4607ad2e.nat123.cc/VE450/father_page.html";

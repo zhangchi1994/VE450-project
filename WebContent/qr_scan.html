@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html><head>
+	<title>QR code Reader</title>
+<meta charset="utf-8">
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/html5-qrcode.js"></script>
+<style>
+body
+{
+	background-color:#CCFFFF;
+}
+h1
+{
+	color:#6699FF;
+	//text-align:center;
+}
+p
+{
+	font-family:"Times New Roman";
+	font-size:20px;
+}
+</style>
+</head>
+<script type="text/javascript">
+	var flag = 0;
+	
+	document.write(Date());
+  $(document).ready(function(){
+    $('#reader').html5_qrcode(function(data){
+        $('#read').html(data);
+        //alert('解析成功啦');
+        //alert(data);
+        sessionStorage.setItem("qr_id_data", data); 
+        window.location.href = "http://localhost:8080/VE450/father_page.html";
+      },
+      function(error){
+        $('#read_error').html(error);
+      }, function(videoError){
+        $('#vid_error').html(videoError);
+      }
+    );
+  });
+</script>
+
+  <body>
+  <p> This page is used to scan the QR code and return the information from the QR code</p>
+<div class="center" id="reader" style="width:300px;height:250px; background:red;">
+  <video id="html5_qrcode_video" height="250px" width="300px"></video>
+  <canvas id="qr-canvas" width="298px" height="248px" style="display:none;"></canvas>
+</div>
+
+
+
+</body></html>
