@@ -23,7 +23,7 @@ function CatchCode() {
     		jQuery(function(){
     			jQuery('#output').qrcode(responseText);
 		})
-    		var LODOP; 
+    		/*var LODOP; 
     		LODOP=getLodop();  
     		LODOP.PRINT_INITA(0,0,522,333,"打印控件功能演示_Lodop功能_自定义纸张1");	
     		LODOP.SET_PRINT_PAGESIZE(0,document.getElementById('W1').value,document.getElementById('H1').value,"A4");
@@ -80,6 +80,6 @@ function CatchCode() {
     			 option.value=Options[i];
     	   		 document.getElementById('PagSizeList').appendChild(option);
     		   }  
-    		}	
+    		}*/	
     });  
  }  
