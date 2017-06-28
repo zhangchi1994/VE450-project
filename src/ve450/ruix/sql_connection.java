@@ -24,6 +24,34 @@ public class sql_connection {
 		super();
 	}
 
+	public void InsertRecord(String equipment_id, String recorded_date, String personnel_id, String explaination) {
+		try {
+			Class.forName("org.postgresql.Driver").newInstance();
+			String url = "jdbc:postgresql://localhost:5432/example_db";
+			// String url =
+			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
+			Connection con = DriverManager.getConnection(url, "postgres", "123456");
+			Statement st = con.createStatement();
+
+			String sql;
+			sql = "INSERT INTO MaintenanceRecord VALUES ('" + equipment_id + "','" + recorded_date + "','"
+					+ personnel_id + "','" + explaination + ")";
+			// sql = "INSERT INTO Equipment (name, manufacturer, date_of_birth,
+			// last_maintenance_date, status, ssize, dad_id)"
+			// + " VALUES ('pn', 'manu1', '1989-08-18', '1989-08-18','0',
+			// '17kg',0)";
+			// }
+			st.executeUpdate(sql);
+			// System.out.println("Someone Upload");
+			st.close();
+			con.close();
+
+		} catch (Exception ee) {
+			System.out.print("error in InsertRecord");
+		}
+	}
+
+	// Used by machine operator
 	public ArrayList<String> ViewStatus(String equipment_id, String start_time, String end_time) {
 		ArrayList<String> stock = new ArrayList<String>();
 		try {
