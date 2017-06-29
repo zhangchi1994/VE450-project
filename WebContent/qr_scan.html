@@ -29,7 +29,7 @@ p
         //alert('解析成功啦');
         //alert(data);
         sessionStorage.setItem("qr_id_data", data); 
-        window.location.href = "http://4607ad2e.nat123.cc/VE450/father_page.html";
+        window.location.href = "http://localhost:8080/VE450/father_page.html";
       },
       function(error){
         $('#read_error').html(error);
@@ -38,6 +38,8 @@ p
       }
     );
   });
+  //var tmp = window.location.href.split(“=”)[1]
+  //alert(tmp);
 </script>
 
   <body>
