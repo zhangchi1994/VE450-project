@@ -21,7 +21,7 @@ public class ReadInfoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String id = null;
 		//String answer = "test";
-		String[] getResult = null;
+		String getResult = null;
 
 		id = request.getParameter("id").toString();
 		sql_connection sql_login = new sql_connection();
@@ -30,7 +30,7 @@ public class ReadInfoServlet extends HttpServlet {
 		
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(getResult[0]);
+		response.getWriter().write(getResult);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
