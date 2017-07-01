@@ -1,7 +1,6 @@
 package ve450.ruix;
 
 //import org.postgresql.*;
-import java.sql.*;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.sql.*;
 import java.util.ArrayList;

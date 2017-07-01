@@ -1,6 +1,6 @@
 package ve450.ruix;
 
-import org.postgresql.*;
+//import org.postgresql.*;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.sql.*;
 
@@ -19,12 +19,12 @@ public class sql_id_connection {
 		boolean can_create = true;
 		try{
 			
-			Class.forName("org.postgresql.Driver").newInstance();
-
-			String url = "jdbc:postgresql://localhost:5432/example_db";
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			// String url =
 			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
-			Connection con = DriverManager.getConnection(url, "postgres", "123456");
+			//Connection con = DriverManager.getConnection(url, "postgres", "123456");
 			// Connection con = DriverManager.getConnection(url, "postgres" ,
 			// "password");
 			Statement st = con.createStatement();
@@ -59,12 +59,9 @@ public class sql_id_connection {
 		boolean find_or_not = false;
 		String permission = "a";
 		try {
-			Class.forName("org.postgresql.Driver").newInstance();
-
-			String url = "jdbc:postgresql://localhost:5432/example_db";
-			// String url =
-			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
-			Connection con = DriverManager.getConnection(url, "postgres", "123456");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			// Connection con = DriverManager.getConnection(url, "postgres" ,
 			// "password");
 			Statement st = con.createStatement();
