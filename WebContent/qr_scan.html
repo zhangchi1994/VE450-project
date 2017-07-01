@@ -21,30 +21,6 @@ p
 }
 </style>
 </head>
-<script type="text/javascript">
-	document.write(Date());
-  $(document).ready(function(){
-    $('#reader').html5_qrcode(function(data){
-        $('#read').html(data);
-        //alert('解析成功啦');
-        //alert(data);
-        var warehouse_selection = sessionStorage.getItem("warehouseSelection");
-        sessionStorage.setItem("qr_id_data", data); 
-        sessionStorage.setItem("wmselection", warehouse_selection);
-        if(warehouse_selection == "store_old" || warehouse_selection == "take_out") {
-        	window.location.href = "http://localhost:8080/VE450/storeOld_takeOut.html";
-        }
-      },
-      function(error){
-        $('#read_error').html(error);
-      }, function(videoError){
-        $('#vid_error').html(videoError);
-      }
-    );
-  });
-  //var tmp = window.location.href.split(“=”)[1]
-  //alert(tmp);
-</script>
 
   <body>
   <p> This page is used to scan the QR code and return the information from the QR code</p>
@@ -52,8 +28,38 @@ p
   <video id="html5_qrcode_video" height="250px" width="300px"></video>
   <canvas id="qr-canvas" width="298px" height="248px" style="display:none;"></canvas>
 </div>
-
-
-
 </body>
+
+<script type="text/javascript">
+    $('#reader').html5_qrcode(function(data){
+        $('#read').html(data);
+        console(data);
+        sessionStorage.setItem("qr_id_data", data);
+  	  if (sessionStorage.getItem("warehouseSelection") != null) {
+  	  	var warehouse_selection = sessionStorage.getItem("warehouseSelection");
+  	  	//alert(warehouse_selection);
+  	      sessionStorage.setItem("wmselection", warehouse_selection);
+  	      window.location.href = "http://localhost:8080/VE450/storeOld_takeOut.html";
+  	  }
+  	  if (sessionStorage.getItem("maintenanceSelection") != null) {
+  	  	var equip_selection = sessionStorage.getItem("maintenanceSelection");
+  	  	//alert(equip_selection);
+  	  	if (equip_selection == "replace")
+  	  		window.location.href = "http://localhost:8080/VE450/replacement.html";
+  	  	if (equip_selection == "view")       	
+  	  		window.location.href = "http://localhost:8080/VE450/view.html";
+  	  	if (equip_selection == "report")
+  	  		window.location.href = "http://localhost:8080/VE450/reportME.html";
+  	  }       
+    },
+      function(error){
+        $('#read_error').html(error);
+      }, function(videoError){
+        $('#vid_error').html(videoError);
+      });
+  //});
+  //var tmp = window.location.href.split(“=”)[1]
+  //alert(tmp);
+</script>
+
 </html>

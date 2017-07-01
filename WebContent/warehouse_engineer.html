@@ -35,19 +35,17 @@
 	<button type="button" name = "button" class="btn btn-primary" id = "store_used">Store Used Items</button>
 	</a>
 </div>
-
+</body>
 <script>
 document.onclick=function(e){ 
 	var evt = e||window.event; 
 	var tar = evt.target||evt.srcElement; 
 	if((tar.tagName.toLowerCase()=="input"&&tar.type=="button") || tar.tagName.toLowerCase()=="button"){ 
-		alert(tar.id);
+		//alert(tar.id);
 		sessionStorage.setItem("warehouseSelection", tar.id); 
 	} 
 } 
 </script>
-
-</body>
 </html>
 
 
