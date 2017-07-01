@@ -1,6 +1,7 @@
 package ve450.ruix;
 
-import org.postgresql.*;
+//import org.postgresql.*;
+import java.sql.*;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.sql.*;
 import java.util.ArrayList;
@@ -26,11 +27,13 @@ public class sql_connection {
 
 	public void InsertRecord(String equipment_id, String recorded_date, String personnel_id, String explaination) {
 		try {
-			Class.forName("org.postgresql.Driver").newInstance();
-			String url = "jdbc:postgresql://localhost:5432/example_db";
+			// Class.forName("org.postgresql.Driver").newInstance();
+			// String url = "jdbc:postgresql://localhost:5432/example_db";
 			// String url =
 			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
-			Connection con = DriverManager.getConnection(url, "postgres", "123456");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
 
 			String sql;
@@ -56,14 +59,13 @@ public class sql_connection {
 		ArrayList<String> stock = new ArrayList<String>();
 		String json = "";
 		try {
-			Class.forName("org.postgresql.Driver").newInstance();
-			String url = "jdbc:postgresql://localhost:5432/example_db";
-			Connection con = DriverManager.getConnection(url, "postgres", "123456");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
 			String sqlSelectStatus = "select * from Status where recorded_time BETWEEN '" + start_time + "' and '"
 					+ end_time + "' and equipment_id in (select equipment_id from Equipment where dad_id = "
-					+ equipment_id + " or equipment_id = " + equipment_id
-					+ ") group by equipment_id order by recorded_time";
+					+ equipment_id + ") group by equipment_id order by recorded_time";
 			ResultSet rs = st.executeQuery(sqlSelectStatus);
 			json += "{ \"Status\":[";
 			while (rs.next()) {
@@ -81,17 +83,17 @@ public class sql_connection {
 			String sqlSelectMaintenanceRecord = "select * from MaintenanceRecord where recorded_date BETWEEN '"
 					+ start_time + "' and '" + end_time
 					+ "' and equipment_id in (select equipment_id from Equipment where dad_id = " + equipment_id
-					+ " or equipment_id = " + equipment_id + ") group by equipment_id order by recorded_time";
+					+ ") group by equipment_id order by recorded_time";
 			ResultSet rss = st.executeQuery(sqlSelectMaintenanceRecord);
 			while (rss.next()) {
 				// add status
 				String rubbish = "ID: " + rs.getString("equipment_id") + " Recorded date: "
-						+ rs.getString("recorded_date") + " Personnel: " + rs.getString("personnel_id") + " Explaination: "
-						+ rs.getString("explaination");
+						+ rs.getString("recorded_date") + " Personnel: " + rs.getString("personnel_id")
+						+ " Explaination: " + rs.getString("explaination");
 				stock.add(rubbish);
 				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"recorded_date\": \""
 						+ rs.getString("recorded_date") + "\", \"personnel_id\": \"" + rs.getString("personnel_id")
-						+ "\", \"explaination\": \"" + rs.getString("explaination") + "\" },";
+						+ "\", \"explaination\": \"" + rs.getString("explaination").substring(0, 30) + "\" },";
 			}
 			json.substring(0, json.length() - 1);
 			json += "\n] }";
@@ -107,8 +109,9 @@ public class sql_connection {
 	// Used by maintenance engineer. Uninstall a piece of equipment.
 	public void ChangeDown(String equipment_id, String dad_id) {
 		try {
-			Class.forName("org.postgresql.Driver").newInstance();
-			String url = "jdbc:postgresql://localhost:5432/example_db";
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			// String url =
 			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 			Connection con = DriverManager.getConnection(url, "postgres", "123456");
@@ -128,8 +131,9 @@ public class sql_connection {
 	// Used by maintenance engineer. Install a piece of equipment.
 	public void ChangeUp(String equipment_id, String dad_id) {
 		try {
-			Class.forName("org.postgresql.Driver").newInstance();
-			String url = "jdbc:postgresql://localhost:5432/example_db";
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			// String url =
 			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 			Connection con = DriverManager.getConnection(url, "postgres", "123456");
@@ -152,9 +156,9 @@ public class sql_connection {
 		ArrayList<String> stock = new ArrayList<String>();
 		String json = "";
 		try {
-			Class.forName("org.postgresql.Driver").newInstance();
-			String url = "jdbc:postgresql://localhost:5432/example_db";
-			Connection con = DriverManager.getConnection(url, "postgres", "123456");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
 
 			String sql = "select * from Equipment where equipment_name = '" + equipment_name + "' and status = '0'";
@@ -187,8 +191,9 @@ public class sql_connection {
 	public boolean TakeOutFromWarehouse(String equipment_id) {
 		boolean success = true;
 		try {
-			Class.forName("org.postgresql.Driver").newInstance();
-			String url = "jdbc:postgresql://localhost:5432/example_db";
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			// String url =
 			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 			Connection con = DriverManager.getConnection(url, "postgres", "123456");
@@ -210,8 +215,9 @@ public class sql_connection {
 	public boolean PutUsedThingBackToWarehouse(String equipment_id) {
 		boolean success = true;
 		try {
-			Class.forName("org.postgresql.Driver").newInstance();
-			String url = "jdbc:postgresql://localhost:5432/example_db";
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			// String url =
 			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 			Connection con = DriverManager.getConnection(url, "postgres", "123456");
@@ -234,8 +240,9 @@ public class sql_connection {
 	public String Insert(String product_name, String manufacturer, String time, String size) {
 		String returnId = "Haha you fail";
 		try {
-			Class.forName("org.postgresql.Driver").newInstance();
-			String url = "jdbc:postgresql://localhost:5432/example_db";
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			// String url =
 			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 			Connection con = DriverManager.getConnection(url, "postgres", "123456");
@@ -272,9 +279,9 @@ public class sql_connection {
 		String json = "";
 		System.out.println("enter read ready");
 		try {
-			Class.forName("org.postgresql.Driver").newInstance();
-			String url = "jdbc:postgresql://localhost:5432/example_db";
-			Connection con = DriverManager.getConnection(url, "postgres", "123456");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
 
 			String sql = "select * from Equipment where equipment_id = " + id;
