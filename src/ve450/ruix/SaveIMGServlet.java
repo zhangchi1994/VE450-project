@@ -41,7 +41,7 @@ public class SaveIMGServlet extends HttpServlet {
 			}
 			// 生成jpeg图片
 			System.out.println("pic ready");
-			String imgFilePath = "C://Users//dell//workspace//VE450-project//WebContent//pic//" + name + ".png";// 新生成的图片
+			String imgFilePath = "C://Users//dell//workspace//VE450-project//WebContent//pic//" + name + ".jpg";// 新生成的图片
 			//String imgFilePath = Server.MapPath("./pic/" + name + ".png");
 			//System.out.println(imgFilePath);
 			OutputStream out = new FileOutputStream(imgFilePath);
