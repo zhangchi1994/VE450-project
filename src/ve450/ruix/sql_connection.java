@@ -52,8 +52,9 @@ public class sql_connection {
 	}
 
 	// Used by machine operator
-	public ArrayList<String> ViewStatus(String equipment_id, String start_time, String end_time) {
+	public String ViewStatus(String equipment_id, String start_time, String end_time) {
 		ArrayList<String> stock = new ArrayList<String>();
+		String json = "";
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
 			String url = "jdbc:postgresql://localhost:5432/example_db";
@@ -61,21 +62,46 @@ public class sql_connection {
 			Statement st = con.createStatement();
 			String sqlSelectStatus = "select * from Status where recorded_time BETWEEN '" + start_time + "' and '"
 					+ end_time + "' and equipment_id in (select equipment_id from Equipment where dad_id = "
-					+ equipment_id + ") group by equipment_id order by recorded_time";
+					+ equipment_id + " or equipment_id = " + equipment_id
+					+ ") group by equipment_id order by recorded_time";
 			ResultSet rs = st.executeQuery(sqlSelectStatus);
+			json += "{ \"Status\":[";
 			while (rs.next()) {
-				String rubbish = "ID: " + rs.getString("equipment_id") + " Manufacturer: "
-						+ rs.getString("manufacturer") + " Date of Birth: " + rs.getString("date_of_birth")
-						+ " Last Maintenance Date: " + rs.getString("last_maintenance_date");
+				// add status
+				String rubbish = "ID: " + rs.getString("equipment_id") + " Recorded time: "
+						+ rs.getString("recorded_time") + " Temperature: " + rs.getString("temperature") + " Speed: "
+						+ rs.getString("speed");
 				stock.add(rubbish);
+				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"recorded_time\": \""
+						+ rs.getString("recorded_time") + "\", \"temperature\": \"" + rs.getString("temperature")
+						+ "\", \"speed\": \"" + rs.getString("speed") + "\" },";
 			}
+			json += "\n],\n\"MaintenanceRecord\":[";
 			rs.close();
+			String sqlSelectMaintenanceRecord = "select * from MaintenanceRecord where recorded_date BETWEEN '"
+					+ start_time + "' and '" + end_time
+					+ "' and equipment_id in (select equipment_id from Equipment where dad_id = " + equipment_id
+					+ " or equipment_id = " + equipment_id + ") group by equipment_id order by recorded_time";
+			ResultSet rss = st.executeQuery(sqlSelectMaintenanceRecord);
+			while (rss.next()) {
+				// add status
+				String rubbish = "ID: " + rs.getString("equipment_id") + " Recorded date: "
+						+ rs.getString("recorded_date") + " Personnel: " + rs.getString("personnel_id") + " Explaination: "
+						+ rs.getString("explaination");
+				stock.add(rubbish);
+				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"recorded_date\": \""
+						+ rs.getString("recorded_date") + "\", \"personnel_id\": \"" + rs.getString("personnel_id")
+						+ "\", \"explaination\": \"" + rs.getString("explaination") + "\" },";
+			}
+			json.substring(0, json.length() - 1);
+			json += "\n] }";
+			rss.close();
 			st.close();
 			con.close();
 		} catch (Exception ee) {
 			System.out.print("error in ViewStatus");
 		}
-		return stock;
+		return json;
 	}
 
 	// Used by maintenance engineer. Uninstall a piece of equipment.
@@ -124,7 +150,7 @@ public class sql_connection {
 	// Used by warehouse manager. View a list of equipment.
 	public String ViewStock(String equipment_name) {
 		ArrayList<String> stock = new ArrayList<String>();
-		String jsonStock = "";
+		String json = "";
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
 			String url = "jdbc:postgresql://localhost:5432/example_db";
@@ -134,19 +160,27 @@ public class sql_connection {
 			String sql = "select * from Equipment where equipment_name = '" + equipment_name + "' and status = '0'";
 			ResultSet rs = st.executeQuery(sql);
 			System.out.println("read sql ready");
+			json += "{ \"Equipment\":[";
 			while (rs.next()) {
 				String rubbish = "ID: " + rs.getString("equipment_id") + " Manufacturer: "
 						+ rs.getString("manufacturer") + " Date of Birth: " + rs.getString("date_of_birth")
 						+ " Last Maintenance Date: " + rs.getString("last_maintenance_date");
 				stock.add(rubbish);
+				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"manufacturer\": \""
+						+ rs.getString("manufacturer") + "\", \"date_of_birth\": \"" + rs.getString("date_of_birth")
+						+ "\", \"last_maintenance_date\": \"" + rs.getString("last_maintenance_date")
+						+ "\", \"size\": \"" + rs.getString("ssize") + "\" },";
 			}
+			json.substring(0, json.length() - 1);
+			json += "\n] }";
 			rs.close();
 			st.close();
 			con.close();
 		} catch (Exception ee) {
 			System.out.print("error in read");
 		}
-		return jsonStock;
+
+		return json;
 	}
 
 	// Used by warehouse manager. Take things out of warehouse.
@@ -233,8 +267,9 @@ public class sql_connection {
 		return returnId;
 	}
 
-	public String[] Read(String id) {
+	public String Read(String id) {
 		String[] byebye = new String[8];
+		String json = "";
 		System.out.println("enter read ready");
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
@@ -267,6 +302,10 @@ public class sql_connection {
 		} catch (Exception ee) {
 			System.out.print("error in read");
 		}
-		return byebye;
+		json += "{ \"Equipment\":[\n{ \"equipment_id\": \"" + byebye[0] + "\", \"name\": \"" + byebye[1]
+				+ "\", \"manufacturer\": \"" + byebye[2] + "\", \"date_of_birth\": \"" + byebye[3]
+				+ "\", \"last_maintenance_date\": \"" + byebye[4] + "\", \"status\": \"" + byebye[5]
+				+ "\", \"size\": \"" + byebye[6] + "\", \"parent_id\": \"" + byebye[7] + "\" }\n] }";
+		return json;
 	}
 }
