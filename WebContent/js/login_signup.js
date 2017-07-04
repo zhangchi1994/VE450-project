@@ -1,6 +1,8 @@
 function clickbutton_login() {
 	var username = document.getElementById("name").value;
 	var password = document.getElementById("pswd").value;
+	alert(username);
+	alert(password)
 	$.get('ActionServlet', {
 		id : username,
 		pd : password
@@ -8,7 +10,11 @@ function clickbutton_login() {
 		//console.log(password);
 		$('#welcometext').text(responseText);
 		if(responseText == "wm")
-			window.location.href = "http://localhost:8080/VE450/warehouse_engineer.html";
+			window.location.href = "http://localhost:8080/VE450/index_warehouse_engineer.html";
+		if(responseText == "me")
+			window.location.href = "http://localhost:8080/VE450/index_maintenance_engineer.html";
+		if(responseText == "eo")
+			window.location.href = "http://localhost:8080/VE450/index_equipment_operator.html";
 	});
 };
 

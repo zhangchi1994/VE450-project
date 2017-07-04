@@ -113,7 +113,6 @@ public class sql_connection {
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			// String url =
 			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
-			Connection con = DriverManager.getConnection(url, "postgres", "123456");
 			Statement st = con.createStatement();
 			// if it does not exist, fail?
 			String sql;
@@ -133,9 +132,6 @@ public class sql_connection {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
-			// String url =
-			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
-			Connection con = DriverManager.getConnection(url, "postgres", "123456");
 			Statement st = con.createStatement();
 			// if it does not exist, fail?
 			String sql;
@@ -193,9 +189,6 @@ public class sql_connection {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
-			// String url =
-			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
-			Connection con = DriverManager.getConnection(url, "postgres", "123456");
 			Statement st = con.createStatement();
 			// if it does not exist, fail?
 			String sql;
@@ -217,9 +210,6 @@ public class sql_connection {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
-			// String url =
-			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
-			Connection con = DriverManager.getConnection(url, "postgres", "123456");
 			Statement st = con.createStatement();
 			// if it does not exist, fail?
 			String sql;
@@ -242,9 +232,6 @@ public class sql_connection {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
-			// String url =
-			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
-			Connection con = DriverManager.getConnection(url, "postgres", "123456");
 			Statement st = con.createStatement();
 
 			String sql;
