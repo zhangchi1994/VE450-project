@@ -30,6 +30,7 @@ public class sql_id_connection {
 			Statement st = con.createStatement();
 			System.out.println("connection DONE");
 			String sql = "select count(*) as trash from users where user_id='" + username + "'";
+			//System.out.println("sql_1 START");
 			ResultSet rs = st.executeQuery(sql);
 			//System.out.println("sql_1 DONE");
 			if(rs.next()){
@@ -66,7 +67,8 @@ public class sql_id_connection {
 			// "password");
 			Statement st = con.createStatement();
 			System.out.println("connection DONE");
-			String sql = "select * from users where user_id=" + username;
+			String sql = "select * from users where user_id = '" + username + "'";
+			//System.out.println("sql START");
 			ResultSet rs = st.executeQuery(sql);
 			System.out.println("sql DONE");
 			if (!rs.next()) {
