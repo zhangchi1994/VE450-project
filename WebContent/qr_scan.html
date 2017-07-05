@@ -26,37 +26,34 @@ p
   <p> This page is used to scan the QR code and return the information from the QR code</p>
 <div class="center" id="reader" style="width:300px;height:250px; background:red;">
   <video id="html5_qrcode_video" height="250px" width="300px"></video>
-  <canvas id="qr-canvas" width="298px" height="248px" style="display:none;"></canvas>
+  <input id="qr"></input>
+  <button type="button" class="btn btn-default" onClick="go()">Submit</button>
 </div>
 </body>
 
 <script type="text/javascript">
-    $('#reader').html5_qrcode(function(data){
-        $('#read').html(data);
-        console(data);
-        sessionStorage.setItem("qr_id_data", data);
-  	  if (sessionStorage.getItem("warehouseSelection") != null) {
-  	  	var warehouse_selection = sessionStorage.getItem("warehouseSelection");
-  	  	//alert(warehouse_selection);
-  	      sessionStorage.setItem("wmselection", warehouse_selection);
-  	      window.location.href = "http://localhost:8080/VE450/storeOld_takeOut.html";
-  	  }
-  	  if (sessionStorage.getItem("maintenanceSelection") != null) {
-  	  	var equip_selection = sessionStorage.getItem("maintenanceSelection");
-  	  	//alert(equip_selection);
-  	  	if (equip_selection == "replace")
-  	  		window.location.href = "http://localhost:8080/VE450/replacement.html";
-  	  	if (equip_selection == "view")       	
-  	  		window.location.href = "http://localhost:8080/VE450/view.html";
-  	  	if (equip_selection == "report")
-  	  		window.location.href = "http://localhost:8080/VE450/reportME.html";
-  	  }       
-    },
-      function(error){
-        $('#read_error').html(error);
-      }, function(videoError){
-        $('#vid_error').html(videoError);
-      });
+function go(){
+	var data = document.getElementById("qr").value;
+    console(data);
+    sessionStorage.setItem("qr_id_data", data);
+	  if (sessionStorage.getItem("warehouseSelection") != null) {
+	  	var warehouse_selection = sessionStorage.getItem("warehouseSelection");
+	  	  alert(warehouse_selection);
+	      sessionStorage.setItem("wmselection", warehouse_selection);
+	      window.location.href = "http://localhost:8080/VE450/storeOld_takeOut.html";
+	  }
+	  if (sessionStorage.getItem("maintenanceSelection") != null) {
+	  	var equip_selection = sessionStorage.getItem("maintenanceSelection");
+	  	//alert(equip_selection);
+	  	if (equip_selection == "replace")
+	  		window.location.href = "http://localhost:8080/VE450/replacement.html";
+	  	if (equip_selection == "view")       	
+	  		window.location.href = "http://localhost:8080/VE450/view.html";
+	  	if (equip_selection == "report")
+	  		window.location.href = "http://localhost:8080/VE450/reportME.html";
+	  }       
+}	
+}
   //});
   //var tmp = window.location.href.split(“=”)[1]
   //alert(tmp);

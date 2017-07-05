@@ -155,6 +155,7 @@ public class sql_connection {
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
+			System.out.println("conn OK");
 
 			String sql = "select * from Equipment where equipment_name = '" + equipment_name + "' and status = '0'";
 			ResultSet rs = st.executeQuery(sql);

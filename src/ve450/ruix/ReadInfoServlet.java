@@ -1,6 +1,8 @@
 package ve450.ruix;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,24 +22,61 @@ public class ReadInfoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String id = null;
-		//String answer = "test";
+		String name = null;
+		// String answer = "test";
 		String getResult = null;
-
-		id = request.getParameter("id").toString();
-		sql_connection sql_login = new sql_connection();
-		getResult = sql_login.Read(id);
-		//System.out.println(getResult[1]);
 		
+		sql_connection sql_login = new sql_connection();
+		
+		if(request.getParameter("name") != null) {
+			name = request.getParameter("name").toString();
+			String tmp = sql_login.ViewStock(name);
+	        response.setContentType("text/plain;charset=utf-8");
+	        request.setCharacterEncoding("utf-8");
+	        PrintWriter out = response.getWriter();
+	        out.println(tmp);
+		}
+
+		/*id = request.getParameter("id").toString();
+		getResult = sql_login.Read(id);
+		// System.out.println(getResult[1]);
+
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(getResult);
+		response.getWriter().write(getResult);*/
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String selection = null;
-		selection = request.getParameter("wmSelection").toString();
+		String id = null;
+		String name = null;
 
+		selection = request.getParameter("wmSelection").toString();
+		sql_connection sql_login = new sql_connection();
+		if (selection == "take_out") {
+			id = request.getParameter("id").toString();
+			if (sql_login.TakeOutFromWarehouse(id)) {
+				response.setContentType("text/plain");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write("Take out OK");
+			} else {
+				response.setContentType("text/plain");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write("Take out FAILED");
+			}
+		} else if (selection == "store_used") {
+			id = request.getParameter("id").toString();
+			if (sql_login.PutUsedThingBackToWarehouse(id)) {
+				response.setContentType("text/plain");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write("Store used OK");
+			} else {
+				response.setContentType("text/plain");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write("Store used FAILED");
+			}
+		} 
 	}
 }
