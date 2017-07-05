@@ -21,12 +21,14 @@
 document.onclick=function(e){ 
 	var evt = e||window.event; 
 	var tar = evt.target||evt.srcElement; 
-	if((tar.tagName.toLowerCase()=="input"&&tar.type=="button") || tar.tagName.toLowerCase()=="button"){ 
+	if((tar.type=="button") || tar.tagName.toLowerCase()=="button"){ 
 		//alert(tar.id);
 		sessionStorage.setItem("maintenanceSelection", tar.id); 
+		if (tar.id == "replace")
+			window.location.href = "http://localhost:8080/VE450/replacement.html";
+		else window.location.href = "http://localhost:8080/VE450/qr_scan.html";
 	} 
-	window.location.href = "http://localhost:8080/VE450/qr_scan.html";
-} 
+}
 </script>
 
 </html>

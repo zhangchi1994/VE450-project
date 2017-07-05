@@ -6,7 +6,7 @@
 <title>restored/take out OK</title>
 </head>
 <body>
-
+<div id="welcometext"></div>
 </body>
 
 <script>
@@ -18,7 +18,7 @@ window.onload = function() {
 		wmSelection : selection,
 		id : qr_code
 	}, function(responseText) {
-		//console.log(password);
+		$('#welcometext').text(responseText);
 		});
 	};
 }
