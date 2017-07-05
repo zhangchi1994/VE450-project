@@ -61,11 +61,13 @@ public class sql_connection {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			System.out.println("conn OK");
 			Statement st = con.createStatement();
 			String sqlSelectStatus = "select * from Status where recorded_time BETWEEN '" + start_time + "' and '"
 					+ end_time + "' and equipment_id in (select equipment_id from Equipment where dad_id = "
 					+ equipment_id + ") group by equipment_id order by recorded_time";
 			ResultSet rs = st.executeQuery(sqlSelectStatus);
+			System.out.println("sql OK");
 			json += "{ \"Status\":[";
 			while (rs.next()) {
 				// add status
@@ -155,24 +157,27 @@ public class sql_connection {
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
-			System.out.println("conn OK");
+			//System.out.println("conn OK");
 
-			String sql = "select * from Equipment where equipment_name = '" + equipment_name + "' and status = '0'";
+			String sql = "select * from Equipment where name = '" + equipment_name + "' and status = '0'";
 			ResultSet rs = st.executeQuery(sql);
-			System.out.println("read sql ready");
-			json += "{ \"Equipment\":[";
+			//System.out.println("read sql ready");
+			json += "[";
 			while (rs.next()) {
 				String rubbish = "ID: " + rs.getString("equipment_id") + " Manufacturer: "
 						+ rs.getString("manufacturer") + " Date of Birth: " + rs.getString("date_of_birth")
 						+ " Last Maintenance Date: " + rs.getString("last_maintenance_date");
+				//System.out.println(rubbish);
 				stock.add(rubbish);
+				//System.out.println("add OK");
 				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"manufacturer\": \""
 						+ rs.getString("manufacturer") + "\", \"date_of_birth\": \"" + rs.getString("date_of_birth")
 						+ "\", \"last_maintenance_date\": \"" + rs.getString("last_maintenance_date")
-						+ "\", \"size\": \"" + rs.getString("ssize") + "\" },";
+						+ "\", \"size\": \"" + rs.getString("size") + "\" },";
 			}
-			json.substring(0, json.length() - 1);
-			json += "\n] }";
+			//System.out.println("Loop OK");
+			json = json.substring(0, json.length() - 1);
+			json += "\n]";
 			rs.close();
 			st.close();
 			con.close();

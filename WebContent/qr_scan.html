@@ -7,14 +7,15 @@
 </head>
 
   <body>
-  <input id="qr"></input>
-  <button type="button" class="btn btn-default" onClick="go()">Submit</button>
+  <input id="qr" onkeypress="if(event.keyCode==13) {btn.click();return false;}"></input>
+  <button type="button" id="btn" onClick="go()">Submit</button>
 </body>
 
 <script type="text/javascript">
 function go(){
+	alert("button press");
 	var data = document.getElementById("qr").value;
-    console(data);
+    console.log(data);
     sessionStorage.setItem("qr_id_data", data);
 	  if (sessionStorage.getItem("warehouseSelection") != null) {
 	  	var warehouse_selection = sessionStorage.getItem("warehouseSelection");
@@ -31,8 +32,7 @@ function go(){
 	  		window.location.href = "http://localhost:8080/VE450/view.html";
 	  	if (equip_selection == "report")
 	  		window.location.href = "http://localhost:8080/VE450/reportME.html";
-	  }       
-}	
+	  }        	
 }
   //});
   //var tmp = window.location.href.split(“=”)[1]

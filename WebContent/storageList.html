@@ -20,23 +20,24 @@
 </head>
 
 <script type="text/javascript">
-console.log("start");
+//console.log("start");
 function search() {
 	var name = document.getElementById("name").value;
 	//var selection = "readList";
-	console.log(name);
+	//console.log(name);
 	$.getJSON('ReadInfoServlet', {
 		name : name
 	}, function(responseText) {
-		console(responseText);
+		console.log(responseText);
 		var items = [];
-	    $.each(data, function(idx, obj) {
+	    $.each(responseText, function(idx, obj) {
+	    	console.log(idx);
 	        items.push("<tr>");
 	        items.push("<td id= "+idx+" >"+obj.equipment_id+"</td>");
 	        items.push("<td id= "+idx+" >"+obj.manufacturer+"</td>");
 	        items.push("<td id= "+idx+" >"+obj.date_of_birth+"</td>");
 	        items.push("<td id= "+idx+" >"+obj.last_maintenance_date+"</td>");
-	        items.push("<td id= "+idx+" >"+obj.ssize+"</td>");
+	        items.push("<td id= "+idx+" >"+obj.size+"</td>");
 	        items.push("</tr>");
 	    });
 	    $("<tbody/>",{html: items.join("")}).appendTo("table");
