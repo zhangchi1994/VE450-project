@@ -22,7 +22,7 @@ public class ActionServlet extends HttpServlet {
 		String username = null;
 		String password = null;
 		String answer = "test";
-		
+		System.out.println("????????????????");
 		username = request.getParameter("id").toString();
 		password = request.getParameter("pd").toString();
 		sql_id_connection sql_login = new sql_id_connection();

@@ -3,6 +3,7 @@ package ve450.ruix;
 //import org.postgresql.*;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /*
@@ -22,6 +23,47 @@ public class sql_connection {
 
 	public sql_connection() {
 		super();
+	}
+
+	public void StartUse(String equipment_id) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+
+			String sqlSetStatus;
+			String sqlSelect;
+			String sqlRecordStart;
+			sqlSetStatus = "UPDATE Equipment SET status = '3' WHERE equipment_id='" + equipment_id + "' or dad_id = '"
+					+ equipment_id + "'";
+			st.executeUpdate(sqlSetStatus);
+			sqlSelect = "Select * FROM Equipment WHERE equipment_id='" + equipment_id + "' or dad_id = '" + equipment_id
+					+ "'";
+
+			String timeStamp = new SimpleDateFormat("'yyyy-MM-dd HH:mm:ss'").format(new java.util.Date());
+
+			ResultSet rs = st.executeQuery(sqlSelect);
+			while (rs.next()) {
+				String eid = rs.getString(equipment_id);
+				String rrr = "haha you fail";
+				sqlRecordStart = "INSERT INTO UsageInformation (equipment_id, start_time) VALUES (" + eid + ", "
+						+ timeStamp + ")";
+				st.executeUpdate(sqlRecordStart, Statement.RETURN_GENERATED_KEYS);
+				ResultSet generatedKeys = st.getGeneratedKeys();
+				if (generatedKeys.next()) {
+					rrr = generatedKeys.getString(1);
+				}
+				String sqlInsertMap = "INSERT INTO CurrentUsageMap VALUES (" + eid + "," + rrr + ")";
+				st.executeUpdate(sqlInsertMap);
+				generatedKeys.close();
+			}
+			st.close();
+			con.close();
+
+		} catch (Exception ee) {
+			System.out.print("error in StartUse");
+		}
 	}
 
 	public void InsertRecord(String equipment_id, String recorded_date, String personnel_id, String explaination) {
@@ -116,7 +158,7 @@ public class sql_connection {
 			Statement st = con.createStatement();
 			// if it does not exist, fail?
 			String sql;
-			sql = "UPDATE Equipment SET status = '1', dad_id = '0', WHERE equipment_id='" + equipment_id + "'";
+			sql = "UPDATE Equipment SET status = '1', dad_id = '0' WHERE equipment_id='" + equipment_id + "'";
 			System.out.println("Something is changed down.");
 			st.executeUpdate(sql);
 			st.close();
@@ -135,7 +177,7 @@ public class sql_connection {
 			Statement st = con.createStatement();
 			// if it does not exist, fail?
 			String sql;
-			sql = "UPDATE Equipment SET status = '2', dad_id = '" + dad_id + "', WHERE equipment_id='" + equipment_id
+			sql = "UPDATE Equipment SET status = '2', dad_id = '" + dad_id + "' WHERE equipment_id='" + equipment_id
 					+ "'";
 			System.out.println("Something is changed up.");
 			st.executeUpdate(sql);
@@ -192,7 +234,7 @@ public class sql_connection {
 			Statement st = con.createStatement();
 			// if it does not exist, fail?
 			String sql;
-			sql = "UPDATE Equipment SET status = '1', dad_id = '0', WHERE equipment_id='" + equipment_id + "'";
+			sql = "UPDATE Equipment SET status = '1', dad_id = '0' WHERE equipment_id='" + equipment_id + "'";
 			System.out.println("Something is taken out of the warehouse");
 			st.executeUpdate(sql);
 			st.close();
@@ -213,7 +255,7 @@ public class sql_connection {
 			Statement st = con.createStatement();
 			// if it does not exist, fail?
 			String sql;
-			sql = "UPDATE Equipment SET status = '0', dad_id = '0', WHERE equipment_id='" + equipment_id + "'";
+			sql = "UPDATE Equipment SET status = '0', dad_id = '0' WHERE equipment_id='" + equipment_id + "'";
 			System.out.println("Something is put back to the warehouse");
 			st.executeUpdate(sql);
 			st.close();
@@ -238,11 +280,6 @@ public class sql_connection {
 			sql = "INSERT INTO Equipment (name, manufacturer, date_of_birth, last_maintenance_date, status, ssize, dad_id) VALUES ('"
 					+ product_name + "','" + manufacturer + "','" + time + "','" + time + "','" + "0" + "','" + size
 					+ "'," + "0)";
-			// sql = "INSERT INTO Equipment (name, manufacturer, date_of_birth,
-			// last_maintenance_date, status, ssize, dad_id)"
-			// + " VALUES ('pn', 'manu1', '1989-08-18', '1989-08-18','0',
-			// '17kg',0)";
-			// }
 			st.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 			ResultSet generatedKeys = st.getGeneratedKeys();
 			if (generatedKeys.next()) {
