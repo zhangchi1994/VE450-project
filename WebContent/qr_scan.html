@@ -1,42 +1,57 @@
 <!DOCTYPE html>
-<html><head>
-	<title>QR code Reader</title>
+<html>
+<head>
+<title>QR code Reader</title>
 <meta charset="utf-8">
-	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript" src="./js/html5-qrcode.js"></script>
+<script type="text/javascript"
+	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="./js/html5-qrcode.js"></script>
 </head>
 
-  <body>
-  <input id="qr" onkeypress="if(event.keyCode==13) {btn.click();return false;}"></input>
-  <button type="button" id="btn" onClick="go()">Submit</button>
+<body>
+	<input id="qr"
+		onkeypress="if(event.keyCode==13) {btn.click();return false;}"></input>
+	<button type="button" id="btn" onClick="go()">Submit</button>
 </body>
 
 <script type="text/javascript">
-function go(){
-	alert("button press");
-	var data = document.getElementById("qr").value;
-    console.log(data);
-    sessionStorage.setItem("qr_id_data", data);
-	  if (sessionStorage.getItem("warehouseSelection") != null) {
-	  	var warehouse_selection = sessionStorage.getItem("warehouseSelection");
-	  	  alert(warehouse_selection);
-	      sessionStorage.setItem("wmselection", warehouse_selection);
-	      window.location.href = "http://localhost:8080/VE450/storeOld_takeOut.html";
-	  }
-	  if (sessionStorage.getItem("maintenanceSelection") != null) {
-	  	var equip_selection = sessionStorage.getItem("maintenanceSelection");
-	  	//alert(equip_selection);
-	  	if (equip_selection == "replace")
-	  		window.location.href = "http://localhost:8080/VE450/replacement.html";
-	  	if (equip_selection == "view")       	
-	  		window.location.href = "http://localhost:8080/VE450/view.html";
-	  	if (equip_selection == "report")
-	  		window.location.href = "http://localhost:8080/VE450/reportME.html";
-	  }        	
-}
-  //});
-  //var tmp = window.location.href.split(“=”)[1]
-  //alert(tmp);
+	$('#qr').focus();
+	function go() {
+		alert("button press");
+		var data = document.getElementById("qr").value;
+		console.log(data);
+		sessionStorage.setItem("qr_id_data", data);
+		console.log(sessionStorage.getItem("whoScan"));
+		if (sessionStorage.getItem("whoScan") != null) {
+			var identity = sessionStorage.getItem("whoScan");
+			if(identity == "me") 
+				window.location.href = "http://localhost:8080/VE450/index_maintenance_engineer.html";
+			if(identity == "eo")
+				window.location.href = "http://localhost:8080/VE450/index_equipment_operator.html";
+				
+		}
+		if (sessionStorage.getItem("warehouseSelection") != null) {
+			var warehouse_selection = sessionStorage
+					.getItem("warehouseSelection");
+			alert(warehouse_selection);
+			sessionStorage.setItem("wmselection", warehouse_selection);
+			window.location.href = "http://localhost:8080/VE450/storeOld_takeOut.html";
+		}
+		if (sessionStorage.getItem("maintenanceSelection") != null) {
+			var equip_selection = sessionStorage
+					.getItem("maintenanceSelection");
+			//alert(equip_selection);
+			if (equip_selection == "replace")
+				window.location.href = "http://localhost:8080/VE450/replacement.html";
+			if (equip_selection == "view")
+				window.location.href = "http://localhost:8080/VE450/view.html";
+			if (equip_selection == "report")
+				window.location.href = "http://localhost:8080/VE450/reportME.html";
+		}
+	}
+	//});
+	//var tmp = window.location.href.split(“=”)[1]
+	//alert(tmp);
 </script>
 
 </html>
