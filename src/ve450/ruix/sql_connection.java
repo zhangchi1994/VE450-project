@@ -27,6 +27,7 @@ public class sql_connection {
 
 	public void StartUse(String equipment_id) {
 		try {
+			//connect to db
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
@@ -35,16 +36,21 @@ public class sql_connection {
 			String sqlSetStatus;
 			String sqlSelect;
 			String sqlRecordStart;
-			sqlSetStatus = "UPDATE Equipment SET status = '3' WHERE equipment_id='" + equipment_id + "' or dad_id = '"
-					+ equipment_id + "'";
+			
+			//select itself and all children, set status to '3' (running)
+			sqlSetStatus = "UPDATE Equipment SET status = '3' WHERE (equipment_id='" + equipment_id + "' OR dad_id = '"
+					+ equipment_id + "') AND status <> '3'";
 			st.executeUpdate(sqlSetStatus);
-			sqlSelect = "Select * FROM Equipment WHERE equipment_id='" + equipment_id + "' or dad_id = '" + equipment_id
-					+ "'";
+			
+			//select itself and all children
+			sqlSelect = "Select * FROM Equipment WHERE (equipment_id='" + equipment_id + "' or dad_id = '" + equipment_id
+					+ "') AND status <> '3'";
 
 			String timeStamp = new SimpleDateFormat("'yyyy-MM-dd HH:mm:ss'").format(new java.util.Date());
 
 			ResultSet rs = st.executeQuery(sqlSelect);
 			while (rs.next()) {
+				//insert usage information
 				String eid = rs.getString(equipment_id);
 				String rrr = "haha you fail";
 				sqlRecordStart = "INSERT INTO UsageInformation (equipment_id, start_time) VALUES (" + eid + ", "
@@ -54,10 +60,27 @@ public class sql_connection {
 				if (generatedKeys.next()) {
 					rrr = generatedKeys.getString(1);
 				}
-				String sqlInsertMap = "INSERT INTO CurrentUsageMap VALUES (" + eid + "," + rrr + ")";
+				
+				String sqlInsertMap = "";
+				//check if usage map already exists
+				String sqlCheck = "SELECT COUNT(*) as trash from CurrentUsageMap where equipment_id='" + equipment_id + "'";
+				ResultSet rsCheck = st.executeQuery(sqlCheck);
+				//System.out.println("sql_1 DONE");
+				if(rsCheck.next()){
+					if (rsCheck.getInt("trash") > 0) {
+						System.out.println("current usage map already exists! (this is not an error)");
+						sqlInsertMap = "UPDATE CurrentUsageMap SET usage_id = '"+rrr+"' WHERE equipment_id = '"+equipment_id+"'";
+					} else {		
+						System.out.println("current usage map does not exist! (this is not an error)");
+						sqlInsertMap = "INSERT INTO CurrentUsageMap VALUES (" + eid + "," + rrr + ")";
+					}
+				}
+
 				st.executeUpdate(sqlInsertMap);
 				generatedKeys.close();
+				rsCheck.close();
 			}
+			rs.close();
 			st.close();
 			con.close();
 
@@ -66,12 +89,57 @@ public class sql_connection {
 		}
 	}
 
+	public void EndUse(String equipment_id) {
+		try {
+			//connect to db
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+
+			String sqlSetStatus;
+			String sqlSelect;
+			String sqlRecordStart;
+			
+			//select itself and all children, set status to '3' (running)
+			sqlSetStatus = "UPDATE Equipment SET status = '3' WHERE (equipment_id='" + equipment_id + "' OR dad_id = '"
+					+ equipment_id + "') AND status <> '3'";
+			st.executeUpdate(sqlSetStatus);
+			
+			//select itself and all children
+			sqlSelect = "Select * FROM Equipment WHERE (equipment_id='" + equipment_id + "' or dad_id = '" + equipment_id
+					+ "') AND status <> '3'";
+
+			String timeStamp = new SimpleDateFormat("'yyyy-MM-dd HH:mm:ss'").format(new java.util.Date());
+
+			ResultSet rs = st.executeQuery(sqlSelect);
+			while (rs.next()) {
+				String eid = rs.getString(equipment_id);
+				String rrr = "haha you fail";
+				String uid = "haha wrong uid";
+				
+				
+				
+				String sqlFindUid = "SELECT * FROM CurrentUsageMap WHERE equipment_id ='"+eid+"'";
+				ResultSet rsUid = st.executeQuery(sqlFindUid);
+				while(rs.next()){
+					uid = rsUid.getString("usage_id");
+				}
+				sqlRecordStart = "UPDATE UsageInformation SET end_time = " + timeStamp + " WHERE usage_id = '"+uid+"'";
+				st.executeUpdate(sqlRecordStart);
+
+				
+			}
+			st.close();
+			con.close();
+
+		} catch (Exception ee) {
+			System.out.print("error in EndUse");
+		}
+	}
+
 	public void InsertRecord(String equipment_id, String recorded_date, String personnel_id, String explaination) {
 		try {
-			// Class.forName("org.postgresql.Driver").newInstance();
-			// String url = "jdbc:postgresql://localhost:5432/example_db";
-			// String url =
-			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
@@ -80,11 +148,6 @@ public class sql_connection {
 			String sql;
 			sql = "INSERT INTO MaintenanceRecord VALUES ('" + equipment_id + "','" + recorded_date + "','"
 					+ personnel_id + "','" + explaination + ")";
-			// sql = "INSERT INTO Equipment (name, manufacturer, date_of_birth,
-			// last_maintenance_date, status, ssize, dad_id)"
-			// + " VALUES ('pn', 'manu1', '1989-08-18', '1989-08-18','0',
-			// '17kg',0)";
-			// }
 			st.executeUpdate(sql);
 			// System.out.println("Someone Upload");
 			st.close();
@@ -138,7 +201,7 @@ public class sql_connection {
 						+ rs.getString("recorded_date") + "\", \"personnel_id\": \"" + rs.getString("personnel_id")
 						+ "\", \"explaination\": \"" + rs.getString("explaination").substring(0, 30) + "\" },";
 			}
-			json.substring(0, json.length() - 1);
+			json = json.substring(0, json.length() - 1);
 			json += "\n] }";
 			rss.close();
 			st.close();
@@ -199,25 +262,25 @@ public class sql_connection {
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
-			//System.out.println("conn OK");
+			// System.out.println("conn OK");
 
 			String sql = "select * from Equipment where name = '" + equipment_name + "' and status = '0'";
 			ResultSet rs = st.executeQuery(sql);
-			//System.out.println("read sql ready");
+			// System.out.println("read sql ready");
 			json += "[";
 			while (rs.next()) {
 				String rubbish = "ID: " + rs.getString("equipment_id") + " Manufacturer: "
 						+ rs.getString("manufacturer") + " Date of Birth: " + rs.getString("date_of_birth")
 						+ " Last Maintenance Date: " + rs.getString("last_maintenance_date");
-				//System.out.println(rubbish);
+				// System.out.println(rubbish);
 				stock.add(rubbish);
-				//System.out.println("add OK");
+				// System.out.println("add OK");
 				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"manufacturer\": \""
 						+ rs.getString("manufacturer") + "\", \"date_of_birth\": \"" + rs.getString("date_of_birth")
 						+ "\", \"last_maintenance_date\": \"" + rs.getString("last_maintenance_date")
 						+ "\", \"size\": \"" + rs.getString("size") + "\" },";
 			}
-			//System.out.println("Loop OK");
+			// System.out.println("Loop OK");
 			json = json.substring(0, json.length() - 1);
 			json += "\n]";
 			rs.close();
@@ -338,10 +401,10 @@ public class sql_connection {
 		} catch (Exception ee) {
 			System.out.print("error in read");
 		}
-		json += "{ \"Equipment\":[\n{ \"equipment_id\": \"" + byebye[0] + "\", \"name\": \"" + byebye[1]
-				+ "\", \"manufacturer\": \"" + byebye[2] + "\", \"date_of_birth\": \"" + byebye[3]
-				+ "\", \"last_maintenance_date\": \"" + byebye[4] + "\", \"status\": \"" + byebye[5]
-				+ "\", \"size\": \"" + byebye[6] + "\", \"parent_id\": \"" + byebye[7] + "\" }\n] }";
+		json += "[\n{ \"equipment_id\": \"" + byebye[0] + "\", \"name\": \"" + byebye[1] + "\", \"manufacturer\": \""
+				+ byebye[2] + "\", \"date_of_birth\": \"" + byebye[3] + "\", \"last_maintenance_date\": \"" + byebye[4]
+				+ "\", \"status\": \"" + byebye[5] + "\", \"size\": \"" + byebye[6] + "\", \"parent_id\": \""
+				+ byebye[7] + "\" }\n]";
 		return json;
 	}
 }
