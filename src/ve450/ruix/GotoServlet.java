@@ -31,8 +31,13 @@ public class GotoServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);  
+		String QRid = null;
+		String ss = null;
+		QRid = request.getParameter("id").toString();
+		ss = request.getParameter("startORstop").toString();
+		
+		sql_connection conn = new sql_connection();
+		//if(ss == "start")
+			//conn.Start
 	}
-
 }
