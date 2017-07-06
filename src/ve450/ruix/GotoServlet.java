@@ -20,13 +20,6 @@ public class GotoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String value1 = request.getAttribute("value1").toString();
-		System.out.println("I got it");
-		System.out.println(value1);
-		
-		response.setContentType("text/plain");
-		response.sendRedirect("father_page.html");
-		System.out.println("jump ready");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +30,16 @@ public class GotoServlet extends HttpServlet {
 		ss = request.getParameter("startORstop").toString();
 		
 		sql_connection conn = new sql_connection();
-		//if(ss == "start")
-			//conn.Start
+		if(ss == "start"){
+			conn.StartUse(QRid);
+			response.setContentType("text/plain");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write("Start OK");
+		} else if(ss == "finish"){
+			conn.StartUse(QRid);
+			response.setContentType("text/plain");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write("Start OK");
+		}
 	}
 }
