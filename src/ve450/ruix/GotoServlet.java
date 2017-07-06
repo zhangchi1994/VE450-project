@@ -35,11 +35,12 @@ public class GotoServlet extends HttpServlet {
 			response.setContentType("text/plain");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write("Start OK");
+			System.out.println("start not end");
 		} else if(ss == "finish"){
-			conn.StartUse(QRid);
+			conn.EndUse(QRid);
 			response.setContentType("text/plain");
 			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write("Start OK");
+			response.getWriter().write("Stop OK");
 		}
 	}
 }
