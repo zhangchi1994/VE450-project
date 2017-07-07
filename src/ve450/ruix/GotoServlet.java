@@ -28,15 +28,14 @@ public class GotoServlet extends HttpServlet {
 		String ss = null;
 		QRid = request.getParameter("id").toString();
 		ss = request.getParameter("startORstop").toString();
-		
 		sql_connection conn = new sql_connection();
-		if(ss == "start"){
+		if(ss.equals("start")){
 			conn.StartUse(QRid);
 			response.setContentType("text/plain");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write("Start OK");
 			System.out.println("start not end");
-		} else if(ss == "finish"){
+		} else if(ss.equals("finish")){
 			conn.EndUse(QRid);
 			response.setContentType("text/plain");
 			response.setCharacterEncoding("UTF-8");

@@ -26,62 +26,79 @@ public class sql_connection {
 	}
 
 	public void StartUse(String equipment_id) {
+
 		try {
-			//connect to db
+			// connect to db
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
+			Statement stt = con.createStatement();
+			
 
 			String sqlSetStatus;
 			String sqlSelect;
 			String sqlRecordStart;
-			
-			//select itself and all children, set status to '3' (running)
+
+			// select itself and all children, set status to '3' (running)
 			sqlSetStatus = "UPDATE Equipment SET status = '3' WHERE (equipment_id='" + equipment_id + "' OR dad_id = '"
 					+ equipment_id + "') AND status <> '3'";
-			st.executeUpdate(sqlSetStatus);
-			
-			//select itself and all children
-			sqlSelect = "Select * FROM Equipment WHERE (equipment_id='" + equipment_id + "' or dad_id = '" + equipment_id
-					+ "') AND status <> '3'";
 
-			String timeStamp = new SimpleDateFormat("'yyyy-MM-dd HH:mm:ss'").format(new java.util.Date());
+			// select itself and all children
+			sqlSelect = "Select * FROM Equipment WHERE (equipment_id='" + equipment_id + "' or dad_id = '"
+					+ equipment_id + "') AND status <> '3'";
+
+			String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
 
 			ResultSet rs = st.executeQuery(sqlSelect);
+			stt.executeUpdate(sqlSetStatus);
 			while (rs.next()) {
-				//insert usage information
-				String eid = rs.getString(equipment_id);
+				// insert usage information
+				
+				String eid = rs.getString("equipment_id");
 				String rrr = "haha you fail";
-				sqlRecordStart = "INSERT INTO UsageInformation (equipment_id, start_time) VALUES (" + eid + ", "
-						+ timeStamp + ")";
-				st.executeUpdate(sqlRecordStart, Statement.RETURN_GENERATED_KEYS);
-				ResultSet generatedKeys = st.getGeneratedKeys();
+				sqlRecordStart = "INSERT INTO UsageInformation (equipment_id, start_time) VALUES (" + eid + ", '"
+						+ timeStamp + "')";
+				System.out.println("aaa");
+				Statement stloop = con.createStatement();
+				System.out.println("aaaa");
+				stloop.executeUpdate(sqlRecordStart, Statement.RETURN_GENERATED_KEYS);
+				System.out.println("aaaaa");
+				ResultSet generatedKeys = stloop.getGeneratedKeys();
+				System.out.println("aaaaaa");
 				if (generatedKeys.next()) {
 					rrr = generatedKeys.getString(1);
 				}
-				
+				stloop.close();
+				System.out.println("errr0");
 				String sqlInsertMap = "";
-				//check if usage map already exists
-				String sqlCheck = "SELECT COUNT(*) as trash from CurrentUsageMap where equipment_id='" + equipment_id + "'";
-				ResultSet rsCheck = st.executeQuery(sqlCheck);
-				//System.out.println("sql_1 DONE");
-				if(rsCheck.next()){
+				// check if usage map already exists
+				String sqlCheck = "SELECT COUNT(*) as trash from CurrentUsageMap where equipment_id=" + eid;
+				Statement stloopp = con.createStatement();
+				System.out.println("errr1");
+				ResultSet rsCheck = stloopp.executeQuery(sqlCheck);
+				// System.out.println("sql_1 DONE");
+				System.out.println("errr2");
+				if (rsCheck.next()) {
+					System.out.println("errr3");
 					if (rsCheck.getInt("trash") > 0) {
 						System.out.println("current usage map already exists! (this is not an error)");
-						sqlInsertMap = "UPDATE CurrentUsageMap SET usage_id = '"+rrr+"' WHERE equipment_id = '"+equipment_id+"'";
-					} else {		
+						sqlInsertMap = "UPDATE CurrentUsageMap SET usage_id = '" + rrr + "' WHERE equipment_id = '"
+								+ equipment_id + "'";
+					} else {
 						System.out.println("current usage map does not exist! (this is not an error)");
 						sqlInsertMap = "INSERT INTO CurrentUsageMap VALUES (" + eid + "," + rrr + ")";
 					}
 				}
-
-				st.executeUpdate(sqlInsertMap);
+				stloopp.close();
+				System.out.println("errr4");
+				stt.executeUpdate(sqlInsertMap);
 				generatedKeys.close();
 				rsCheck.close();
 			}
 			rs.close();
 			st.close();
+			stt.close();
 			con.close();
 
 		} catch (Exception ee) {
@@ -91,7 +108,7 @@ public class sql_connection {
 
 	public void EndUse(String equipment_id) {
 		try {
-			//connect to db
+			// connect to db
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
@@ -100,15 +117,15 @@ public class sql_connection {
 			String sqlSetStatus;
 			String sqlSelect;
 			String sqlRecordStart;
-			
-			//select itself and all children, set status to '3' (running)
+
+			// select itself and all children, set status to '3' (running)
 			sqlSetStatus = "UPDATE Equipment SET status = '3' WHERE (equipment_id='" + equipment_id + "' OR dad_id = '"
 					+ equipment_id + "') AND status <> '3'";
 			st.executeUpdate(sqlSetStatus);
-			
-			//select itself and all children
-			sqlSelect = "Select * FROM Equipment WHERE (equipment_id='" + equipment_id + "' or dad_id = '" + equipment_id
-					+ "') AND status <> '3'";
+
+			// select itself and all children
+			sqlSelect = "Select * FROM Equipment WHERE (equipment_id='" + equipment_id + "' or dad_id = '"
+					+ equipment_id + "') AND status <> '3'";
 
 			String timeStamp = new SimpleDateFormat("'yyyy-MM-dd HH:mm:ss'").format(new java.util.Date());
 
@@ -117,18 +134,16 @@ public class sql_connection {
 				String eid = rs.getString(equipment_id);
 				String rrr = "haha you fail";
 				String uid = "haha wrong uid";
-				
-				
-				
-				String sqlFindUid = "SELECT * FROM CurrentUsageMap WHERE equipment_id ='"+eid+"'";
+
+				String sqlFindUid = "SELECT * FROM CurrentUsageMap WHERE equipment_id ='" + eid + "'";
 				ResultSet rsUid = st.executeQuery(sqlFindUid);
-				while(rs.next()){
+				while (rs.next()) {
 					uid = rsUid.getString("usage_id");
 				}
-				sqlRecordStart = "UPDATE UsageInformation SET end_time = " + timeStamp + " WHERE usage_id = '"+uid+"'";
+				sqlRecordStart = "UPDATE UsageInformation SET end_time = " + timeStamp + " WHERE usage_id = '" + uid
+						+ "'";
 				st.executeUpdate(sqlRecordStart);
 
-				
 			}
 			st.close();
 			con.close();

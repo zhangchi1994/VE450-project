@@ -63,9 +63,7 @@ public class sql_id_connection {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
-			System.out.println("asfdn");
-			// Connection con = DriverManager.getConnection(url, "postgres" ,
-			// "password");
+			
 			Statement st = con.createStatement();
 			System.out.println("connection DONE");
 			String sql = "select * from users where user_id = '" + username + "'";
