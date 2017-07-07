@@ -29,6 +29,7 @@ public class GotoServlet extends HttpServlet {
 		QRid = request.getParameter("id").toString();
 		ss = request.getParameter("startORstop").toString();
 		sql_connection conn = new sql_connection();
+		System.out.println("ss = "+ss);
 		if(ss.equals("start")){
 			conn.StartUse(QRid);
 			response.setContentType("text/plain");

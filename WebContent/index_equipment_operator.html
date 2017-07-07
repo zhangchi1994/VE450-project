@@ -28,7 +28,7 @@ document.onclick=function(e){
 	var tar = evt.target||evt.srcElement; 
 	if((tar.tagName.toLowerCase()=="input"&&tar.type=="button") || tar.tagName.toLowerCase()=="button"){ 
 		alert(tar.id);
-		if(tar.id == "start" || tar.id == "stop") {
+		if(tar.id == "start" || tar.id == "finish") {
 			$.post('GotoServlet', {
 				startORstop : tar.id,
 				id : operateID

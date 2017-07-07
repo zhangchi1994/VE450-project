@@ -59,28 +59,20 @@ public class sql_connection {
 				String rrr = "haha you fail";
 				sqlRecordStart = "INSERT INTO UsageInformation (equipment_id, start_time) VALUES (" + eid + ", '"
 						+ timeStamp + "')";
-				System.out.println("aaa");
 				Statement stloop = con.createStatement();
-				System.out.println("aaaa");
 				stloop.executeUpdate(sqlRecordStart, Statement.RETURN_GENERATED_KEYS);
-				System.out.println("aaaaa");
 				ResultSet generatedKeys = stloop.getGeneratedKeys();
-				System.out.println("aaaaaa");
 				if (generatedKeys.next()) {
 					rrr = generatedKeys.getString(1);
 				}
 				stloop.close();
-				System.out.println("errr0");
 				String sqlInsertMap = "";
 				// check if usage map already exists
 				String sqlCheck = "SELECT COUNT(*) as trash from CurrentUsageMap where equipment_id=" + eid;
 				Statement stloopp = con.createStatement();
-				System.out.println("errr1");
 				ResultSet rsCheck = stloopp.executeQuery(sqlCheck);
 				// System.out.println("sql_1 DONE");
-				System.out.println("errr2");
 				if (rsCheck.next()) {
-					System.out.println("errr3");
 					if (rsCheck.getInt("trash") > 0) {
 						System.out.println("current usage map already exists! (this is not an error)");
 						sqlInsertMap = "UPDATE CurrentUsageMap SET usage_id = '" + rrr + "' WHERE equipment_id = '"
@@ -91,7 +83,6 @@ public class sql_connection {
 					}
 				}
 				stloopp.close();
-				System.out.println("errr4");
 				stt.executeUpdate(sqlInsertMap);
 				generatedKeys.close();
 				rsCheck.close();
@@ -109,41 +100,39 @@ public class sql_connection {
 	public void EndUse(String equipment_id) {
 		try {
 			// connect to db
+			System.out.println("ah");
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
 
-			String sqlSetStatus;
 			String sqlSelect;
 			String sqlRecordStart;
 
-			// select itself and all children, set status to '3' (running)
-			sqlSetStatus = "UPDATE Equipment SET status = '3' WHERE (equipment_id='" + equipment_id + "' OR dad_id = '"
-					+ equipment_id + "') AND status <> '3'";
-			st.executeUpdate(sqlSetStatus);
-
 			// select itself and all children
 			sqlSelect = "Select * FROM Equipment WHERE (equipment_id='" + equipment_id + "' or dad_id = '"
-					+ equipment_id + "') AND status <> '3'";
+					+ equipment_id + "') AND status = '3'";
 
-			String timeStamp = new SimpleDateFormat("'yyyy-MM-dd HH:mm:ss'").format(new java.util.Date());
+			String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
 
 			ResultSet rs = st.executeQuery(sqlSelect);
+			System.out.println("ah");
 			while (rs.next()) {
 				String eid = rs.getString(equipment_id);
-				String rrr = "haha you fail";
 				String uid = "haha wrong uid";
-
+				System.out.println("ahh");
+				Statement stloop = con.createStatement();
 				String sqlFindUid = "SELECT * FROM CurrentUsageMap WHERE equipment_id ='" + eid + "'";
-				ResultSet rsUid = st.executeQuery(sqlFindUid);
-				while (rs.next()) {
+				ResultSet rsUid = stloop.executeQuery(sqlFindUid);
+				System.out.println("ahhh");
+				while (rsUid.next()) {
 					uid = rsUid.getString("usage_id");
 				}
-				sqlRecordStart = "UPDATE UsageInformation SET end_time = " + timeStamp + " WHERE usage_id = '" + uid
-						+ "'";
-				st.executeUpdate(sqlRecordStart);
-
+				System.out.println("ahhhh");
+				sqlRecordStart = "UPDATE UsageInformation SET end_time = " + timeStamp + " WHERE usage_id = " + uid;
+				stloop.executeUpdate(sqlRecordStart);
+				
+				stloop.close();
 			}
 			st.close();
 			con.close();
