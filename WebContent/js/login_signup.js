@@ -13,7 +13,7 @@ function clickbutton_login() {
 			window.location.href = "http://localhost:8080/VE450/index_warehouse_engineer.html";
 		if(responseText == "me"){
 			sessionStorage.setItem("whoScan", "me");
-			window.location.href = "http://localhost:8080/VE450/qr_scan.html";
+			window.location.href = "http://localhost:8080/VE450/index_maintenance_engineer.html";
 		}
 		if(responseText == "eo") {
 			sessionStorage.setItem("whoScan", "eo");

@@ -18,28 +18,20 @@ public class sql_id_connection {
 	public boolean SignUp(String username, String password, String permission){
 		boolean can_create = true;
 		try{
-			
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
-			// String url =
-			// "jdbc:postgresql://ve450postgresql.nat123.cc:44966/example_db" ;
-			//Connection con = DriverManager.getConnection(url, "postgres", "123456");
-			// Connection con = DriverManager.getConnection(url, "postgres" ,
-			// "password");
 			Statement st = con.createStatement();
-			System.out.println("connection DONE");
-			String sql = "select count(*) as trash from users where user_id='" + username + "'";
-			//System.out.println("sql_1 START");
+			//System.out.println("connection DONE");
+			String sql = "select count(*) as trash from Users where user_id='" + username + "'";
 			ResultSet rs = st.executeQuery(sql);
-			//System.out.println("sql_1 DONE");
 			if(rs.next()){
 				if (rs.getInt("trash") > 0) {
 					System.out.println("Username already exists!");
 					can_create = false;
 				} else {		
 					sql = "INSERT INTO Users VALUES ('" + username + "','" + password + "','" + permission + "')";
-					//System.out.println("sql exists!");
+					//System.out.println("sql yes");
 					st.executeUpdate(sql);
 					//System.out.println("sql DONE");
 				}
@@ -66,7 +58,7 @@ public class sql_id_connection {
 			
 			Statement st = con.createStatement();
 			System.out.println("connection DONE");
-			String sql = "select * from users where user_id = '" + username + "'";
+			String sql = "select * from Users where user_id = '" + username + "'";
 			//System.out.println("sql START");
 			ResultSet rs = st.executeQuery(sql);
 			System.out.println("sql DONE");

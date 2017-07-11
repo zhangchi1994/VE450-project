@@ -100,38 +100,34 @@ public class sql_connection {
 	public void EndUse(String equipment_id) {
 		try {
 			// connect to db
-			System.out.println("ah");
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
-
+			Statement stt = con.createStatement();
 			String sqlSelect;
 			String sqlRecordStart;
 
 			// select itself and all children
 			sqlSelect = "Select * FROM Equipment WHERE (equipment_id='" + equipment_id + "' or dad_id = '"
 					+ equipment_id + "') AND status = '3'";
-
+			String sqlSetStatus = "UPDATE Equipment SET status = '0' WHERE (equipment_id='" + equipment_id + "' OR dad_id = '"
+					+ equipment_id + "') AND status <> '0'";
 			String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
 
 			ResultSet rs = st.executeQuery(sqlSelect);
-			System.out.println("ah");
+			stt.executeUpdate(sqlSetStatus);
 			while (rs.next()) {
-				String eid = rs.getString(equipment_id);
+				String eid = rs.getString("equipment_id");
 				String uid = "haha wrong uid";
-				System.out.println("ahh");
 				Statement stloop = con.createStatement();
 				String sqlFindUid = "SELECT * FROM CurrentUsageMap WHERE equipment_id ='" + eid + "'";
 				ResultSet rsUid = stloop.executeQuery(sqlFindUid);
-				System.out.println("ahhh");
 				while (rsUid.next()) {
 					uid = rsUid.getString("usage_id");
 				}
-				System.out.println("ahhhh");
-				sqlRecordStart = "UPDATE UsageInformation SET end_time = " + timeStamp + " WHERE usage_id = " + uid;
-				stloop.executeUpdate(sqlRecordStart);
-				
+				sqlRecordStart = "UPDATE UsageInformation SET end_time = '" + timeStamp + "' WHERE usage_id = '" + uid + "'";
+				stloop.executeUpdate(sqlRecordStart);				
 				stloop.close();
 			}
 			st.close();
@@ -350,7 +346,7 @@ public class sql_connection {
 			Statement st = con.createStatement();
 
 			String sql;
-			sql = "INSERT INTO Equipment (name, manufacturer, date_of_birth, last_maintenance_date, status, ssize, dad_id) VALUES ('"
+			sql = "INSERT INTO Equipment (name, manufacturer, date_of_birth, last_maintenance_date, status, size, dad_id) VALUES ('"
 					+ product_name + "','" + manufacturer + "','" + time + "','" + time + "','" + "0" + "','" + size
 					+ "'," + "0)";
 			st.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);

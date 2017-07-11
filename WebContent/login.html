@@ -1,35 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<script type="text/javascript"  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>  
-	<script type="text/javascript" src="./js/login_signup.js"></script>
-	<title>Login Page</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="./js/login_signup.js"></script>
+<style type="text/css">
+button {
+	margin: 10px;
+}
+</style>
+<style>
+#logo {
+	background-image: url(images/logoleft.png), url(images/logoright.png);
+	background-position: left top, right top;
+	background-size: 25% 15%, 14% 10%;
+	background-repeat: no-repeat, no-repeat;
+	background-attachment: fixed;
+	padding: 50px;
+}
+</style>
+
 </head>
-<body onbeforeunload="return checkleave()">
-<h1> Maintenance System <small>Please login by your Jaccount</small></h1>
-<form role="form">
 
 
-<div style="padding: 100px 100px 10px;">
-	<form class="bs-example bs-example-form" role="form">
-		<div class="input-group input-group-lg">
-			<span class="input-group-addon">User Name</span>
-			<input type="text" class="form-control" id="name">
+<body>
+	<div id="logo">
+
+		<div class="page-header text-center" style="padding: 10px 100px 10px;">
+
+			<h2>Welcome to our Maintenance System!</h2>
+			<form role="form">
 		</div>
-		<br>
-		<div class="input-group input-group-lg">
-			<span class="input-group-addon">Password</span>
-			<input type="text" class="form-control" id="pswd">
-		</div>
-		<br>
-		<button type="button" class="btn btn-default btn-lg" id="submit" onClick="clickbutton_login()">
-		<span class="glyphicon glyphicon-user"></span> Login
-		</button>
 
-	</form>
-</div>
-<div id="welcometext"></div>  
+		<div class="form-group">
+			<label for="user_name">User Name</label> <input type="text"
+				class="form-control" id="name">
+		</div>
+		<div class="form-group">
+			<label for="pswd">Password</label> <input type="text"
+				class="form-control" id="pswd">
+		</div>
+
+		<div class="text-center" style="padding: 50px 100px 10px;">
+			<button type="button" name="button" class="btn btn-primary"
+				id="submit" onClick="clickbutton_login()">Login</button>
+			<a href="http://localhost:8080/VE450/signup.html">
+			<button type="button" name="button" class="btn btn-primary"
+				id="sign_up">Sign up</button>
+			</a>
+		</div>
+		<div id="welcometext"></div>
+
+	</div>
 </body>
 </html>
