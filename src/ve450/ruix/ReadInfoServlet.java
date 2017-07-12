@@ -56,7 +56,7 @@ public class ReadInfoServlet extends HttpServlet {
 
 		selection = request.getParameter("wmSelection").toString();
 		sql_connection sql_login = new sql_connection();
-		if (selection == "take_out") {
+		if (selection.equals("take_out")) {
 			id = request.getParameter("id").toString();
 			if (sql_login.TakeOutFromWarehouse(id)) {
 				response.setContentType("text/plain");
@@ -67,7 +67,7 @@ public class ReadInfoServlet extends HttpServlet {
 				response.setCharacterEncoding("UTF-8");
 				response.getWriter().write("Take out FAILED");
 			}
-		} else if (selection == "store_used") {
+		} else if (selection.equals("store_used")) {
 			id = request.getParameter("id").toString();
 			if (sql_login.PutUsedThingBackToWarehouse(id)) {
 				response.setContentType("text/plain");

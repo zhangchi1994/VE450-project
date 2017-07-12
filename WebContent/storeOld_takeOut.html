@@ -2,25 +2,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<script type="text/javascript"  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <title>restored/take out OK</title>
 </head>
 <body>
-<div id="welcometext"></div>
+	<div id="welcometext"></div>
 </body>
 
 <script>
-window.onload = function() {
-	var selection = sessionStorage.getItem("wmselection");
-	var qr_code = sessionStorage.getItem("qr_id_data");
-	//alert(selection);
-	$.post('ReadInfoServlet', {
-		wmSelection : selection,
-		id : qr_code
-	}, function(responseText) {
-		$('#welcometext').text(responseText);
-		});
-	};
-}
+	window.onload = function() {
+		var selection = sessionStorage.getItem("wmselection");
+		var qr_code = sessionStorage.getItem("qr_id_data");
+		if (confirm("comfirm")) {
+			$.post(
+				'ReadInfoServlet',
+					{
+						wmSelection : selection,
+						id : qr_code
+					},
+					function(responseText) {
+						alert(responseText);
+					});
+			} else 
+				alert("conceal");
+		window.location.href = "http://localhost:8080/VE450/index_warehouse_engineer.html";
+	}
 </script>
 </html>
