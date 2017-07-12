@@ -20,6 +20,14 @@ public class GotoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String id = null; 
+    	String report = null;
+    	String user = null;
+    	id =  request.getParameter("ID").toString();
+    	report =  request.getParameter("report").toString();
+    	user =  request.getParameter("user").toString();
+    	
+    	sql_connection conn = new sql_connection();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

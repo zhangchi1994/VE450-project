@@ -36,14 +36,14 @@
         <div class="form-group">
             <label for="problem">What's the problem?</label>
             <br>
-            <textarea class="form-control" rows="3"></textarea>
+            <textarea class="form-control" rows="5" id = "problem"></textarea>
         </div>
     </form>
 
 
     <div class="text-center" style="padding: 50px 100px 10px;">
             <button type="button" name = "button" class="btn btn-primary" id="addphoto" onClick = "toWebcam()">Add Photo</button>
-            <button type="button" name = "button" class="btn btn-primary" id="submit">Submit</button>
+            <button type="button" name = "button" class="btn btn-primary" id="submit" onClick = "reportSubmit()">Submit</button>
         <a href="http://localhost:8080/VE450/index_equipment_operator.html">
             <button type="button" name = "button" class="btn btn-primary" id = "return">Return</button>
         </a >
@@ -52,9 +52,19 @@
 </body>
 
 <script>
+var ID = sessionStorage.getItem("qrID");
 function toWebcam() {
-	var ID = sessionStorage.getItem("qrID");
 	window.location.href = "http://localhost:8080/VE450/webcam.html?hid=fromreport=" + ID;
+}
+function reportSubmit() {
+	var problem = document.getElementById("problem").value;
+	var user = sessionStorage.getItem("username");
+    $.get('GotoServlet', { 
+    	id : ID, 
+    	report : problem, 
+    	user : user
+    	}, function(responseText){     		
+    });
 }
 </script>
 
