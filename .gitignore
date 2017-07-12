@@ -49,3 +49,4 @@ local.properties
 .worksheet
 /build/classes/ve450/ruix/*.class
 /build/classes/ve450/ruix/*.class
+/.classpath
