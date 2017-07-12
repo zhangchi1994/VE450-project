@@ -25,6 +25,37 @@ public class sql_connection {
 		super();
 	}
 
+	//Used by Maintenance Engineer, see a page of detailed problem
+	public String ViewDetailedProblem(String problem_id) {
+		String json = "";
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+
+			String sql = "select * from Problem where status <> 'rubbish' and problem_id = '" + problem_id + "'";
+			ResultSet rs = st.executeQuery(sql);
+			json += "[";
+			while (rs.next()) {
+				json += "\n{ \"problem_id\": \"" + rs.getString("problem_id") + "\", \"explaination\": \""
+						+ rs.getString("explaination") + "\", \"equipment_id\": \"" + rs.getString("equipment_id")
+						+ "\", \"status\": \"" + rs.getString("status") + "\", \"personnel\": \""
+						+ rs.getString("personnel") + "\", \"picture_name\": \"" + rs.getString("picture_name")
+						+ "\" },";
+			}
+			json = json.substring(0, json.length() - 1);
+			json += "\n]";
+			rs.close();
+			st.close();
+			con.close();
+		} catch (Exception ee) {
+			System.out.print("error in ViewDetailedProblem");
+		}
+		return json;
+	}
+
+	//Used by Maintenance Engineer, see a list of all unresolved problems
 	public String ViewProblemList() {
 		String json = "";
 		try {
@@ -51,7 +82,7 @@ public class sql_connection {
 		return json;
 	}
 
-	public void Report(String equipment_id, String explaination, String personnel) {
+	public void Report(String equipment_id, String explaination, String personnel, String picture_name) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
@@ -60,7 +91,7 @@ public class sql_connection {
 
 			String sql;
 			sql = "INSERT INTO Problem (equipment_id, explaination, status, personnel) VALUES ('" + equipment_id + "','"
-					+ explaination + "','waiting to be repaired', '" + personnel + "')";
+					+ explaination + "','waiting to be repaired', '" + personnel + "','" + picture_name + "')";
 			st.executeUpdate(sql);
 			st.close();
 			con.close();
@@ -192,8 +223,8 @@ public class sql_connection {
 			// select itself and all children
 			sqlSelect = "Select * FROM Equipment WHERE (equipment_id='" + equipment_id + "' or dad_id = '"
 					+ equipment_id + "') AND status = '3'";
-			String sqlSetStatus = "UPDATE Equipment SET status = '0' WHERE (equipment_id='" + equipment_id + "' OR dad_id = '"
-					+ equipment_id + "') AND status <> '0'";
+			String sqlSetStatus = "UPDATE Equipment SET status = '0' WHERE (equipment_id='" + equipment_id
+					+ "' OR dad_id = '" + equipment_id + "') AND status <> '0'";
 			String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
 
 			ResultSet rs = st.executeQuery(sqlSelect);
@@ -207,8 +238,9 @@ public class sql_connection {
 				while (rsUid.next()) {
 					uid = rsUid.getString("usage_id");
 				}
-				sqlRecordStart = "UPDATE UsageInformation SET end_time = '" + timeStamp + "' WHERE usage_id = '" + uid + "'";
-				stloop.executeUpdate(sqlRecordStart);				
+				sqlRecordStart = "UPDATE UsageInformation SET end_time = '" + timeStamp + "' WHERE usage_id = '" + uid
+						+ "'";
+				stloop.executeUpdate(sqlRecordStart);
 				stloop.close();
 			}
 			st.close();
