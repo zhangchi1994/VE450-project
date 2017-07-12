@@ -8,6 +8,7 @@ function clickbutton_login() {
 		pd : password
 	}, function(responseText) {
 		//console.log(password);
+		sessionStorage.setItem("whoLogin", username);
 		$('#welcometext').text(responseText);
 		if(responseText == "wm")
 			window.location.href = "http://localhost:8080/VE450/index_warehouse_engineer.html";

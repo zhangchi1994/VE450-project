@@ -18,6 +18,8 @@
 	$('#qr').focus();
 	function go() {
 		//alert("button press");
+		var user = sessionStorage.getItem("whoLogin");
+		sessionStorage.setItem("username", user);
 		var data = document.getElementById("qr").value;
 		console.log(data);
 		sessionStorage.setItem("qr_id_data", data);
