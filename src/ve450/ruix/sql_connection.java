@@ -25,6 +25,88 @@ public class sql_connection {
 		super();
 	}
 
+	public String ViewProblemList() {
+		String json = "";
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+
+			String sql = "select * from Problem where status <> 'rubbish'";
+			ResultSet rs = st.executeQuery(sql);
+			json += "[";
+			while (rs.next()) {
+				json += "\n{ \"problem_id\": \"" + rs.getString("problem_id") + "\", \"explaination\": \""
+						+ rs.getString("explaination").substring(0, 30) + "\" },";
+			}
+			json = json.substring(0, json.length() - 1);
+			json += "\n]";
+			rs.close();
+			st.close();
+			con.close();
+		} catch (Exception ee) {
+			System.out.print("error in ViewProblemList");
+		}
+		return json;
+	}
+
+	public void Report(String equipment_id, String explaination, String personnel) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+
+			String sql;
+			sql = "INSERT INTO Problem (equipment_id, explaination, status, personnel) VALUES ('" + equipment_id + "','"
+					+ explaination + "','waiting to be repaired', '" + personnel + "')";
+			st.executeUpdate(sql);
+			st.close();
+			con.close();
+
+		} catch (Exception ee) {
+			System.out.print("error in Report");
+		}
+	}
+
+	public void MarkRepair(String problem_id, String personnel) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+
+			String sql;
+			sql = "UPDATE Problem SET status = 'Staff: " + personnel + " is repairing' WHERE problem_id='" + problem_id
+					+ "'";
+			st.executeUpdate(sql);
+			st.close();
+			con.close();
+
+		} catch (Exception ee) {
+			System.out.print("MarkRepair");
+		}
+	}
+
+	public void MarkResolve(String problem_id) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+
+			String sql;
+			sql = "UPDATE Problem SET status = 'rubbish' WHERE problem_id='" + problem_id + "'";
+			st.executeUpdate(sql);
+			st.close();
+			con.close();
+
+		} catch (Exception ee) {
+			System.out.print("MarkResolve");
+		}
+	}
+
 	public void StartUse(String equipment_id) {
 
 		try {
@@ -34,7 +116,6 @@ public class sql_connection {
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
 			Statement stt = con.createStatement();
-			
 
 			String sqlSetStatus;
 			String sqlSelect;
@@ -54,7 +135,7 @@ public class sql_connection {
 			stt.executeUpdate(sqlSetStatus);
 			while (rs.next()) {
 				// insert usage information
-				
+
 				String eid = rs.getString("equipment_id");
 				String rrr = "haha you fail";
 				sqlRecordStart = "INSERT INTO UsageInformation (equipment_id, start_time) VALUES (" + eid + ", '"

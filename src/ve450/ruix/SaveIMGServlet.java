@@ -22,63 +22,35 @@ public class SaveIMGServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("get here");
-		String B64 = request.getParameter("data").toString();
-		String name = request.getParameter("name").toString();
-		BASE64Decoder decoder = new BASE64Decoder();
-		try {
-			// Base64解码
-			byte[] b = decoder.decodeBuffer(B64);
-			for (int i = 0; i < b.length; ++i) {
-				if (b[i] < 0) {// 调整异常数据
-					b[i] += 256;
-				}
-			}
-			// 生成jpeg图片
-			System.out.println("pic ready");
-			String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
-			String imgFilePath = "C://Users//dell//workspace//VE450-project//WebContent//pic//fix_" + name + "_" + timeStamp + ".jpg";// 新生成的图片
-			//String imgFilePath = Server.MapPath("./pic/" + name + ".png");
-			//System.out.println(imgFilePath);
-			OutputStream out = new FileOutputStream(imgFilePath);
-			out.write(b);
-			out.flush();
-			out.close();
-			response.setContentType("text/plain");
-			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write(name);
-			} catch (Exception e) {
-		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//System.out.println(request.getParameter("data").toString());
 		String B64 = request.getParameter("data").toString();
 		String name = request.getParameter("name").toString();
-		System.out.println("to string ready");
+		String sel = request.getParameter("selection").toString();
+		String imgFilePath = null;
 		BASE64Decoder decoder = new BASE64Decoder();
 		try {
-			// Base64解码
 			byte[] b = decoder.decodeBuffer(B64);
 			for (int i = 0; i < b.length; ++i) {
-				if (b[i] < 0) {// 调整异常数据
+				if (b[i] < 0) {
 					b[i] += 256;
 				}
 			}
-			// 生成jpeg图片
-			System.out.println("pic ready");
-			String imgFilePath = "C://Users//dell//workspace//VE450-project//WebContent//pic//" + name + ".jpg";// 新生成的图片
-			System.out.println(imgFilePath);
-			//System.out.println(imgFilePath);
+			if (sel.equals("fromreport")) {
+				String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new java.util.Date());
+				imgFilePath = "C://Users//dell//workspace//VE450-project//WebContent//pic//fix_" + name + "_" + timeStamp + ".jpg";
+			} else 
+				imgFilePath = "C://Users//dell//workspace//VE450-project//WebContent//pic//" + name + ".jpg";
 			OutputStream out = new FileOutputStream(imgFilePath);
 			out.write(b);
 			out.flush();
 			out.close();
 			response.setContentType("text/plain");
 			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write(name);
+			response.getWriter().write(imgFilePath);
 			} catch (Exception e) {
 		}
 	}
