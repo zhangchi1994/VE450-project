@@ -90,7 +90,7 @@ public class sql_connection {
 			Statement st = con.createStatement();
 
 			String sql;
-			sql = "INSERT INTO Problem (equipment_id, explaination, status, personnel) VALUES ('" + equipment_id + "','"
+			sql = "INSERT INTO Problem (equipment_id, explaination, status, personnel, picture_name) VALUES ('" + equipment_id + "','"
 					+ explaination + "','waiting to be repaired', '" + personnel + "','" + picture_name + "')";
 			st.executeUpdate(sql);
 			st.close();

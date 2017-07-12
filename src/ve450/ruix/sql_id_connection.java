@@ -57,11 +57,11 @@ public class sql_id_connection {
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			
 			Statement st = con.createStatement();
-			System.out.println("connection DONE");
+			//System.out.println("connection DONE");
 			String sql = "select * from Users where user_id = '" + username + "'";
 			//System.out.println("sql START");
 			ResultSet rs = st.executeQuery(sql);
-			System.out.println("sql DONE");
+			//System.out.println("sql DONE");
 			if (!rs.next()) {
 				System.out.println("no body");
 				find_or_not = false;

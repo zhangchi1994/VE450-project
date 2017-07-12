@@ -31,6 +31,7 @@ public class SaveIMGServlet extends HttpServlet {
 		String name = request.getParameter("name").toString();
 		String sel = request.getParameter("selection").toString();
 		String imgFilePath = null;
+		String imgName = null;
 		BASE64Decoder decoder = new BASE64Decoder();
 		try {
 			byte[] b = decoder.decodeBuffer(B64);
@@ -42,6 +43,7 @@ public class SaveIMGServlet extends HttpServlet {
 			if (sel.equals("fromreport")) {
 				String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new java.util.Date());
 				imgFilePath = "C://Users//dell//workspace//VE450-project//WebContent//pic//fix_" + name + "_" + timeStamp + ".jpg";
+				imgName = "fix_" + name + "_" + timeStamp + ".jpg";
 			} else 
 				imgFilePath = "C://Users//dell//workspace//VE450-project//WebContent//pic//" + name + ".jpg";
 			OutputStream out = new FileOutputStream(imgFilePath);
@@ -50,7 +52,7 @@ public class SaveIMGServlet extends HttpServlet {
 			out.close();
 			response.setContentType("text/plain");
 			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write(imgFilePath);
+			response.getWriter().write(imgName);
 			} catch (Exception e) {
 		}
 	}

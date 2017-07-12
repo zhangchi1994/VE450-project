@@ -36,10 +36,12 @@ function CatchCode() {
     	}, function(responseText){  
     		if(picFunction == "upload") {
         		jQuery(function(){
-        			jQuery('#output').qrcode(responseText);
+        			jQuery('#output').qrcode(filename);
         		});  
-    		} else 
-    			alert("report pic OK");
+    		} else {
+    			sessionStorage.setItem("imgName", responseText);
+    			history.back(-1);
+    		}
     	});
     		/*
 			 * var LODOP; LODOP=getLodop();

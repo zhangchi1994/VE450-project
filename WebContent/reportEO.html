@@ -52,18 +52,22 @@
 </body>
 
 <script>
-var ID = sessionStorage.getItem("qrID");
+var ID = sessionStorage.getItem("qr_id_data")
 function toWebcam() {
 	window.location.href = "http://localhost:8080/VE450/webcam.html?hid=fromreport=" + ID;
 }
 function reportSubmit() {
 	var problem = document.getElementById("problem").value;
 	var user = sessionStorage.getItem("username");
+	var img = sessionStorage.getItem("imgName");
+	alert(img);
     $.get('GotoServlet', { 
     	id : ID, 
     	report : problem, 
-    	user : user
-    	}, function(responseText){     		
+    	user : user,
+    	img : img
+    	}, function(responseText){ 
+    		alert("Report OK");
     });
 }
 </script>

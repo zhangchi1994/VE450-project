@@ -23,11 +23,17 @@ public class GotoServlet extends HttpServlet {
 		String id = null; 
     	String report = null;
     	String user = null;
-    	id =  request.getParameter("ID").toString();
+    	String img = null;
+    	id =  request.getParameter("id").toString();
     	report =  request.getParameter("report").toString();
     	user =  request.getParameter("user").toString();
+    	img =  request.getParameter("img").toString();
     	
     	sql_connection conn = new sql_connection();
+    	conn.Report(id, report, user, img);
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write("report OK");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
