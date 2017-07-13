@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>web 生成二维码并用标签机打印</title>
 
-<script language="javascript" src="./js/LodopFuncs.js"></script>
+<script language="javascript" src="LodopFuncs.js"></script>
 </head>
 <body>
 <div id="qrcode">
@@ -15,7 +15,7 @@
 	 
 <p><font size="3"><b>打印二维码</b></font></p>         
 <p>1：用宽<input type="text" size="5" value="400" id="W1">(40mm)高<input type="text" size="4" value="300" id="H1">(30mm)           
-的动态纸张<a href="javascript:Preview1()">点击生成二维码并打印</a>一份交行受理书，打印方向不定。</p>                                              
+的动态纸张<a href="javascript:Preview1()">点击生成二维码并打印</a></p>                                              
    
                                          
 <p>2：选择如下打印机：<input type="radio" id="Radio1" name="RadioS1" checked >默认打印机                         
@@ -159,7 +159,7 @@
 	   };	   
 	}
 	function CreatePagSizeList(){
-	   LODOP = getLodop(); 
+	   LODOP=getLodop(); 
 	   clearPageListChild();
 	   var strPageSizeList=LODOP.GET_PAGESIZES_LIST(getSelectedPrintIndex(),"\n");
 	   var Options=new Array(); 
