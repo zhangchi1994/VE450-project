@@ -49,11 +49,9 @@
 
    <div class="text-center" style="padding: 50px 100px 10px;">
 
-       <a href=" ">
-           <button type="button" name = "button" class="btn btn-primary" id = "confirm">Confirm</button>
-       </a >
+           <button type="button" name = "button" class="btn btn-primary" id = "confirm" onClick="conf()">Confirm</button>
 
-       <a href=" ">
+       <a href="http://localhost:8080/VE450/index_warehouse_engineer.html">
            <button type="button" name = "button" class="btn btn-primary" id = "cancel">Cancel</button>
        </a >
 
@@ -64,6 +62,7 @@
 
 <script type="text/javascript">
 	var selection = sessionStorage.getItem("wmselection");
+	//alert(selection);
 	var qr_code = sessionStorage.getItem("qr_id_data");
        //var selection = "readList";
        $.getJSON('ReadInfoServlet', {
@@ -90,9 +89,19 @@
                items.push("<th id= "+idx+" >"+obj.size+"</th>");
                items.push("<\tr>");
                $('#name').text(obj.name);
-               document.getElementById("pic_id").src = "http://localhost:8080/VE450/pic/" + obj.id + ".jpg";
+               document.getElementById("pic_id").src = "http://localhost:8080/VE450/pic/" + obj.equipment_id + ".jpg";
            });
            $("<tbody/>",{html: items.join("")}).appendTo("table");
        });
+       
+       function conf() {
+    	   $.post('ReadInfoServlet', {
+    			wmSelection : selection,
+    			id : qr_code
+    		}, function(responseText) {
+    			alert("OK");
+    			window.location.href = "http://localhost:8080/VE450/index_warehouse_engineer.html";
+    		});
+       }
 </script>
 </html>
