@@ -23,29 +23,27 @@ public class ReadInfoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String id = null;
 		String name = null;
+		String tmp = null;
 		// String answer = "test";
 		
 		sql_connection sql_login = new sql_connection();
 		
 		if (request.getParameter("sel") != null) {
 			if (request.getParameter("sel").equals("take_out") || request.getParameter("sel").equals("store_used")) {
+				//System.out.println("TAKE OUT or STORE OLD");
 				id = request.getParameter("id");
-				String tmp = sql_login.Read(id);
-				System.out.println(tmp);
-		        response.setContentType("text/plain;charset=utf-8");
-		        request.setCharacterEncoding("utf-8");
-		        PrintWriter out = response.getWriter();
-		        out.println(tmp);
+				tmp = sql_login.Read(id);
 			}
 		} else if (request.getParameter("name") != null) {
 			name = request.getParameter("name").toString();
-			String tmp = sql_login.ViewStock(name);
-			System.out.println(tmp);
-	        response.setContentType("text/plain;charset=utf-8");
-	        request.setCharacterEncoding("utf-8");
-	        PrintWriter out = response.getWriter();
-	        out.println(tmp);
+			System.out.println(name);
+			tmp = sql_login.ViewStock(name);
 		}
+		System.out.println(tmp);
+        response.setContentType("text/plain;charset=utf-8");
+        request.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        out.println(tmp);
 
 		/*id = request.getParameter("id").toString();
 		getResult = sql_login.Read(id);

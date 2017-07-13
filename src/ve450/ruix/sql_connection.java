@@ -379,7 +379,6 @@ public class sql_connection {
 
 			String sql = "select * from Equipment where name = '" + equipment_name + "' and status = '0'";
 			ResultSet rs = st.executeQuery(sql);
-			// System.out.println("read sql ready");
 			json += "[";
 			while (rs.next()) {
 				String rubbish = "ID: " + rs.getString("equipment_id") + " Manufacturer: "
