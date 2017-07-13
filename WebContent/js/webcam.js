@@ -40,7 +40,7 @@ function CatchCode() {
         		});  
     		} else {
     			sessionStorage.setItem("imgName", responseText);
-    			history.back(-1);
+    			window.location.href = "http://localhost:8080/VE450/reportEO.html"
     		}
     	});
     		/*
