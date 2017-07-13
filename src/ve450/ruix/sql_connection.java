@@ -499,7 +499,7 @@ public class sql_connection {
 				byebye[3] = rs.getString("date_of_birth");
 				byebye[4] = rs.getString("last_maintenance_date");
 				byebye[5] = rs.getString("status");
-				byebye[6] = rs.getString("ssize");
+				byebye[6] = rs.getString("size");
 				if (rs.getInt("dad_id") == 0) {
 					byebye[7] = "NULL";
 				} else {

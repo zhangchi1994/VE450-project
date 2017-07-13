@@ -1,32 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<script type="text/javascript"
-	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<title>restored/take out OK</title>
+   <meta charset="UTF-8">
+   <title>Product</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <style type="text/css">
+       button { margin: 10px; }
+   </style>
+   <style>
+       #logo {
+           background-image: url(images/logoleft.png), url(images/logoright.png);
+           background-position: left top, right top;
+           background-size:25% 15%, 14% 10%;
+           background-repeat: no-repeat, no-repeat;
+           background-attachment:fixed;
+           padding: 50px;
+       }
+   </style>
+
 </head>
 <body>
-	<div id="welcometext"></div>
+<div id="logo">
+   <br>
+   <br>
+   <br>
+   <div align="center">
+       <img src="" width="30%" height="30%" id="pic_id">
+   </div>
+
+   <div class="page-header text-center" style="padding: 10px 100px 10px;">
+
+       <h1><div id = "name"></div></h1>
+       <form role="form">
+   </div>
+
+   <div class="container">
+       <table class="table table-bordered table-striped table-hover">
+           <caption>Basic Information</caption>
+           <thread>
+           </thread>
+       </table>
+   </div>
+
+
+
+
+   <div class="text-center" style="padding: 50px 100px 10px;">
+
+       <a href=" ">
+           <button type="button" name = "button" class="btn btn-primary" id = "confirm">Confirm</button>
+       </a >
+
+       <a href=" ">
+           <button type="button" name = "button" class="btn btn-primary" id = "cancel">Cancel</button>
+       </a >
+
+   </div>
+
+</div>
 </body>
 
-<script>
-	window.onload = function() {
-		var selection = sessionStorage.getItem("wmselection");
-		var qr_code = sessionStorage.getItem("qr_id_data");
-		if (confirm("comfirm")) {
-			$.post(
-				'ReadInfoServlet',
-					{
-						wmSelection : selection,
-						id : qr_code
-					},
-					function(responseText) {
-						alert(responseText);
-					});
-			} else 
-				alert("conceal");
-		window.location.href = "http://localhost:8080/VE450/index_warehouse_engineer.html";
-	}
+<script type="text/javascript">
+	var selection = sessionStorage.getItem("wmselection");
+	var qr_code = sessionStorage.getItem("qr_id_data");
+       //var selection = "readList";
+       $.getJSON('ReadInfoServlet', {
+           id : qr_code,
+           sel : selection
+       }, function(responseText) {
+           console.log(responseText);
+           var items = [];
+           $.each(responseText, function(idx, obj) {
+               //console.log(idx);
+               items.push("<tr> <td>ID</td>");
+               items.push("<th id= "+idx+" >"+obj.equipment_id+"</th>");
+               items.push("<\tr>");
+               items.push("<tr> <td>Manufacturer</td>");
+               items.push("<th id= "+idx+" >"+obj.manufacturer+"</th>");
+               items.push("<\tr>");
+               items.push("<tr> <td>Production Time</td>");
+               items.push("<th id= "+idx+" >"+obj.date_of_birth+"</th>");
+               items.push("<\tr>");
+               items.push("<tr> <td>Last Maintenance Date</td>");
+               items.push("<th id= "+idx+" >"+obj.last_maintenance_date+"</th>");
+               items.push("<\tr>");
+               items.push("<tr> <td>Size</td>");
+               items.push("<th id= "+idx+" >"+obj.size+"</th>");
+               items.push("<\tr>");
+               $('#name').text(obj.name);
+               document.getElementById("pic_id").src = "http://localhost:8080/VE450/pic/" + obj.id + ".jpg";
+           });
+           $("<tbody/>",{html: items.join("")}).appendTo("table");
+       });
 </script>
 </html>
