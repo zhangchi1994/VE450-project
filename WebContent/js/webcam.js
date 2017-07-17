@@ -37,7 +37,8 @@ function CatchCode() {
     		if(picFunction == "upload") {
         		jQuery(function(){
         			jQuery('#output').qrcode(filename);
-        		});  
+        		});
+        		document.getElementById("getval").value = filename;
     		} else {
     			sessionStorage.setItem("imgName", responseText);
     			history.back(-1);

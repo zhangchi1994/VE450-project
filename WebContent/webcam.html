@@ -6,6 +6,7 @@
 	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="./js/jquery.qrcode.min.js"></script>
 <script type="text/javascript" src="./js/webcam.js"></script>
+<script language="javascript" src="./js/LodopFuncs.js"></script>
 <title>web camera</title>
 <script type="text/javascript">
 	window.onload = function() {
@@ -64,8 +65,187 @@
 		<canvas style="border: 1px solid red" id="canvas"></canvas>
 	</div>
 	<div id="output"></div>
-	<a href="http://localhost:8080/VE450/PrintSample_qr.html">
-	<button type="button" class="btn btn-primary">Go to printing page!</button>
-	</a>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	//<a href="http://localhost:8080/VE450/PrintSample_qr.html">
+	//</a>
+	<div id="qrcode">
+</div>
+
+<input type="text" id="getval"/> 
+     
+	 
+<p><font size="3"><b>打印二维码</b></font></p>         
+<p>1：用宽<input type="text" size="5" value="400" id="W1">(40mm)高<input type="text" size="4" value="300" id="H1">(30mm)           
+的动态纸张<a href="javascript:Preview1()">点击生成二维码并打印</a></p>                                              
+   
+                                         
+<p>2：选择如下打印机：<input type="radio" id="Radio1" name="RadioS1" checked >默认打印机                         
+  <input type="radio" id="Radio2" name="RadioS1" onclick="CreatePrinterList()">指定打印机:                  
+<select id="PrinterList" size="1"></select> </p>      
+                                        
+                                         
+<p>&nbsp;&nbsp; 用上一步设置的动态纸张大小，打印方向是正(纵)向，见<a href="javascript:Preview2()">打印预览2</a>。</p>               
+       
+   
+                                         
+
+<script language="javascript" type="text/javascript"> 
+        var LODOP; //声明为全局变量  
+	function Preview1() {	
+		LODOP=getLodop();  
+		LODOP.PRINT_INITA(0,0,522,333,"打印控件功能演示_Lodop功能_自定义纸张1");	
+		LODOP.SET_PRINT_PAGESIZE(0,document.getElementById('W1').value,document.getElementById('H1').value,"A4");
+		AddPrintContent(document.getElementById("getval").value);
+		LODOP.PRINT();	
+	  	//LODOP.PREVIEW();
+	};
+	function Preview2() {		
+		LODOP=getLodop();  
+		LODOP.PRINT_INITA(0,0,522,333,"打印控件功能演示_Lodop功能_自定义纸张2");
+		LODOP.SET_PRINTER_INDEX(getSelectedPrintIndex());		
+		LODOP.SET_PRINT_PAGESIZE(1,document.getElementById('W1').value,document.getElementById('H1').value,"");
+		AddPrintContent(document.getElementById("getval").value);
+	  	LODOP.PREVIEW();		
+	};
+/*	function Preview3() {		
+		LODOP=getLodop();  
+		LODOP.PRINT_INITA(0,0,522,333,"打印控件功能演示_Lodop功能_自定义纸张3");
+		LODOP.SET_PRINTER_INDEX(getSelectedPrintIndex());
+		LODOP.SET_PRINT_PAGESIZE(0,0,0,getSelectedPageSize());
+		AddPrintContent("10101010101010","郭德强");
+	  	LODOP.PREVIEW();			
+	};	
+	function Preview4() {		
+		LODOP=getLodop();  
+		LODOP.PRINT_INITA(0,0,522,333,"打印控件功能演示_Lodop功能_自定义纸张4");
+		LODOP.SET_PRINTER_INDEX(getSelectedPrintIndex());		
+		LODOP.SET_PRINT_PAGESIZE(1,document.getElementById('W4').value,document.getElementById('H4').value,"CreateCustomPage");
+		//LODOP.SET_PRINT_MODE("CREATE_CUSTOM_PAGE_NAME","我的纸张名");//对新建的纸张重命名
+		AddPrintContent("10101010101010","郭德强");
+	  	LODOP.PREVIEW();			
+	};	
+	function Print5() {		
+		LODOP=getLodop();  
+		LODOP.PRINT_INIT("");	
+		LODOP.SET_PRINT_PAGESIZE(1,document.getElementById('W1').value,document.getElementById('H1').value,"A3");
+		AddPrintContent("10101010101010","郭德强");
+	  	LODOP.PRINT();		
+	};		
+	function Preview6() {		
+		LODOP=getLodop();  
+		LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_控制基本位置6");
+		LODOP.SET_PRINT_MODE("POS_BASEON_PAPER",true);
+		AddPrintContent("10101010101010","郭德强");
+	  	LODOP.PREVIEW();			
+	};
+	function SetPrint7() {		
+		LODOP=getLodop();  
+		LODOP.PRINT_INIT("");
+		if (LODOP.CVERSION) CLODOP.On_Return=function(TaskID,Value){alert(Value);};
+		var strResult=LODOP.SET_PRINT_MODE("WINDOW_DEFPRINTER",getSelectedPrintIndex());
+		if (!LODOP.CVERSION) alert(strResult);
+	};
+	function SetPrint8() {		
+		LODOP=getLodop();  
+		LODOP.PRINT_INIT("");
+		if (LODOP.CVERSION) CLODOP.On_Return=function(TaskID,Value){alert(Value);};
+		var strResult=LODOP.SET_PRINT_MODE("WINDOW_DEFPAGESIZE:"+getSelectedPrintIndex(),getSelectedPageSize());
+		//var strResult=LODOP.SET_PRINT_MODE("WINDOW_DEFPAGESIZE:"+getSelectedPrintIndex(),"LodopCustomPage");
+		if (!LODOP.CVERSION) alert(strResult);
+	};		*/		
+	function AddPrintContent(strCode) {		
+		//LODOP.SET_PRINT_STYLE("FontColor",16711680);
+		//LODOP.ADD_PRINT_RECT("1cm","1cm","1cm","1cm",0,1);
+		/*LODOP.ADD_PRINT_TEXT(15,137,157,25,"交通银行（      ）");
+		LODOP.SET_PRINT_STYLEA(2,"FontName","隶书");
+		LODOP.SET_PRINT_STYLEA(2,"FontSize",11);
+		LODOP.SET_PRINT_STYLEA(2,"FontColor",0);
+		LODOP.ADD_PRINT_TEXT(41,213,100,20,"2008年11月9日");
+		LODOP.ADD_PRINT_TEXT(17,281,100,20,"个人业务受理书");
+		LODOP.SET_PRINT_STYLEA(4,"FontColor",0);
+		LODOP.ADD_PRINT_TEXT(75,37,431,20,"机构:109110 交易代码:010110");
+		LODOP.ADD_PRINT_TEXT(102,37,431,20,"个人网银用户签约成功！");
+		LODOP.ADD_PRINT_TEXT(129,37,431,20,"网点名称：东城分行营业部");
+		LODOP.ADD_PRINT_TEXT(156,37,431,20,"主卡卡号："+strCode);
+		LODOP.ADD_PRINT_TEXT(183,37,431,20,"客户姓名："+strName);
+		LODOP.ADD_PRINT_TEXT(212,37,431,20,"登陆方式：用户名登陆");
+		LODOP.ADD_PRINT_TEXT(17,218,60,20,"东城分行");
+		LODOP.ADD_PRINT_TEXT(249,169,221,20,"以上内容已核实确认无误，客户签名：");
+		LODOP.ADD_PRINT_TEXT(106,484,23,127,"第二联客户留联");
+		LODOP.SET_PRINT_STYLEA(13,"FontColor",0);
+		LODOP.ADD_PRINT_TEXT(284,21,74,20,"授权员");
+		LODOP.SET_PRINT_STYLEA(14,"FontColor",0);
+		LODOP.ADD_PRINT_TEXT(284,200,74,20,"复核员");
+		LODOP.SET_PRINT_STYLEA(15,"FontColor",0);
+		LODOP.ADD_PRINT_TEXT(284,346,74,20,"经办员");
+		LODOP.SET_PRINT_STYLEA(16,"FontColor",0);*/
+		
+		
+		
+		//LODOP.ADD_PRINT_BARCODE(156,37,431,20,"93Extended","123456789012");
+		LODOP.ADD_PRINT_BARCODE("0.2cm","0.2cm","2.8cm","2.8cm","QRCode",strCode);
+		//LODOP.SET_PRINT_STYLEA(0,"Angle",-90);
+		
+		
+	};
+	function getSelectedPrintIndex(){
+		if (document.getElementById("Radio2").checked) 
+		return document.getElementById("PrinterList").value;
+		else return -1; 		
+	};
+	function getSelectedPageSize(){
+		if (document.getElementById("Radio4").checked) 
+		return document.getElementById("PagSizeList").value;
+		else return ""; 		
+	};	
+	function CreatePrinterList(){
+	    if (document.getElementById('PrinterList').innerHTML!="") return;
+		LODOP=getLodop(); 
+		var iPrinterCount=LODOP.GET_PRINTER_COUNT();
+		for(var i=0;i<iPrinterCount;i++){
+
+   			var option=document.createElement('option');
+   			option.innerHTML=LODOP.GET_PRINTER_NAME(i);
+   			option.value=i;
+			document.getElementById('PrinterList').appendChild(option);
+		};	
+	};
+	function clearPageListChild(){
+	   var PagSizeList =document.getElementById('PagSizeList'); 
+	   while(PagSizeList.childNodes.length>0){
+  		   var children = PagSizeList.childNodes;	
+	  		 for(i=0;i<children.length;i++){		
+			PagSizeList.removeChild(children[i]);	
+	  	  };	   
+	   };	   
+	}
+	function CreatePagSizeList(){
+	   LODOP=getLodop(); 
+	   clearPageListChild();
+	   var strPageSizeList=LODOP.GET_PAGESIZES_LIST(getSelectedPrintIndex(),"\n");
+	   var Options=new Array(); 
+ 	   Options=strPageSizeList.split("\n");       
+	   for (i in Options)    
+	   {    
+	     var option=document.createElement('option');   
+		 option.innerHTML=Options[i];
+		 option.value=Options[i];
+   		 document.getElementById('PagSizeList').appendChild(option);
+	   }  
+	}	
+		
+</script> 
+</body>
 </body>
 </html>
