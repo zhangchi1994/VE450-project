@@ -1,75 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    	<script type="text/javascript"  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>  
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>View Storage</title>
+   <meta charset="UTF-8">
+   <title>Warehouse Manager Inventory List</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script type="text/javascript"  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
-    <!-- Bootstrap -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+   <style type="text/css">
+       button { margin: 10px; }
+   </style>
+   <style>
+       #logo {
+           background-image: url(images/logoleft.png), url(images/logoright.png);
+           background-position: left top, right top;
+           background-size:25% 15%, 14% 10%;
+           background-repeat: no-repeat, no-repeat;
+           background-attachment:fixed;
+           padding: 50px;
+       }
+   </style>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <script type="text/javascript">
-//console.log("start");
-function search() {
-	var name = document.getElementById("name").value;
-	//var selection = "readList";
-	//console.log(name);
-	$.getJSON('ReadInfoServlet', {
-		name : name
-	}, function(responseText) {
-		console.log(responseText);
-		var items = [];
-	    $.each(responseText, function(idx, obj) {
-	    	//console.log(idx);
-	        items.push("<tr>");
-	        items.push("<td id= "+idx+" >"+obj.equipment_id+"</td>");
-	        items.push("<td id= "+idx+" >"+obj.manufacturer+"</td>");
-	        items.push("<td id= "+idx+" >"+obj.date_of_birth+"</td>");
-	        items.push("<td id= "+idx+" >"+obj.last_maintenance_date+"</td>");
-	        items.push("<td id= "+idx+" >"+obj.size+"</td>");
-	        items.push("</tr>");
-	    });
-	    $("<tbody/>",{html: items.join("")}).appendTo("table");
-	});	
-	return false;
-}
+   //console.log("start");
+   function search() {
+       var name = document.getElementById("name").value;
+       //var selection = "readList";
+       //console.log(name);
+       $.getJSON('ReadInfoServlet', {
+           name : name
+       }, function(responseText) {
+           console.log(responseText);
+           var items = [];
+           $.each(responseText, function(idx, obj) {
+               console.log(idx);
+               items.push("<tr>");
+               items.push("<td id= "+idx+" >"+obj.equipment_id+"</td>");
+               items.push("<td id= "+idx+" >"+obj.manufacturer+"</td>");
+               items.push("<td id= "+idx+" >"+obj.date_of_birth+"</td>");
+               items.push("<td id= "+idx+" >"+obj.last_maintenance_date+"</td>");
+               items.push("<td id= "+idx+" >"+obj.size+"</td>");
+               items.push("</tr>");
+           });
+           $("<tbody/>",{html: items.join("")}).appendTo("table");
+       });
+       return false;
+   }
 </script>
 
+
+
 <body>
-<p><br/><br/></p >
-<form role="form">
-    <div class="form-group">
-        <label for="name"> Name </label>
-        <input type="text" class="form-control" id="name"
-               placeholder="please input the name">
-    </div>
+<div id="logo">
 
-    <button type="button" class="btn btn-default" onClick="search()">Search</button>
-</form>
+   <div class="page-header text-center" style="padding: 10px 100px 10px;">
 
-<div class="container">
-    <table class="table table-bordered table-striped table-hover">
-        <thread>
-            <tr>
-                <th>ID</th>
-                <th>Manufacturer</th>
-                <th>Production Time</th>
-                <th>Last Maintenance Date</th>
-                <th>Size</th>
-            </tr>
-        </thread>
-    </table>
+       <h2> Inventory List</h2>
+       <form role="form">
+   </div>
+
+   <form role="form">
+       <div class="form-group">
+           <label for="name"> Name </label>
+           <input type="text" class="form-control" id="name"
+                  placeholder="Please input the name of the product">
+       </div>
+
+       <div class="text-center" style="padding: 20px 100px 10px;">
+               <button type="button"  class="btn btn-primary" onClick="search()">Search for all the similar products</button>
+       </div>
+
+
+   </form>
+   <br>
+   <br>
+   <div class="container">
+       <table class="table table-bordered table-striped table-hover">
+           <thread>
+               <tr>
+                   <th>ID</th>
+                   <th>Manufacturer</th>
+                   <th>Production Time</th>
+                   <th>Last Maintenance Date</th>
+                   <th>Size</th>
+               </tr>
+           </thread>
+       </table>
+   </div>
+
+   <div class="text-center" style="padding: 50px 100px 10px;">
+
+       <a href="http://localhost:8080/VE450/index_warehouse_engineer.html">
+           <button type="button" name = "button" class="btn btn-primary" id = "return">Return</button>
+       </a >
+
+   </div>
+
 </div>
 </body>
 </html>

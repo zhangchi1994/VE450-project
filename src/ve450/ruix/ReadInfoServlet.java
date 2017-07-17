@@ -36,10 +36,10 @@ public class ReadInfoServlet extends HttpServlet {
 			}
 		} else if (request.getParameter("name") != null) {
 			name = request.getParameter("name").toString();
-			System.out.println(name);
+			//System.out.println(name);
 			tmp = sql_login.ViewStock(name);
 		}
-		System.out.println(tmp);
+		//System.out.println(tmp);
         response.setContentType("text/plain;charset=utf-8");
         request.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
