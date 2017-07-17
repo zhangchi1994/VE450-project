@@ -34,7 +34,8 @@ function CatchCode() {
     		if(picFunction == "upload") {
         		jQuery(function(){
         			jQuery('#output').qrcode(filename);
-        		});  
+        		});
+        		document.getElementById("getval").value = filename;
     		} else {
     			sessionStorage.setItem("imgName", responseText);
     			window.location.href = "http://localhost:8080/VE450/reportEO.html?hid=" + filename;
