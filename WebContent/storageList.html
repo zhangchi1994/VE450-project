@@ -1,104 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <title>Warehouse Manager Inventory List</title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <script type="text/javascript"  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<meta charset="UTF-8">
+<title>Warehouse Manager Inventory List</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-   <style type="text/css">
-       button { margin: 10px; }
-   </style>
-   <style>
-       #logo {
-           background-image: url(images/logoleft.png), url(images/logoright.png);
-           background-position: left top, right top;
-           background-size:25% 15%, 14% 10%;
-           background-repeat: no-repeat, no-repeat;
-           background-attachment:fixed;
-           padding: 50px;
-       }
-   </style>
+<style type="text/css">
+button {
+	margin: 10px;
+}
+</style>
+<style>
+#logo {
+	background-image: url(images/logoleft.png), url(images/logoright.png);
+	background-position: left top, right top;
+	background-size: 25% 15%, 14% 10%;
+	background-repeat: no-repeat, no-repeat;
+	background-attachment: fixed;
+	padding: 50px;
+}
+</style>
 
 </head>
 
 <script type="text/javascript">
-   //console.log("start");
-   function search() {
-       var name = document.getElementById("name").value;
-       //var selection = "readList";
-       //console.log(name);
-       $.getJSON('ReadInfoServlet', {
-           name : name
-       }, function(responseText) {
-           console.log(responseText);
-           var items = [];
-           $.each(responseText, function(idx, obj) {
-               console.log(idx);
-               items.push("<tr>");
-               items.push("<td id= "+idx+" >"+obj.equipment_id+"</td>");
-               items.push("<td id= "+idx+" >"+obj.manufacturer+"</td>");
-               items.push("<td id= "+idx+" >"+obj.date_of_birth+"</td>");
-               items.push("<td id= "+idx+" >"+obj.last_maintenance_date+"</td>");
-               items.push("<td id= "+idx+" >"+obj.size+"</td>");
-               items.push("</tr>");
-           });
-           $("<tbody/>",{html: items.join("")}).appendTo("table");
-       });
-       return false;
-   }
+	if (sessionStorage.getItem("searchName") != null) {
+		var name = sessionStorage.getItem("searchName");
+		$.getJSON('ReadInfoServlet', {
+			name : name
+		}, function(responseText) {
+			var items = [];
+			$.each(responseText, function(idx, obj) {
+				items.push("<tr>");
+				items.push("<td id= "+idx+" >" + obj.equipment_id + "</td>");
+				items.push("<td id= "+idx+" >" + obj.manufacturer + "</td>");
+				items.push("<td id= "+idx+" >" + obj.date_of_birth + "</td>");
+				items.push("<td id= "+idx+" >" + obj.last_maintenance_date
+						+ "</td>");
+				items.push("<td id= "+idx+" >" + obj.size + "</td>");
+				items.push("</tr>");
+			});
+			$("<tbody/>", {
+				html : items.join("")
+			}).appendTo("table");
+		});
+	}
+
+	function search() {
+		var name = document.getElementById("name").value;
+		sessionStorage.setItem("searchName", name);
+		location.assign(location)
+	}
 </script>
 
 
 
 <body>
-<div id="logo">
+	<div id="logo">
 
-   <div class="page-header text-center" style="padding: 10px 100px 10px;">
+		<div class="page-header text-center" style="padding: 10px 100px 10px;">
 
-       <h2> Inventory List</h2>
-       <form role="form">
-   </div>
+			<h2>Inventory List</h2>
+			<form role="form">
+		</div>
 
-   <form role="form">
-       <div class="form-group">
-           <label for="name"> Name </label>
-           <input type="text" class="form-control" id="name"
-                  placeholder="Please input the name of the product">
-       </div>
+		<form role="form">
+			<div class="form-group">
+				<label for="name"> Name </label> <input type="text"
+					class="form-control" id="name"
+					placeholder="Please input the name of the product">
+			</div>
 
-       <div class="text-center" style="padding: 20px 100px 10px;">
-               <button type="button"  class="btn btn-primary" onClick="search()">Search for all the similar products</button>
-       </div>
+			<div class="text-center" style="padding: 20px 100px 10px;">
+				<button type="button" class="btn btn-primary" onClick="search()">Search
+					for all the similar products</button>
+			</div>
 
 
-   </form>
-   <br>
-   <br>
-   <div class="container">
-       <table class="table table-bordered table-striped table-hover">
-           <thread>
-               <tr>
-                   <th>ID</th>
-                   <th>Manufacturer</th>
-                   <th>Production Time</th>
-                   <th>Last Maintenance Date</th>
-                   <th>Size</th>
-               </tr>
-           </thread>
-       </table>
-   </div>
+		</form>
+		<br> <br>
+		<div class="container">
+			<table class="table table-bordered table-striped table-hover"
+				id="article_table">
+				<thread>
+				<tr>
+					<th>ID</th>
+					<th>Manufacturer</th>
+					<th>Production Time</th>
+					<th>Last Maintenance Date</th>
+					<th>Size</th>
+				</tr>
+				</thread>
+			</table>
+		</div>
 
-   <div class="text-center" style="padding: 50px 100px 10px;">
+		<div class="text-center" style="padding: 50px 100px 10px;">
 
-       <a href="http://localhost:8080/VE450/index_warehouse_engineer.html">
-           <button type="button" name = "button" class="btn btn-primary" id = "return">Return</button>
-       </a >
+			<a href="./index_warehouse_engineer.html">
+				<button type="input" name="button" class="btn btn-primary"
+					id="return">Return</button>
+			</a>
 
-   </div>
+		</div>
 
-</div>
+	</div>
 </body>
 </html>

@@ -12,6 +12,7 @@ function CatchCode() {
 	var url = location.search; 
 	var picFunction = null;
 	var filename = null;
+	var user = null;
 	if (url.indexOf("?") != -1) {
 		var str = url.substr(1); 
 		strs = str.split("=");  
@@ -22,13 +23,9 @@ function CatchCode() {
 		picFunction = "upload";
 		filename = sessionStorage.getItem("name");
 	}
-	console.log("picfunction: " + picFunction);
-	console.log("file: " + filename);
     var imgData = canvans.toDataURL("image/jpg");
-    // 将图像转换为base64数据
     var base64Data = imgData.split(",")[1];
     // alert(sessionStorage.getItem("name"));
-    console.log("goServlet OK");
     $.post('SaveIMGServlet', { 
     	data : base64Data, 
     	name : filename, 
@@ -41,7 +38,7 @@ function CatchCode() {
         		document.getElementById("getval").value = filename;
     		} else {
     			sessionStorage.setItem("imgName", responseText);
-    			window.location.href = "http://localhost:8080/VE450/reportEO.html"
+    			window.location.href = "./reportEO.html?hid=" + filename;
     		}
     	});
     		/*

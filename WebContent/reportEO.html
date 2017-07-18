@@ -25,14 +25,13 @@
 
 <body>
 <div id="logo">
-
-	<img src="" id="image">
-
     <div class="page-header text-center" style="padding: 10px 100px 10px;">
 
         <h2> Report for Repairs </h2>
         <form role="form">
     </div>
+
+<img src="" id="image">
 
     <form role="form">
         <div class="form-group">
@@ -44,7 +43,6 @@
 
 
     <div class="text-center" style="padding: 50px 100px 10px;">
-            <button type="button" name = "button" class="btn btn-primary" id="addphoto" onClick = "toWebcam()">Add Photo</button>
             <button type="button" name = "button" class="btn btn-primary" id="submit" onClick = "reportSubmit()">Submit</button>
         <a href="http://localhost:8080/VE450/index_equipment_operator.html">
             <button type="button" name = "button" class="btn btn-primary" id = "return">Return</button>
@@ -54,21 +52,20 @@
 </body>
 
 <script>
-var ID = sessionStorage.getItem("qr_id_data");
-var img = null;
-function toWebcam() {
-	window.location.href = "http://localhost:8080/VE450/webcam.html?hid=fromreport=" + ID;
-}
-img = sessionStorage.getItem("imgName");
+var url = location.search; 
+var img = sessionStorage.getItem("imgName");
 alert(img);
-if(img != null)
-	document.getElementById("pic_id").src = "http://localhost:8080/VE450/pic/" + img;
+var ID = null;
+document.getElementById("image").src = "./pic/" + img;
+if (url.indexOf("?") != -1) {
+	var str = url.substr(1); 
+	strs = str.split("=");  	
+	ID = strs[1];
+}
 function reportSubmit() {
 	var problem = document.getElementById("problem").value;
-	var user = sessionStorage.getItem("username");
-	if(img == null)
-		alert("Take photo first, plz");
-	//alert(img);
+	var user = sessionStorage.getItem("whoLogin");
+	alert(user);
     $.get('GotoServlet', { 
     	id : ID, 
     	report : problem, 

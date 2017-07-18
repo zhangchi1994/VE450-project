@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <title>Machine Operator index</title>
+   <title>Equipment Operator index</title>
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -30,7 +30,7 @@
 
    <div class="page-header text-center" style="padding: 10px 100px 10px;">
 
-       <h2> Machine Operator   <small>Function Choice</small></h2>
+       <h2> Equipment Operator   <small>Function Choice</small></h2>
        <form role="form">
    </div>
 
@@ -38,9 +38,7 @@
       
        <button type="button" class="btn btn-default btn-lg btn-block" id="start">Start to use</button>
        <button type="button" class="btn btn-default btn-lg btn-block" id="finish">Finish Using</button>
-       <a href="http://localhost:8080/VE450/reportEO.html">
-           <button type="button" class="btn btn-default btn-lg btn-block" id="report">Report for Repairs</button>
-       </a>
+       <button type="button" class="btn btn-default btn-lg btn-block" id="report">Report for Repairs</button>
        <a href="http://localhost:8080/VE450/view.html">
            <button type="button" class="btn btn-default btn-lg btn-block" id="view">View Status</button>
        </a>
@@ -62,6 +60,9 @@
                    //console.log(password);
                    alert(responseText);
                });
+           }
+           if(tar.id == "report") {
+        	   window.location.href = "./webcam.html?hid=fromreport=" + operateID;
            }
        }
    }

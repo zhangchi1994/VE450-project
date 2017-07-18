@@ -11,14 +11,14 @@ function clickbutton_login() {
 		sessionStorage.setItem("whoLogin", username);
 		$('#welcometext').text(responseText);
 		if(responseText == "wm")
-			window.location.href = "http://localhost:8080/VE450/index_warehouse_engineer.html";
+			window.location.href = "./index_warehouse_engineer.html";
 		if(responseText == "me"){
 			sessionStorage.setItem("whoScan", "me");
-			window.location.href = "http://localhost:8080/VE450/index_maintenance_engineer.html";
+			window.location.href = "./index_maintenance_engineer.html";
 		}
 		if(responseText == "eo") {
 			sessionStorage.setItem("whoScan", "eo");
-			window.location.href = "http://localhost:8080/VE450/qr_scan.html";
+			window.location.href = "./qr_scan.html";
 		}
 	});
 };
@@ -41,6 +41,6 @@ function clickbutton_signup() {
 	}, function(responseText) {
 		//console.log(password);
 		$('#welcometext').text(responseText);
-		window.location.href = "http://localhost:8080/VE450/login.html";
+		window.location.href = "./login.html";
 	});
 };

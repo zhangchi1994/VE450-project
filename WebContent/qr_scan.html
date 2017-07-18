@@ -20,8 +20,6 @@
 	$('#qr').focus();
 	function go() {
 		//alert("button press");
-		var user = sessionStorage.getItem("whoLogin");
-		sessionStorage.setItem("username", user);
 		var data = document.getElementById("qr").value;
 		console.log(data);
 		sessionStorage.setItem("qr_id_data", data);
@@ -29,27 +27,27 @@
 		if (sessionStorage.getItem("whoScan") != null) {
 			var identity = sessionStorage.getItem("whoScan");
 			if(identity == "me") 
-				window.location.href = "http://localhost:8080/VE450/index_maintenance_engineer.html";
+				window.location.href = "./index_maintenance_engineer.html";
 			if(identity == "eo")
-				window.location.href = "http://localhost:8080/VE450/index_equipment_operator.html";
+				window.location.href = "./index_equipment_operator.html";
 				
 		}
 		if (sessionStorage.getItem("warehouseSelection") != null) {
 			var warehouse_selection = sessionStorage.getItem("warehouseSelection");
 			//alert(warehouse_selection);
 			sessionStorage.setItem("wmselection", warehouse_selection);
-			window.location.href = "http://localhost:8080/VE450/storeOld_takeOut.html";
+			window.location.href = "./storeOld_takeOut.html";
 		}
 		if (sessionStorage.getItem("maintenanceSelection") != null) {
 			var equip_selection = sessionStorage
 					.getItem("maintenanceSelection");
 			//alert(equip_selection);
 			if (equip_selection == "replace")
-				window.location.href = "http://localhost:8080/VE450/replacement.html";
+				window.location.href = "./replacement.html";
 			if (equip_selection == "view")
-				window.location.href = "http://localhost:8080/VE450/view.html";
+				window.location.href = "./viewME.html";
 			if (equip_selection == "report")
-				window.location.href = "http://localhost:8080/VE450/reportME.html";
+				window.location.href = "./reportME.html";
 		}
 	}
 	//});
