@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ve450.ruix.sql_id_connection.loginReturn;
+
 /**
  * Servlet implementation class ActionServlet
  */
@@ -25,8 +27,9 @@ public class ActionServlet extends HttpServlet {
 		username = request.getParameter("id").toString();
 		password = request.getParameter("pd").toString();
 		sql_id_connection sql_login = new sql_id_connection();
-		if (sql_login.logIN(username, password).find_or_not)
-			answer = sql_login.logIN(username, password).permission;
+		loginReturn tmp = sql_login.logIN(username, password);
+		if (tmp.find_or_not)
+			answer = tmp.permission;
 		else answer = "Username/Password error";
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
