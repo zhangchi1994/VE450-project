@@ -309,13 +309,13 @@ public class sql_connection {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
-			System.out.println("conn OK");
 			Statement st = con.createStatement();
-			String sqlSelectStatus = "select * from Status where equipment_id in (select equipment_id from Equipment where dad_id = "
-					+ equipment_id + ") group by equipment_id order by recorded_time";
+			String sqlSelectStatus = "select * from Status where equipment_id in (select equipment_id from Equipment where dad_id = '"
+					+ equipment_id + "' or equipment_id = '" + equipment_id
+					+ "') group by equipment_id order by recorded_time";
 			ResultSet rs = st.executeQuery(sqlSelectStatus);
-			System.out.println("sql OK");
 			json += "{ \"Status\":[";
+			Boolean isEmpty = true;
 			while (rs.next()) {
 				// add status
 				String rubbish = "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"recorded_time\": \""
@@ -325,23 +325,33 @@ public class sql_connection {
 			}
 			for (int i = 0; i < 10 && i < stock.size(); i++) {
 				json += stock.get(stock.size() - i - 1);
+
+				isEmpty = false;
+			}
+			if (!isEmpty) {
+				json = json.substring(0, json.length() - 1);
 			}
 			json += "\n],\n\"MaintenanceRecord\":[";
 			rs.close();
-			String sqlSelectMaintenanceRecord = "select * from MaintenanceRecord where equipment_id in (select equipment_id from Equipment where dad_id = " + equipment_id
-					+ ") group by equipment_id order by recorded_time";
+			System.out.println("mark1");
+			String sqlSelectMaintenanceRecord = "select * from MaintenanceRecord where equipment_id in (select equipment_id from Equipment where dad_id = '"
+					+ equipment_id + "' or equipment_id = '" + equipment_id
+					+ "') group by equipment_id order by recorded_date";
 			ResultSet rss = st.executeQuery(sqlSelectMaintenanceRecord);
+			isEmpty = true;
+			System.out.println("mark2");
 			while (rss.next()) {
 				// add status
-				String rubbish = "ID: " + rs.getString("equipment_id") + " Recorded date: "
-						+ rs.getString("recorded_date") + " Personnel: " + rs.getString("personnel_id")
-						+ " Explaination: " + rs.getString("explaination");
-				stock.add(rubbish);
-				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"recorded_date\": \""
-						+ rs.getString("recorded_date") + "\", \"personnel_id\": \"" + rs.getString("personnel_id")
-						+ "\", \"explaination\": \"" + rs.getString("explaination").substring(0, 30) + "\" },";
+				json += "\n{ \"equipment_id\": \"" + rss.getString("equipment_id") + "\", \"recorded_date\": \""
+						+ rss.getString("recorded_date") + "\", \"personnel_id\": \"" + rss.getString("personnel_id")
+						+ "\", \"explaination\": \"" + rss.getString("explaination") + "\" },";
+				isEmpty = false;
 			}
-			json = json.substring(0, json.length() - 1);
+			System.out.println("mark3");
+			if (!isEmpty) {
+				json = json.substring(0, json.length() - 1);
+			}
+
 			json += "\n] }";
 			rss.close();
 			st.close();

@@ -31,7 +31,7 @@ public class ReadInfoServlet extends HttpServlet {
 		if (request.getParameter("sele") != null) {
 			if (request.getParameter("sele").equals("viewME")) {
 				id = request.getParameter("name");
-				//System.out.println(id);
+				System.out.println(id);
 				tmp = sql_login.ViewStatus(id);
 			}
 		} else if (request.getParameter("sel") != null) {
