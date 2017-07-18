@@ -41,6 +41,6 @@ function clickbutton_signup() {
 	}, function(responseText) {
 		//console.log(password);
 		$('#welcometext').text(responseText);
-		window.location.href = "http://localhost:8080/VE450/login.html";
+		window.location.href = "./login.html";
 	});
 };

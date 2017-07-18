@@ -56,7 +56,7 @@ var url = location.search;
 var img = sessionStorage.getItem("imgName");
 alert(img);
 var ID = null;
-document.getElementById("image").src = "http://localhost:8080/VE450/pic/" + img;
+document.getElementById("image").src = "./pic/" + img;
 if (url.indexOf("?") != -1) {
 	var str = url.substr(1); 
 	strs = str.split("=");  	

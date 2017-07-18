@@ -11,7 +11,7 @@ function update() {
 	}, function(responseText) { 
 		sessionStorage.setItem("name", responseText); 
 		//alert(responseText);
-		window.location.href = "http://localhost:8080/VE450/webcam.html";
+		window.location.href = "./webcam.html";
 		/*jQuery(function(){
 			jQuery('#output').qrcode(responseText);
 		})*/

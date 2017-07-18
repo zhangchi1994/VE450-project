@@ -38,7 +38,7 @@ function CatchCode() {
         		document.getElementById("getval").value = filename;
     		} else {
     			sessionStorage.setItem("imgName", responseText);
-    			window.location.href = "http://localhost:8080/VE450/reportEO.html?hid=" + filename;
+    			window.location.href = "./reportEO.html?hid=" + filename;
     		}
     	});
     		/*

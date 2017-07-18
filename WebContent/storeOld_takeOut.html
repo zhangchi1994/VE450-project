@@ -89,7 +89,7 @@
                items.push("<th id= "+idx+" >"+obj.size+"</th>");
                items.push("<\tr>");
                $('#name').text(obj.name);
-               document.getElementById("pic_id").src = "http://localhost:8080/VE450/pic/" + obj.equipment_id + ".jpg";
+               document.getElementById("pic_id").src = "./pic/" + obj.equipment_id + ".jpg";
            });
            $("<tbody/>",{html: items.join("")}).appendTo("table");
        });
@@ -100,7 +100,7 @@
     			id : qr_code
     		}, function(responseText) {
     			alert("OK");
-    			window.location.href = "http://localhost:8080/VE450/index_warehouse_engineer.html";
+    			window.location.href = "./index_warehouse_engineer.html";
     		});
        }
 </script>
