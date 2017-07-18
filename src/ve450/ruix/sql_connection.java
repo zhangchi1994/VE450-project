@@ -42,7 +42,7 @@ public class sql_connection {
 				Date endTime = new Date(rs.getTimestamp("end_time").getTime());
 				String strEndTime = formattime.format(startTime);
 				String sqlTime = "select TIMESTAMPDIFF(HOUR,'" + strStartTime + "','" + strEndTime + "')";
-				
+
 			}
 
 			rs.close();
@@ -302,7 +302,7 @@ public class sql_connection {
 	}
 
 	// Used by machine operator
-	public String ViewStatus(String equipment_id, String start_time, String end_time) {
+	public String ViewStatus(String equipment_id) {
 		ArrayList<String> stock = new ArrayList<String>();
 		String json = "";
 		try {
@@ -311,27 +311,24 @@ public class sql_connection {
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			System.out.println("conn OK");
 			Statement st = con.createStatement();
-			String sqlSelectStatus = "select * from Status where recorded_time BETWEEN '" + start_time + "' and '"
-					+ end_time + "' and equipment_id in (select equipment_id from Equipment where dad_id = "
+			String sqlSelectStatus = "select * from Status where equipment_id in (select equipment_id from Equipment where dad_id = "
 					+ equipment_id + ") group by equipment_id order by recorded_time";
 			ResultSet rs = st.executeQuery(sqlSelectStatus);
 			System.out.println("sql OK");
 			json += "{ \"Status\":[";
 			while (rs.next()) {
 				// add status
-				String rubbish = "ID: " + rs.getString("equipment_id") + " Recorded time: "
-						+ rs.getString("recorded_time") + " Temperature: " + rs.getString("temperature") + " Speed: "
-						+ rs.getString("speed");
-				stock.add(rubbish);
-				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"recorded_time\": \""
+				String rubbish = "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"recorded_time\": \""
 						+ rs.getString("recorded_time") + "\", \"temperature\": \"" + rs.getString("temperature")
 						+ "\", \"speed\": \"" + rs.getString("speed") + "\" },";
+				stock.add(rubbish);
+			}
+			for (int i = 0; i < 10 && i < stock.size(); i++) {
+				json += stock.get(stock.size() - i - 1);
 			}
 			json += "\n],\n\"MaintenanceRecord\":[";
 			rs.close();
-			String sqlSelectMaintenanceRecord = "select * from MaintenanceRecord where recorded_date BETWEEN '"
-					+ start_time + "' and '" + end_time
-					+ "' and equipment_id in (select equipment_id from Equipment where dad_id = " + equipment_id
+			String sqlSelectMaintenanceRecord = "select * from MaintenanceRecord where equipment_id in (select equipment_id from Equipment where dad_id = " + equipment_id
 					+ ") group by equipment_id order by recorded_time";
 			ResultSet rss = st.executeQuery(sqlSelectMaintenanceRecord);
 			while (rss.next()) {
