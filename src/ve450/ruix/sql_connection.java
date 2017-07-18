@@ -25,7 +25,36 @@ public class sql_connection {
 		super();
 	}
 
-	//Used by Maintenance Engineer, see a page of detailed problem
+	public String CalculateAge(String equipment_id) {
+		String age = "";
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+
+			String sql = "select * from UsageInformation where equipment_id = '" + equipment_id + "'";
+			ResultSet rs = st.executeQuery(sql);
+			SimpleDateFormat formattime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			while (rs.next()) {
+				Date startTime = new Date(rs.getTimestamp("start_time").getTime());
+				String strStartTime = formattime.format(startTime);
+				Date endTime = new Date(rs.getTimestamp("end_time").getTime());
+				String strEndTime = formattime.format(startTime);
+				String sqlTime = "select TIMESTAMPDIFF(HOUR,'" + strStartTime + "','" + strEndTime + "')";
+				
+			}
+
+			rs.close();
+			st.close();
+			con.close();
+		} catch (Exception ee) {
+			System.out.print("error in CalculateAge");
+		}
+		return age;
+	}
+
+	// Used by Maintenance Engineer, see a page of detailed problem
 	public String ViewDetailedProblem(String problem_id) {
 		String json = "";
 		try {
@@ -55,7 +84,7 @@ public class sql_connection {
 		return json;
 	}
 
-	//Used by Maintenance Engineer, see a list of all unresolved problems
+	// Used by Maintenance Engineer, see a list of all unresolved problems
 	public String ViewProblemList() {
 		String json = "";
 		try {
@@ -90,8 +119,9 @@ public class sql_connection {
 			Statement st = con.createStatement();
 
 			String sql;
-			sql = "INSERT INTO Problem (equipment_id, explaination, status, personnel, picture_name) VALUES ('" + equipment_id + "','"
-					+ explaination + "','waiting to be repaired', '" + personnel + "','" + picture_name + "')";
+			sql = "INSERT INTO Problem (equipment_id, explaination, status, personnel, picture_name) VALUES ('"
+					+ equipment_id + "','" + explaination + "','waiting to be repaired', '" + personnel + "','"
+					+ picture_name + "')";
 			st.executeUpdate(sql);
 			st.close();
 			con.close();

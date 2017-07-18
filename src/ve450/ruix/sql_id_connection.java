@@ -53,21 +53,24 @@ public class sql_id_connection {
 		String permission = "a";
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			System.out.println("yyyyyyyyyyyyyyy1");
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
-			
+			System.out.println("yyyyyyyyyyyyyyy2");
 			Statement st = con.createStatement();
+			System.out.println("yyyyyyyyyyyyyyy3");
 			//System.out.println("connection DONE");
 			String sql = "select * from Users where user_id = '" + username + "'";
 			//System.out.println("sql START");
 			ResultSet rs = st.executeQuery(sql);
+			System.out.println("yyyyyyyyyyyyyyy4");
 			//System.out.println("sql DONE");
 			if (!rs.next()) {
 				System.out.println("no body");
 				find_or_not = false;
 
 			} else {
-				//System.out.println("password judge");
+				System.out.println("yyyyyyyyyyyyyyy5");
 				if (rs.getString("password").equals(password)){
 					find_or_not = true;
 					//System.out.println("password right");
