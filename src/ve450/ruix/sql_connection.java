@@ -312,7 +312,7 @@ public class sql_connection {
 			Statement st = con.createStatement();
 			String sqlSelectStatus = "select * from Status where equipment_id in (select equipment_id from Equipment where dad_id = '"
 					+ equipment_id + "' or equipment_id = '" + equipment_id
-					+ "') group by equipment_id order by recorded_time";
+					+ "') order by equipment_id";
 			ResultSet rs = st.executeQuery(sqlSelectStatus);
 			json += "[{ \"Status\":[";
 			Boolean isEmpty = true;
@@ -336,7 +336,7 @@ public class sql_connection {
 			System.out.println("mark1");
 			String sqlSelectMaintenanceRecord = "select * from MaintenanceRecord where equipment_id in (select equipment_id from Equipment where dad_id = '"
 					+ equipment_id + "' or equipment_id = '" + equipment_id
-					+ "') group by equipment_id order by recorded_date";
+					+ "') order by equipment_id";
 			ResultSet rss = st.executeQuery(sqlSelectMaintenanceRecord);
 			isEmpty = true;
 			System.out.println("mark2");
