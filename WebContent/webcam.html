@@ -13,9 +13,9 @@
 		try {
 			//动态创建一个canvas元 ，并获取他2Dcontext。如果出现异常则表示不支持
 			document.createElement("canvas").getContext("2d");
-			document.getElementById("support").innerHTML = "浏览器支持HTML5 CANVAS";
+			document.getElementById("support").innerHTML = " ";
 		} catch (e) {
-			document.getElementById("support").innerHTML = "浏览器不支持HTML5 CANVAS";
+			document.getElementById("support").innerHTML = " ";
 		}
 	};
 
@@ -58,7 +58,7 @@
 	<div id="contentHolder">
 		<video id="video" width="160" height="120"
 			style="border: 1px solid red" autoplay></video>
-		<button id="snap">拍照</button>
+		<button id="snap">Take Photo</button>
 		<canvas style="border: 1px solid red" id="canvas"></canvas>
 	</div>
 	<div id="output"></div>
@@ -82,17 +82,17 @@
 <input type="text" id="getval"/> 
      
 	 
-<p><font size="3"><b>打印二维码</b></font></p>         
-<p>1：用宽<input type="text" size="5" value="400" id="W1">(40mm)高<input type="text" size="4" value="300" id="H1">(30mm)           
-的动态纸张<a href="javascript:Preview1()">点击生成二维码并打印</a></p>                                              
+<p><font size="3"><b>Print QR Code</b></font></p>         
+<p>1：Use width<input type="text" size="5" value="400" id="W1">(40mm)height<input type="text" size="4" value="300" id="H1">(30mm)           
+paper<a href="javascript:Preview1()">Click to print</a></p>                                              
    
                                          
-<p>2：选择如下打印机：<input type="radio" id="Radio1" name="RadioS1" checked >默认打印机                         
-  <input type="radio" id="Radio2" name="RadioS1" onclick="CreatePrinterList()">指定打印机:                  
+<p>2：Select from the following printer：<input type="radio" id="Radio1" name="RadioS1" checked >Default printer                         
+  <input type="radio" id="Radio2" name="RadioS1" onclick="CreatePrinterList()">Designated printer:                  
 <select id="PrinterList" size="1"></select> </p>      
                                         
                                          
-<p>&nbsp;&nbsp; 用上一步设置的动态纸张大小，打印方向是正(纵)向，见<a href="javascript:Preview2()">打印预览2</a>。</p>               
+<p>&nbsp;&nbsp; Use previous settings, See<a href="javascript:Preview2()">Preview 2</a>。</p>               
        
    
                                          
