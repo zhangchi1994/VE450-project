@@ -28,7 +28,13 @@ public class ReadInfoServlet extends HttpServlet {
 		
 		sql_connection sql_login = new sql_connection();
 		
-		if (request.getParameter("sel") != null) {
+		if (request.getParameter("sele") != null) {
+			if (request.getParameter("sele").equals("viewME")) {
+				id = request.getParameter("name");
+				//System.out.println(id);
+				tmp = sql_login.ViewStatus(id);
+			}
+		} else if (request.getParameter("sel") != null) {
 			if (request.getParameter("sel").equals("take_out") || request.getParameter("sel").equals("store_used")) {
 				//System.out.println("TAKE OUT or STORE OLD");
 				id = request.getParameter("id");
@@ -39,7 +45,7 @@ public class ReadInfoServlet extends HttpServlet {
 			//System.out.println(name);
 			tmp = sql_login.ViewStock(name);
 		}
-		//System.out.println(tmp);
+		System.out.println(tmp);
         response.setContentType("text/plain;charset=utf-8");
         request.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
