@@ -27,6 +27,7 @@ public class sql_connection {
 
 	public String CalculateAge(String equipment_id) {
 		String age = "";
+		int totalTime = 0;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
@@ -42,9 +43,16 @@ public class sql_connection {
 				Date endTime = new Date(rs.getTimestamp("end_time").getTime());
 				String strEndTime = formattime.format(startTime);
 				String sqlTime = "select TIMESTAMPDIFF(HOUR,'" + strStartTime + "','" + strEndTime + "')";
-
+				Statement stLoop = con.createStatement();
+				ResultSet rsLoop = stLoop.executeQuery(sqlTime);
+				while(rsLoop.next()){
+					int time = rsLoop.getInt(1);
+					totalTime+=time;
+				}
+				rsLoop.close();
+				stLoop.close();
 			}
-
+			age += totalTime;
 			rs.close();
 			st.close();
 			con.close();
@@ -312,8 +320,7 @@ public class sql_connection {
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
 			String sqlSelectStatus = "select * from Status where equipment_id in (select equipment_id from Equipment where dad_id = '"
-					+ equipment_id + "' or equipment_id = '" + equipment_id
-					+ "') order by equipment_id";
+					+ equipment_id + "' or equipment_id = '" + equipment_id + "') order by equipment_id";
 			ResultSet rs = st.executeQuery(sqlSelectStatus);
 			json += "[{ \"Status\":[";
 			Boolean isEmpty = true;
@@ -336,8 +343,7 @@ public class sql_connection {
 			rs.close();
 			System.out.println("mark1");
 			String sqlSelectMaintenanceRecord = "select * from MaintenanceRecord where equipment_id in (select equipment_id from Equipment where dad_id = '"
-					+ equipment_id + "' or equipment_id = '" + equipment_id
-					+ "') order by equipment_id";
+					+ equipment_id + "' or equipment_id = '" + equipment_id + "') order by equipment_id";
 			ResultSet rss = st.executeQuery(sqlSelectMaintenanceRecord);
 			isEmpty = true;
 			System.out.println("mark2");
