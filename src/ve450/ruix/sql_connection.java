@@ -99,6 +99,7 @@ public class sql_connection {
 			while (rs.next()) {
 				json += "\n{ \"problem_id\": \"" + rs.getString("problem_id") + "\", \"explaination\": \""
 						+ rs.getString("explaination").substring(0, 30) + "\" },";
+				System.out.println("next IN2"); 
 			}
 			json = json.substring(0, json.length() - 1);
 			json += "\n]";
@@ -412,7 +413,7 @@ public class sql_connection {
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
-			// System.out.println("conn OK");
+			//System.out.println("conn OK");
 
 			String sql = "select * from Equipment where name = '" + equipment_name + "' and status = '0'";
 			ResultSet rs = st.executeQuery(sql);
@@ -421,9 +422,9 @@ public class sql_connection {
 				String rubbish = "ID: " + rs.getString("equipment_id") + " Manufacturer: "
 						+ rs.getString("manufacturer") + " Date of Birth: " + rs.getString("date_of_birth")
 						+ " Last Maintenance Date: " + rs.getString("last_maintenance_date");
-				// System.out.println(rubbish);
+				//System.out.println(rubbish);
 				stock.add(rubbish);
-				// System.out.println("add OK");
+				//System.out.println("add OK");
 				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"manufacturer\": \""
 						+ rs.getString("manufacturer") + "\", \"date_of_birth\": \"" + rs.getString("date_of_birth")
 						+ "\", \"last_maintenance_date\": \"" + rs.getString("last_maintenance_date")

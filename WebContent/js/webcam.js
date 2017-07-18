@@ -36,6 +36,7 @@ function CatchCode() {
         			jQuery('#output').qrcode(filename);
         		});
         		document.getElementById("getval").value = filename;
+        		window.location.href = "./index_warehouse_engineer.html";
     		} else {
     			sessionStorage.setItem("imgName", responseText);
     			window.location.href = "./reportEO.html?hid=" + filename;

@@ -40,12 +40,13 @@ public class SaveIMGServlet extends HttpServlet {
 					b[i] += 256;
 				}
 			}
+			//apache-tomcat//8.5.16//webapps//VE450-project//pic
 			if (sel.equals("fromreport")) {
 				String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new java.util.Date());
 				imgFilePath = "C://Users//dell//workspace//VE450-project//WebContent//pic//fix_" + name + "_" + timeStamp + ".jpg";
 				imgName = "fix_" + name + "_" + timeStamp + ".jpg";
 			} else 
-				imgFilePath = "C://Users//dell//workspace//VE450-project//WebContent//pic//" + name + ".jpg";
+				imgFilePath = "./pic/" + name + ".jpg";
 			OutputStream out = new FileOutputStream(imgFilePath);
 			out.write(b);
 			out.flush();

@@ -24,25 +24,24 @@ public class ReadInfoServlet extends HttpServlet {
 		String id = null;
 		String name = null;
 		String tmp = null;
-		// String answer = "test";
 		
 		sql_connection sql_login = new sql_connection();
-		
 		if (request.getParameter("sele") != null) {
 			if (request.getParameter("sele").equals("viewME")) {
 				id = request.getParameter("name");
-				System.out.println(id);
 				tmp = sql_login.ViewStatus(id);
+			} else if (request.getParameter("sele").equals("allreport")) {
+				System.out.println("flagYES");
+				tmp = sql_login.ViewProblemList();
 			}
 		} else if (request.getParameter("sel") != null) {
 			if (request.getParameter("sel").equals("take_out") || request.getParameter("sel").equals("store_used")) {
-				//System.out.println("TAKE OUT or STORE OLD");
 				id = request.getParameter("id");
 				tmp = sql_login.Read(id);
 			}
 		} else if (request.getParameter("name") != null) {
+			System.out.println("flagNO");
 			name = request.getParameter("name").toString();
-			//System.out.println(name);
 			tmp = sql_login.ViewStock(name);
 		}
 		System.out.println(tmp);
@@ -50,19 +49,10 @@ public class ReadInfoServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         out.println(tmp);
-
-		/*id = request.getParameter("id").toString();
-		getResult = sql_login.Read(id);
-		// System.out.println(getResult[1]);
-
-		response.setContentType("text/plain");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(getResult);*/
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String selection = null;
 		String id = null;
 		String name = null;

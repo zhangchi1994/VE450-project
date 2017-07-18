@@ -55,7 +55,9 @@
            sessionStorage.setItem("maintenanceSelection", tar.id);
            if (tar.id == "replace")
                window.location.href = "./replacement.html";
-           else window.location.href = "./qr_scan.html";
+           else if (tar.id == "view_all_report")
+        	   window.location.href = "./viewAllReport.html";
+        	   else window.location.href = "./qr_scan.html";
        }
    }
 </script>
