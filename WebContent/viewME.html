@@ -27,43 +27,11 @@ button {
 </style>
 
 </head>
-
-<script type="text/javascript">
-var name = sessionStorage.getItem("qr_id_data");
-	$.getJSON('ReadInfoServlet', {
-		name : name,
-		sele : "viewME"
-	}, function(responseText) {
-		console.log(responseText);
-		var items = [];
-		$.each(responseText, function(idx, obj) {
-			console.log(idx);
-			items.push("<tr>");
-			items.push("<td id= "+idx+" >" + obj.equipment_id + "</td>");
-			items.push("<td id= "+idx+" >" + obj.recorded_time + "</td>");
-			items.push("<td id= "+idx+" >" + obj.temperature + "</td>");
-			items.push("<td id= "+idx+" >" + obj.speed + "</td>");
-			items.push("</tr>");
-			items.push("<tr>");
-			items.push("<td id= "+idx+" >" + obj.equipment_id + "</td>");
-			items.push("<td id= "+idx+" >" + obj.recorded_date + "</td>");
-			items.push("<td id= "+idx+" >" + obj.personnel_id + "</td>");
-			items.push("<td id= "+idx+" >" + obj.explaination + "</td>");
-			items.push("</tr>");
-		});
-		$("<tbody/>", {
-			html : items.join("")
-		}).appendTo("table");
-	});
-</script>
-
-
-
 <body>
 	<div id="logo">
 		<br> <br> <br>
 		<div align="center">
-			<img src="images/A.png" width="30%" height="30%">
+			<img src="" width="30%" height="30%" id="img">
 		</div>
 
 		<div class="page-header text-center" style="padding: 10px 100px 10px;">
@@ -74,7 +42,7 @@ var name = sessionStorage.getItem("qr_id_data");
 
 
 		<div class="container">
-			<table class="table table-bordered table-striped table-hover">
+			<table class="table table-bordered table-striped table-hover" id="running">
 				<caption>Running Information</caption>
 				<thread>
 				<tr>
@@ -90,7 +58,7 @@ var name = sessionStorage.getItem("qr_id_data");
 		<br>
 
 		<div class="container">
-			<table class="table table-bordered table-striped table-hover">
+			<table class="table table-bordered table-striped table-hover" id="history">
 				<caption>Maintanence History</caption>
 				<thread>
 				<tr>
@@ -105,14 +73,43 @@ var name = sessionStorage.getItem("qr_id_data");
 
 		<div class="text-center" style="padding: 50px 100px 10px;">
 
-			<a href=" ">
+			<a href="./index_maintenance_engineer.html">
 				<button type="button" name="button" class="btn btn-primary"
 					id="return">Return</button>
 			</a>
-
 		</div>
-
-
 	</div>
 </body>
+
+<script type="text/javascript">
+var name = sessionStorage.getItem("qr_id_data");
+document.getElementById("img").src = "http://localhost:8080/VE450/pic/" + name + ".jpg";
+	$.getJSON('ReadInfoServlet', {
+		name : name,
+		sele : "viewME"
+	}, function(responseText) {
+		var items_r = [];
+		var items_h = [];
+		//console.log(responseText[0].Status);
+		$.each(responseText[0].Status, function(idx, obj) {
+			items_r.push("<tr>");
+			items_r.push("<td id= "+idx+" >" + obj.equipment_id + "</td>");
+			items_r.push("<td id= "+idx+" >" + obj.recorded_time + "</td>");
+			items_r.push("<td id= "+idx+" >" + obj.temperature + "</td>");
+			items_r.push("<td id= "+idx+" >" + obj.speed + "</td>");
+			items_r.push("</tr>");
+		});
+		$("#running").append(items_r.join(""));
+		$.each(responseText[0].MaintenanceRecord, function(idx, obj) {
+			items_h.push("<tr>");
+			items_h.push("<td id= "+idx+" >" + obj.equipment_id + "</td>");
+			items_h.push("<td id= "+idx+" >" + obj.recorded_date + "</td>");
+			items_h.push("<td id= "+idx+" >" + obj.personnel_id + "</td>");
+			items_h.push("<td id= "+idx+" >" + obj.explaination + "</td>");
+			items_h.push("</tr>");
+		});
+		$("#history").append(items_h.join(""));
+	});
+</script>
+
 </html>

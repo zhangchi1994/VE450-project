@@ -321,7 +321,7 @@ public class sql_connection {
 			String sqlSelectStatus = "select * from Status where equipment_id in (select equipment_id from Equipment where dad_id = '"
 					+ equipment_id + "' or equipment_id = '" + equipment_id + "') order by equipment_id";
 			ResultSet rs = st.executeQuery(sqlSelectStatus);
-			json += "{ \"Status\":[";
+			json += "[{ \"Status\":[";
 			Boolean isEmpty = true;
 			while (rs.next()) {
 				// add status
@@ -358,7 +358,7 @@ public class sql_connection {
 				json = json.substring(0, json.length() - 1);
 			}
 
-			json += "\n] }";
+			json += "\n] }]";
 			rss.close();
 			st.close();
 			con.close();
