@@ -1,22 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8"> 
-	<title>Replacement</title>
-	<link rel="stylesheet” href=“http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
-	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <meta charset="UTF-8">
+   <title>Maintenance Engineer replacement</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <style type="text/css">
+       button { margin: 10px; }
+   </style>
+   <style>
+       #logo {
+           background-image: url(images/logoleft.png), url(images/logoright.png);
+           background-position: left top, right top;
+           background-size:25% 15%, 14% 10%;
+           background-repeat: no-repeat, no-repeat;
+           background-attachment:fixed;
+           padding: 50px;
+       }
+   </style>
+
 </head>
+
+
 <body>
+<div id="logo">
 
-<p>   
-   <a href="./qr_scan.html">
-   <button type="button" class="btn btn-default btn-lg btn-block" id="scanbroken">Scan the broken component</button>
-   </a>
-   <a href="./qr_scan.html">
-   <button type="button" class="btn btn-default btn-lg btn-block" id="scannew">Scan the new component</button> 
-   </a>
-</p>
+   <div class="page-header text-center" style="padding: 10px 100px 10px;">
 
+       <h2> Replacement </h2>
+       <form role="form">
+   </div>
+
+   <div class="text-center" style="padding: 50px 100px 10px;">
+
+       <a href="./qr_scan.html">
+           <button type="button" name = "button" class="btn btn-primary" id="scanbroken">Scan the broken component</button>
+       </a >
+
+       <a href="./qr_scan.html">
+           <button type="button" name = "button" class="btn btn-primary" id="scannew">Scan the new component</button>
+       </a >
+
+       <a href="./index_maintenance_engineer.html">
+           <button type="button" name = "button" class="btn btn-primary" id = "return">Return</button>
+       </a >
+   </div>
+
+</div>
 </body>
 </html>

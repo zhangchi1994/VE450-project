@@ -314,7 +314,7 @@ public class sql_connection {
 					+ equipment_id + "' or equipment_id = '" + equipment_id
 					+ "') group by equipment_id order by recorded_time";
 			ResultSet rs = st.executeQuery(sqlSelectStatus);
-			json += "{ \"Status\":[";
+			json += "[{ \"Status\":[";
 			Boolean isEmpty = true;
 			while (rs.next()) {
 				// add status
@@ -352,7 +352,7 @@ public class sql_connection {
 				json = json.substring(0, json.length() - 1);
 			}
 
-			json += "\n] }";
+			json += "\n] }]";
 			rss.close();
 			st.close();
 			con.close();
