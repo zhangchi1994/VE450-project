@@ -106,8 +106,10 @@ public class sql_connection {
 			json += "[";
 			Boolean isEmpty = true;
 			while (rs.next()) {
-				json += "\n{ \"problem_id\": \"" + rs.getString("problem_id") + "\", \"explaination\": \""
-						+ rs.getString("explaination").substring(0, 30) + "\" },";
+				json += "\n{ \"problem_id\": \"" + rs.getString("problem_id") + "\", \"equipment_id\": \""
+						+ rs.getString("equipment_id") + "\", \"status\": \""
+								+ rs.getString("status") + "\", \"personnel\": \""
+										+ rs.getString("personnel") + "\" },";
 				isEmpty = false;
 			}
 			if(!isEmpty)
