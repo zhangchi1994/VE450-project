@@ -104,11 +104,14 @@ public class sql_connection {
 			String sql = "select * from Problem where status <> 'rubbish'";
 			ResultSet rs = st.executeQuery(sql);
 			json += "[";
+			Boolean isEmpty = true;
 			while (rs.next()) {
 				json += "\n{ \"problem_id\": \"" + rs.getString("problem_id") + "\", \"explaination\": \""
 						+ rs.getString("explaination").substring(0, 30) + "\" },";
+				isEmpty = false;
 			}
-			json = json.substring(0, json.length() - 1);
+			if(!isEmpty)
+				json = json.substring(0, json.length() - 1);
 			json += "\n]";
 			rs.close();
 			st.close();
