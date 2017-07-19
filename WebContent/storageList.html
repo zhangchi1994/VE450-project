@@ -30,10 +30,17 @@ button {
 </head>
 
 <script type="text/javascript">
-	if (sessionStorage.getItem("searchName") != null) {
-		var name = sessionStorage.getItem("searchName");
+var url = location.search; 
+var search_name = null;
+if (url.indexOf("?") != -1) {
+	var str = url.substr(1); 
+	strs = str.split("=");  
+	search_name = strs[1];		
+}
+alert(search_name);
+	if (search_name != null) {
 		$.getJSON('ReadInfoServlet', {
-			name : name
+			name : search_name
 		}, function(responseText) {
 			var items = [];
 			$.each(responseText, function(idx, obj) {
@@ -54,8 +61,7 @@ button {
 
 	function search() {
 		var name = document.getElementById("name").value;
-		sessionStorage.setItem("searchName", name);
-		location.assign(location)
+		location.assign("./storageList.html?search=" + name);
 	}
 </script>
 

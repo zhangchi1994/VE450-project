@@ -31,7 +31,6 @@ public class ReadInfoServlet extends HttpServlet {
 				id = request.getParameter("name");
 				tmp = sql_login.ViewStatus(id);
 			} else if (request.getParameter("sele").equals("allreport")) {
-				System.out.println("flagYES");
 				tmp = sql_login.ViewProblemList();
 			}
 		} else if (request.getParameter("sel") != null) {
@@ -40,7 +39,6 @@ public class ReadInfoServlet extends HttpServlet {
 				tmp = sql_login.Read(id);
 			}
 		} else if (request.getParameter("name") != null) {
-			System.out.println("flagNO");
 			name = request.getParameter("name").toString();
 			tmp = sql_login.ViewStock(name);
 		}
