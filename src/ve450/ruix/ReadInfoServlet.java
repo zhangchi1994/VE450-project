@@ -32,6 +32,9 @@ public class ReadInfoServlet extends HttpServlet {
 				tmp = sql_login.ViewStatus(id);
 			} else if (request.getParameter("sele").equals("allreport")) {
 				tmp = sql_login.ViewProblemList();
+			} else if (request.getParameter("sele").equals("viewDetail")) {
+				id = request.getParameter("name");
+				tmp = sql_login.ViewDetailedProblem(id);
 			}
 		} else if (request.getParameter("sel") != null) {
 			if (request.getParameter("sel").equals("take_out") || request.getParameter("sel").equals("store_used")) {

@@ -56,6 +56,7 @@
 
 <script type="text/javascript">
   window.onload = function() {
+	  
       $.getJSON('ReadInfoServlet', {
          sele : "allreport"
       }, function(responseText) {
@@ -64,7 +65,7 @@
           $.each(responseText, function(idx, obj) {
               console.log(idx);
               items.push("<tr>");
-              items.push("<td id= "+idx+" >"+obj.problem_id+"</td>");
+              items.push("<td id= "+idx+" >"+"<a href='./viewReportDetail.html?problemID=" + obj.problem_id + "'>" + obj.problem_id + "</a>"+"</td>");
               items.push("<td id= "+idx+" >"+obj.equipment_id+"</td>");
               items.push("<td id= "+idx+" >"+obj.status+"</td>");
               items.push("<td id= "+idx+" >"+obj.personnel+"</td>");
