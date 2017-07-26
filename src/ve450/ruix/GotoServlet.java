@@ -35,7 +35,7 @@ public class GotoServlet extends HttpServlet {
         	img =  request.getParameter("img").toString();
         	conn.Report(id, report, user, img);
     	} else if (sel.equals("reportEO")) {
-    		
+    		conn.ReportForME(id, report, user);
     	}
     	
 		response.setContentType("text/plain");
