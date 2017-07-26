@@ -597,7 +597,7 @@ public class sql_connection {
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
 
-			String sql = "select * from Status where equipment_id in (select equipment_id from Equipment where dad_id = '"
+			String sql = "select * from CurrentStatus where equipment_id in (select equipment_id from Equipment where dad_id = '"
 					+ equipment_id + "')";
 			ResultSet rs = st.executeQuery(sql);
 			json += "[";
@@ -614,7 +614,7 @@ public class sql_connection {
 			st.close();
 			con.close();
 		} catch (Exception ee) {
-			System.out.print("error in ViewProblemList");
+			System.out.print("error in ViewComponents");
 		}
 		return json;
 	}
