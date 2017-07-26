@@ -131,8 +131,9 @@ public class sql_connection {
 			Statement st = con.createStatement();
 
 			String sql;
-			sql = "INSERT INTO Problem (equipment_id, explaination, status, personnel, picture_name) VALUES ('"
-					+ equipment_id + "','" + explaination + "','waiting to be repaired', '" + personnel + "')";
+			String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+			sql = "INSERT INTO MaintenanceRecord VALUES ('" + equipment_id + "','" + timeStamp + "','" + personnel
+					+ "', '" + explaination + "')";
 			st.executeUpdate(sql);
 			st.close();
 			con.close();
@@ -444,7 +445,7 @@ public class sql_connection {
 			// System.out.println("conn OK");
 
 			String sql = "select * from Equipment where name = '" + equipment_name + "' and status = '0'";
-			if(equipment_name.equals(""))
+			if (equipment_name.equals(""))
 				sql = "select * from Equipment where status = '0'";
 			ResultSet rs = st.executeQuery(sql);
 			json += "[";
