@@ -41,13 +41,13 @@ public class sql_connection {
 				Date startTime = new Date(rs.getTimestamp("start_time").getTime());
 				String strStartTime = formattime.format(startTime);
 				Date endTime = new Date(rs.getTimestamp("end_time").getTime());
-				String strEndTime = formattime.format(startTime);
+				String strEndTime = formattime.format(endTime);
 				String sqlTime = "select TIMESTAMPDIFF(HOUR,'" + strStartTime + "','" + strEndTime + "')";
 				Statement stLoop = con.createStatement();
 				ResultSet rsLoop = stLoop.executeQuery(sqlTime);
-				while(rsLoop.next()){
+				while (rsLoop.next()) {
 					int time = rsLoop.getInt(1);
-					totalTime+=time;
+					totalTime += time;
 				}
 				rsLoop.close();
 				stLoop.close();
@@ -107,12 +107,11 @@ public class sql_connection {
 			Boolean isEmpty = true;
 			while (rs.next()) {
 				json += "\n{ \"problem_id\": \"" + rs.getString("problem_id") + "\", \"equipment_id\": \""
-						+ rs.getString("equipment_id") + "\", \"status\": \""
-								+ rs.getString("status") + "\", \"personnel\": \""
-										+ rs.getString("personnel") + "\" },";
+						+ rs.getString("equipment_id") + "\", \"status\": \"" + rs.getString("status")
+						+ "\", \"personnel\": \"" + rs.getString("personnel") + "\" },";
 				isEmpty = false;
 			}
-			if(!isEmpty)
+			if (!isEmpty)
 				json = json.substring(0, json.length() - 1);
 			json += "\n]";
 			rs.close();
@@ -122,6 +121,25 @@ public class sql_connection {
 			System.out.print("error in ViewProblemList");
 		}
 		return json;
+	}
+
+	public void ReportForME(String equipment_id, String explaination, String personnel) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+
+			String sql;
+			sql = "INSERT INTO Problem (equipment_id, explaination, status, personnel, picture_name) VALUES ('"
+					+ equipment_id + "','" + explaination + "','waiting to be repaired', '" + personnel + "')";
+			st.executeUpdate(sql);
+			st.close();
+			con.close();
+
+		} catch (Exception ee) {
+			System.out.print("error in Report");
+		}
 	}
 
 	public void Report(String equipment_id, String explaination, String personnel, String picture_name) {
@@ -423,18 +441,20 @@ public class sql_connection {
 			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
-			//System.out.println("conn OK");
+			// System.out.println("conn OK");
 
 			String sql = "select * from Equipment where name = '" + equipment_name + "' and status = '0'";
+			if(equipment_name.equals(""))
+				sql = "select * from Equipment where status = '0'";
 			ResultSet rs = st.executeQuery(sql);
 			json += "[";
 			while (rs.next()) {
 				String rubbish = "ID: " + rs.getString("equipment_id") + " Manufacturer: "
 						+ rs.getString("manufacturer") + " Date of Birth: " + rs.getString("date_of_birth")
 						+ " Last Maintenance Date: " + rs.getString("last_maintenance_date");
-				//System.out.println(rubbish);
+				// System.out.println(rubbish);
 				stock.add(rubbish);
-				//System.out.println("add OK");
+				// System.out.println("add OK");
 				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"manufacturer\": \""
 						+ rs.getString("manufacturer") + "\", \"date_of_birth\": \"" + rs.getString("date_of_birth")
 						+ "\", \"last_maintenance_date\": \"" + rs.getString("last_maintenance_date")
@@ -567,6 +587,34 @@ public class sql_connection {
 				+ byebye[7] + "\" }\n]";
 		return json;
 	}
-	
-	
+
+	public String ViewComponents(String equipment_id) {
+		String json = "";
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+
+			String sql = "select * from Status where equipment_id in (select equipment_id from Equipment where dad_id = '"
+					+ equipment_id + "')";
+			ResultSet rs = st.executeQuery(sql);
+			json += "[";
+			Boolean isEmpty = true;
+			while (rs.next()) {
+				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"temperature\": \""
+						+ rs.getString("temperature") + "\", \"speed\": \"" + rs.getString("speed") + "\" },";
+				isEmpty = false;
+			}
+			if (!isEmpty)
+				json = json.substring(0, json.length() - 1);
+			json += "\n]";
+			rs.close();
+			st.close();
+			con.close();
+		} catch (Exception ee) {
+			System.out.print("error in ViewProblemList");
+		}
+		return json;
+	}
 }
