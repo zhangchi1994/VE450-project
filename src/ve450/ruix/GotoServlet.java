@@ -24,13 +24,20 @@ public class GotoServlet extends HttpServlet {
     	String report = null;
     	String user = null;
     	String img = null;
+    	String sel = null;
+    	sel =  request.getParameter("selection").toString();
     	id =  request.getParameter("id").toString();
     	report =  request.getParameter("report").toString();
     	user =  request.getParameter("user").toString();
-    	img =  request.getParameter("img").toString();
-    	
     	sql_connection conn = new sql_connection();
-    	conn.Report(id, report, user, img);
+    	
+    	if (sel.equals("reportME")) {
+        	img =  request.getParameter("img").toString();
+        	conn.Report(id, report, user, img);
+    	} else if (sel.equals("reportEO")) {
+    		conn.ReportForME(id, report, user);
+    	}
+    	
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write("report OK");

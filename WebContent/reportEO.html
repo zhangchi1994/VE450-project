@@ -67,10 +67,10 @@ function reportSubmit() {
 	var user = sessionStorage.getItem("whoLogin");
 	alert(user);
     $.get('GotoServlet', { 
+		selection : "reportEO",
     	id : ID, 
     	report : problem, 
-    	user : user,
-    	img : img
+    	user : user
     	}, function(responseText){ 
     		alert("Report OK");
     });

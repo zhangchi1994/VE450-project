@@ -9,10 +9,10 @@ function CatchCode() {
          
     // 获取浏览器页面的画布对象
     // 以下开始编 数据
-	var url = location.search; 
 	var picFunction = null;
 	var filename = null;
 	var user = null;
+	var url = location.search; 
 	if (url.indexOf("?") != -1) {
 		var str = url.substr(1); 
 		strs = str.split("=");  

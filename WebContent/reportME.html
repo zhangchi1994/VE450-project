@@ -42,10 +42,7 @@
 
 
    <div class="text-center" style="padding: 50px 100px 10px;">
-       <a href=" ">
-           <button type="button" name = "button" class="btn btn-primary" id="submit">Submit</button>
-       </a >
-
+           <button type="button" name = "button" class="btn btn-primary" id="submit" onClick = "reportSubmit()">Submit</button>
        <a href=" ">
            <button type="button" name = "button" class="btn btn-primary" id = "return">Return</button>
        </a >
@@ -53,4 +50,27 @@
 
 </div>
 </body>
+
+<script>
+var url = location.search; 
+var ID = null;
+if (url.indexOf("?") != -1) {
+	var str = url.substr(1); 
+	strs = str.split("=");  	
+	ID = strs[1];
+}
+function reportSubmit() {
+	var problem = document.getElementById("problem").value;
+	var user = sessionStorage.getItem("whoLogin");
+	alert(user);
+    $.get('GotoServlet', { 
+    	selection : "reportME",
+    	id : ID, 
+    	report : problem, 
+    	user : user,
+    	}, function(responseText){ 
+    		alert("Report OK");
+    });
+}
+</script>
 </html>
