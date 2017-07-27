@@ -25,8 +25,8 @@ public class sql_connection {
 		super();
 	}
 
-	public int FindLevel(String equipment_id) {
-		int level = 3;
+	public String FindLevel(String equipment_id) {
+		String level = "haha you fail";
 		// 2: grandpa, 1: dad, 0: son
 		// has no son -> 0
 		// has son, has father -> 1
@@ -41,7 +41,7 @@ public class sql_connection {
 			ResultSet rs = st.executeQuery(sql);
 			while(rs.next()){
 				if (rs.getInt("trash") == 0) {
-					level = 0;
+					level = "third";
 					break;
 				}
 				else{
@@ -50,9 +50,9 @@ public class sql_connection {
 					ResultSet rsAgain = stAgain.executeQuery(sqlAgain);
 					while(rsAgain.next()){
 						if(rs.getString("dad_id").equals("0"))
-							level = 2;
+							level = "first";
 						else
-							level = 1;
+							level = "second";
 					}
 					rsAgain.close();
 					stAgain.close();
