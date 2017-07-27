@@ -25,6 +25,23 @@ public class sql_connection {
 		super();
 	}
 
+	public void Install(String son_id, String dad_id) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+
+			String sql = "update Equipment set dad_id = '" + dad_id + "'where equipment_id = '" + son_id + "'";
+			st.executeUpdate(sql);
+
+			st.close();
+			con.close();
+		} catch (Exception ee) {
+			System.out.print("error in Install");
+		}
+	}
+
 	public String CalculateAge(String equipment_id) {
 		String age = "";
 		int totalTime = 0;
@@ -597,7 +614,7 @@ public class sql_connection {
 			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
 			Statement st = con.createStatement();
 
-			String sql = "select * from Status where equipment_id in (select equipment_id from Equipment where dad_id = '"
+			String sql = "select * from CurrentStatus where equipment_id in (select equipment_id from Equipment where dad_id = '"
 					+ equipment_id + "')";
 			ResultSet rs = st.executeQuery(sql);
 			json += "[";
@@ -614,7 +631,7 @@ public class sql_connection {
 			st.close();
 			con.close();
 		} catch (Exception ee) {
-			System.out.print("error in ViewProblemList");
+			System.out.print("error in ViewComponents");
 		}
 		return json;
 	}
