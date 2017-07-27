@@ -62,6 +62,15 @@
            if(tar.id == "report") {
         	   window.location.href = "./webcam.html?hid=fromreport=" + operateID;
            }
+           if(tar.id == "view") {
+               $.get('GotoServlet', {
+                   selection : "whereToview",
+                   id : operateID
+               }, function(responseText) {
+                   //console.log(password);
+            	   window.location.href = "./viewEO_" + responseText + ".html";
+               });
+           }
        }
    }
 </script>

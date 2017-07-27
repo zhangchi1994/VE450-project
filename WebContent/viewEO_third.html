@@ -97,8 +97,8 @@
 </body>
 <script type="text/javascript">
 window.onload = function() {
-	   //var name = sessionStorage.getItem("qr_id_data");
-	   var name = 30;
+	   var name = sessionStorage.getItem("qr_id_data");
+	   //var name = 30;
 	   document.getElementById("img").src = "http://localhost:8080/VE450/pic/" + name + ".jpg";
 	   $.getJSON('ReadInfoServlet', {
 	       name : name,

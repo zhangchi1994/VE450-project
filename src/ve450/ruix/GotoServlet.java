@@ -25,22 +25,28 @@ public class GotoServlet extends HttpServlet {
     	String user = null;
     	String img = null;
     	String sel = null;
+    	String tmp = "report OK";
+    	
     	sel =  request.getParameter("selection").toString();
     	id =  request.getParameter("id").toString();
-    	report =  request.getParameter("report").toString();
-    	user =  request.getParameter("user").toString();
     	sql_connection conn = new sql_connection();
     	
-    	if (sel.equals("reportEO")) {
+    	if (sel.equals("whereToview")) {
+    		tmp = conn.FindLevel(id);
+    	} else if (sel.equals("reportEO")) {
+        	report =  request.getParameter("report").toString();
+        	user =  request.getParameter("user").toString();
         	img =  request.getParameter("img").toString();
         	conn.Report(id, report, user, img);
     	} else if (sel.equals("reportME")) {
+        	report =  request.getParameter("report").toString();
+        	user =  request.getParameter("user").toString();
     		conn.ReportForME(id, report, user);
     	}
     	
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write("report OK");
+		response.getWriter().write(tmp);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -50,7 +56,7 @@ public class GotoServlet extends HttpServlet {
 		QRid = request.getParameter("id").toString();
 		ss = request.getParameter("startORstop").toString();
 		sql_connection conn = new sql_connection();
-		System.out.println("ss = "+ss);
+		//System.out.println("ss = "+ss);
 		if(ss.equals("start")){
 			conn.StartUse(QRid);
 			response.setContentType("text/plain");
