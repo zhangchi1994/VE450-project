@@ -25,6 +25,49 @@ public class sql_connection {
 		super();
 	}
 
+	public int FindLevel(String equipment_id) {
+		int level = 3;
+		// 2: grandpa, 1: dad, 0: son
+		// has no son -> 0
+		// has son, has father -> 1
+		// has son, has no father -> 2
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+
+			String sql = "SELECT COUNT(*) as trash from Equipment where dad_id = '" + equipment_id + "'";
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()){
+				if (rs.getInt("trash") == 0) {
+					level = 0;
+					break;
+				}
+				else{
+					String sqlAgain = "SELECT * from Equipment where equipment_id = '" + equipment_id + "'";
+					Statement stAgain = con.createStatement();
+					ResultSet rsAgain = stAgain.executeQuery(sqlAgain);
+					while(rsAgain.next()){
+						if(rs.getString("dad_id").equals("0"))
+							level = 2;
+						else
+							level = 1;
+					}
+					rsAgain.close();
+					stAgain.close();
+				}
+			}
+			
+			rs.close();
+			st.close();
+			con.close();
+		} catch (Exception ee) {
+			System.out.print("error in FindLevel");
+		}
+		return level;
+	}
+
 	public void Install(String son_id, String dad_id) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
