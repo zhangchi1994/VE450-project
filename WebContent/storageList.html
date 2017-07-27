@@ -30,14 +30,13 @@ button {
 </head>
 
 <script type="text/javascript">
-var url = location.search; 
-var search_name = null;
-if (url.indexOf("?") != -1) {
-	var str = url.substr(1); 
-	strs = str.split("=");  
-	search_name = strs[1];		
-}
-alert(search_name);
+	var url = location.search; 
+	var search_name = null;
+	if (url.indexOf("?") != -1) {
+		var str = url.substr(1); 
+		strs = str.split("=");  
+		search_name = strs[1];		
+	}
 	if (search_name != null) {
 		$.getJSON('ReadInfoServlet', {
 			name : search_name

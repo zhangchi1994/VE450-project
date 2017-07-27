@@ -31,10 +31,10 @@ public class GotoServlet extends HttpServlet {
     	user =  request.getParameter("user").toString();
     	sql_connection conn = new sql_connection();
     	
-    	if (sel.equals("reportME")) {
+    	if (sel.equals("reportEO")) {
         	img =  request.getParameter("img").toString();
         	conn.Report(id, report, user, img);
-    	} else if (sel.equals("reportEO")) {
+    	} else if (sel.equals("reportME")) {
     		conn.ReportForME(id, report, user);
     	}
     	

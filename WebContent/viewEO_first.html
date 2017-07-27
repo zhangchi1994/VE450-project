@@ -1,10 +1,164 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+   <meta charset="UTF-8">
+   <title>Product A</title>
+   <link rel="stylesheet"
+         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+         crossorigin="anonymous">
+   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+   <script
+           src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <style type="text/css">
+       button {
+           margin: 10px;
+       }
+   </style>
+   <style>
+       #logo {
+           background-image: url(images/logoleft.png), url(images/logoright.png);
+           background-position: left top, right top;
+           background-size: 25% 15%, 14% 10%;
+           background-repeat: no-repeat, no-repeat;
+           /*background-attachment: fixed;*/
+           padding: 50px;
+       }
+   </style>
+
 </head>
 <body>
+<div id="logo">
+   <br> <br> <br>
+   <div align="center">
+       <img src="" width="30%" height="30%" id="img">
+   </div>
 
+   <div class="page-header text-center" style="padding: 10px 100px 10px;">
+
+       <h2>Information of System</h2>
+       <form role="form">
+   </div>
+
+
+   <div class="container">
+       <table class="table table-bordered table-striped table-hover" id="basic">
+           <caption>Basic Information</caption>
+           <thread>
+               <tr>
+                   <th>ID</th>
+                   <th>Manufacturer</th>
+                   <th>Production Time</th>
+                   <th>Last Maintenance Date</th>
+                   <th>Size</th>
+               </tr>
+           </thread>
+       </table>
+   </div>
+  
+   <div class="container">
+       <table class="table table-bordered table-striped table-hover" id="running">
+           <caption>Running Information</caption>
+           <thread>
+               <tr>
+                   <th>Time</th>
+                   <th>Temperature</th>
+                   <th>Speed</th>
+               </tr>
+           </thread>
+       </table>
+   </div>
+
+   <div class="container">
+       <table class="table table-bordered table-striped table-hover" id="component">
+           <caption>Components</caption>
+           <thread>
+               <tr>
+                   <th>Name</th>
+                   <th>ID</th>
+                   <th>Temperature</th>
+                   <th>Speed</th>
+               </tr>
+           </thread>
+       </table>
+   </div>
+
+   <div class="container">
+       <table class="table table-bordered table-striped table-hover" id="history">
+           <caption>Maintanence History</caption>
+           <thread>
+               <tr>
+                   <th>ID</th>
+                   <th>Recorded Date</th>
+                   <th>Personnel</th>
+                   <th>Status</th>
+               </tr>
+           </thread>
+       </table>
+   </div>
+
+
+   <div class="text-center" style="padding: 50px 100px 10px;">
+
+       <a href=" ">
+           <button type="button" name = "button" class="btn btn-primary" id = "return">Return</button>
+       </a >
+
+   </div>
+
+</div>
 </body>
+<script type="text/javascript">
+   window.onload = function() {
+	   var name = sessionStorage.getItem("qr_id_data");
+	   //var name = "30";
+	   document.getElementById("img").src = "http://localhost:8080/VE450/pic/" + name + ".jpg";
+	   $.getJSON('ReadInfoServlet', {
+	       name : name,
+	       sele : "viewEO"
+	   }, function(responseText) {
+		   //console.log(responseText);
+	       var items_r = [];
+	       var items_n = [];
+	       var items_h = [];
+	       var items_m = [];
+	       $.each(responseText.Basic, function(idx, obj) {
+	           items_r.push("<tr>");
+	           items_r.push("<td id= "+idx+" >"+obj.equipment_id+"</td>");
+	           items_r.push("<td id= "+idx+" >"+obj.manufacturer+"</td>");
+	           items_r.push("<td id= "+idx+" >"+obj.date_of_birth+"</td>");
+	           items_r.push("<td id= "+idx+" >"+obj.last_maintenance_date+"</td>");
+	           items_r.push("<td id= "+idx+" >"+obj.size+"</td>");
+	           items_r.push("</tr>");
+	       });
+	       $("#basic").append(items_r.join(""));
+	       $.each(responseText.Status, function(idx, obj) {
+	           items_n.push("<tr>");
+	           items_n.push("<td id= "+idx+" >" + obj.recorded_time + "</td>");
+	           items_n.push("<td id= "+idx+" >" + obj.temperature + "</td>");
+	           items_n.push("<td id= "+idx+" >" + obj.speed + "</td>");
+	           items_n.push("</tr>");
+	       });
+	       $("#running").append(items_n.join(""));
+	       $.each(responseText.Comp, function(idx, obj) {
+	           items_h.push("<tr>");
+	           items_h.push("<td id= "+idx+" >" + obj.equipment_id + "</td>");
+	           items_h.push("<td id= "+idx+" >" + obj.temperature + "</td>");
+	           items_h.push("<td id= "+idx+" >" + obj.speed + "</td>");
+	           items_h.push("</tr>");
+	       });
+	       $("#component").append(items_h.join(""));
+	       $.each(responseText.MaintenanceRecord, function(idx, obj) {
+	           items_m.push("<tr>");
+	           items_m.push("<td id= "+idx+" >" + obj.recorded_date + "</td>");
+	           items_m.push("<td id= "+idx+" >" + obj.personnel_id + "</td>");
+	           items_m.push("<td id= "+idx+" >" + obj.explaination + "</td>");
+	           items_m.push("</tr>");
+	       });
+	       $("#history").append(items_m.join(""));
+	   });   
+   }
+</script>
+
 </html>
+

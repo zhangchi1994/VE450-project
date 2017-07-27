@@ -24,7 +24,6 @@ public class ReadInfoServlet extends HttpServlet {
 		String id = null;
 		String name = null;
 		String tmp = null;
-		
 		sql_connection sql_login = new sql_connection();
 		if (request.getParameter("sele") != null) {
 			if (request.getParameter("sele").equals("viewME")) {
@@ -35,6 +34,13 @@ public class ReadInfoServlet extends HttpServlet {
 			} else if (request.getParameter("sele").equals("viewDetail")) {
 				id = request.getParameter("name");
 				tmp = sql_login.ViewDetailedProblem(id);
+			} else if (request.getParameter("sele").equals("viewEO")) {
+				id = request.getParameter("name");
+				//System.out.println(id);
+				String tmp_1 = sql_login.Read(id);
+				String tmp_2 = sql_login.ViewComponents(id);
+				String tmp_3 = sql_login.ViewStatus(id);
+				tmp = "{ \"Basic\":" + tmp_1 + ",\n \"Comp\":" + tmp_2 + ",\n" + tmp_3.substring(2, tmp_3.length()-1);
 			}
 		} else if (request.getParameter("sel") != null) {
 			if (request.getParameter("sel").equals("take_out") || request.getParameter("sel").equals("store_used")) {
@@ -45,11 +51,11 @@ public class ReadInfoServlet extends HttpServlet {
 			name = request.getParameter("name").toString();
 			tmp = sql_login.ViewStock(name);
 		}
-		System.out.println(tmp);
-        response.setContentType("text/plain;charset=utf-8");
-        request.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-        out.println(tmp);
+		//System.out.println(tmp);
+		response.setContentType("text/plain;charset=utf-8");
+		request.setCharacterEncoding("utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(tmp);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -82,6 +88,6 @@ public class ReadInfoServlet extends HttpServlet {
 				response.setCharacterEncoding("UTF-8");
 				response.getWriter().write("Store used FAILED");
 			}
-		} 
+		}
 	}
 }

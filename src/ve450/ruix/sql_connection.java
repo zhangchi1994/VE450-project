@@ -364,12 +364,12 @@ public class sql_connection {
 			}
 			json += "\n],\n\"MaintenanceRecord\":[";
 			rs.close();
-			System.out.println("mark1");
+			//System.out.println("mark1");
 			String sqlSelectMaintenanceRecord = "select * from MaintenanceRecord where equipment_id in (select equipment_id from Equipment where dad_id = '"
 					+ equipment_id + "' or equipment_id = '" + equipment_id + "') order by equipment_id";
 			ResultSet rss = st.executeQuery(sqlSelectMaintenanceRecord);
 			isEmpty = true;
-			System.out.println("mark2");
+			//System.out.println("mark2");
 			while (rss.next()) {
 				// add status
 				json += "\n{ \"equipment_id\": \"" + rss.getString("equipment_id") + "\", \"recorded_date\": \""
