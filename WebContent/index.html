@@ -7,6 +7,7 @@
 	<script type="text/javascript"
   src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
+
 <title>Index</title>
 
 <link rel="stylesheet" href="css/style.css" media="screen"
@@ -47,17 +48,21 @@
 					class="fa fa-home fa-lg"></i> <span class="nav-text">Login</span>
 
 			</a></li>
+			<li class="has-subnav"><a href="#"> <i
+					class="fa fa-clock-o fa-lg"></i> <span class="nav-text">
+						Warehouse Manager </span>
+			</a></li>
 
 			<li class="has-subnav"><a href="javascript:void(0)" id="click2"> <i
-					class="fa fa-clock-o fa-lg"></i> <span class="nav-text">
+					class="fa fa-lg"></i> <span class="nav-text">
 						Take Out </span>
 			</a></li>
 
-			<li><a href="javascript:void(0)" id="click3"> <i class="fa fa-desktop fa-lg"></i> <span
+			<li><a href="javascript:void(0)" id="click3"> <i class="fa fa-lg"></i> <span
 					class="nav-text"> Store New Items </span>
 			</a></li>
 			<li class="has-subnav"><a href="javascript:void(0)" id="click4"> <i
-					class="fa fa-plane fa-lg"></i> <span class="nav-text">
+					class="fa fa-lg"></i> <span class="nav-text">
 						Store Used Items </span>
 			</a></li>
 
@@ -90,7 +95,7 @@
 		</ul>
 
 		<ul class="logout">
-			<li><a href="#"> <i class="fa fa-lightbulb-o fa-lg"></i> <span
+			<li><a href="javascript:void(0)" id="click_out"> <i class="fa fa-lightbulb-o fa-lg"></i> <span
 					class="nav-text"> Sign Out </span>
 
 			</a></li>
@@ -100,7 +105,7 @@
 
 <div style="LEFT: 150px; TOP: 20px" align=center>
  
-<iframe id="webpage" src="" frameBorder=0 width=1024 style="width:1200px;height:900px;" 
+<iframe id="webpage" src="./login.html" frameBorder=0 width=1024 style="width:1200px;height:900px;" 
 	scrolling=no  ALLOWTRANSPARENCY="true"></iframe>
  
 </div>
@@ -115,18 +120,38 @@
 	});
 	$('#click2').on('click',function(event){
 		event.preventDefault();
-		sessionStorage.setItem("warehouseSelection", "take_out");
-		document.getElementById("webpage").src = "./qr_scan.html";
+		if(sessionStorage.getItem("whoScan") == "wm") {
+			sessionStorage.setItem("warehouseSelection", "take_out");
+			document.getElementById("webpage").src = "./qr_scan.html";
+		} else if (sessionStorage.getItem("whoScan") == null)
+				console.log("Login first, please!");
+		else 
+			console.log("Wrong working type!");
 	});
 	$('#click3').on('click',function(event){
 		event.preventDefault();
-		sessionStorage.setItem("warehouseSelection", "store_new");
-		document.getElementById("webpage").src = "./upload_equipment.html";
+		if(sessionStorage.getItem("whoScan") == "wm") {
+			sessionStorage.setItem("warehouseSelection", "store_new");
+			document.getElementById("webpage").src = "./upload_equipment.html";
+		} else if (sessionStorage.getItem("whoScan") == null)
+				console.log("Login first, please!");
+		else 
+			console.log("Wrong working type!");
 	});
 	$('#click4').on('click',function(event){
 		event.preventDefault();
-		sessionStorage.setItem("warehouseSelection", "store_old");
-		document.getElementById("webpage").src = "./qr_scan.html";
+		if(sessionStorage.getItem("whoScan") == "wm") {
+			sessionStorage.setItem("warehouseSelection", "store_old");
+			document.getElementById("webpage").src = "./qr_scan.html";
+		} else if (sessionStorage.getItem("whoScan") == null)
+				console.log("Login first, please!");
+		else 
+			console.log("Wrong working type!");
+	});
+	$('#click_out').on('click',function(event){
+		event.preventDefault();
+		sessionStorage.clear();
+		window.location.reload();
 	});
 </script>
 

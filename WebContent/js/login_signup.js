@@ -11,8 +11,10 @@ function clickbutton_login() {
 		//console.log(password);
 		sessionStorage.setItem("whoLogin", username);
 		$('#welcometext').text(responseText);
-		if(responseText == "wm")
+		if(responseText == "wm") {
+			sessionStorage.setItem("whoScan", "wm");
 			window.location.href = "./welcome.html";
+		}
 			//window.location.href = "./index_warehouse_engineer.html";
 		if(responseText == "me"){
 			sessionStorage.setItem("whoScan", "me");
