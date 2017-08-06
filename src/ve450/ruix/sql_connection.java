@@ -415,7 +415,7 @@ public class sql_connection {
 						+ "\", \"speed\": \"" + rs.getString("speed") + "\" },";
 				stock.add(rubbish);
 			}
-			for (int i = 0; /* i < 10 && */i < stock.size(); i++) {
+			for (int i = 0; i < 3 && i < stock.size(); i++) {
 				json += stock.get(stock.size() - i - 1);
 
 				isEmpty = false;
@@ -447,6 +447,9 @@ public class sql_connection {
 			rss.close();
 			st.close();
 			con.close();
+			
+			
+			
 		} catch (Exception ee) {
 			System.out.print("error in ViewStatus");
 		}
