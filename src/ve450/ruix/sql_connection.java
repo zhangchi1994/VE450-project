@@ -447,9 +447,7 @@ public class sql_connection {
 			rss.close();
 			st.close();
 			con.close();
-			
-			
-			
+
 		} catch (Exception ee) {
 			System.out.print("error in ViewStatus");
 		}
@@ -700,4 +698,88 @@ public class sql_connection {
 		}
 		return json;
 	}
+
+	// Used by machine operator
+	public String SonDraw(String equipment_id) {
+		ArrayList<String> stock = new ArrayList<String>();
+		String json = "";
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+			Statement st = con.createStatement();
+			String sqlSelectStatus = "select * from Status where equipment_id = '" + equipment_id + "'";
+			ResultSet rs = st.executeQuery(sqlSelectStatus);
+			json += "[{ \"Temperature\":[";
+			Boolean isEmpty = true;
+			while (rs.next()) {
+				// add status
+				String rubbish = rs.getString("temperature") + ", ";
+				stock.add(rubbish);
+			}
+			for (int i = 0; i < stock.size(); i++) {
+				json += stock.get(stock.size() - i - 1);
+
+				isEmpty = false;
+			}
+			if (!isEmpty) {
+				json = json.substring(0, json.length() - 2);
+			}
+			rs.close();
+			st.close();
+			json += "\n],\n\"Speed\":[";
+
+			stock.clear();
+			Statement st1 = con.createStatement();
+			String sqlSelectStatus1 = "select * from Status where equipment_id = '" + equipment_id + "'";
+			ResultSet rs1 = st1.executeQuery(sqlSelectStatus1);
+			Boolean isEmpty1 = true;
+			while (rs1.next()) {
+				// add status
+				String rubbish = rs1.getString("speed") + ", ";
+				stock.add(rubbish);
+			}
+			for (int i = 0; i < stock.size(); i++) {
+				json += stock.get(stock.size() - i - 1);
+
+				isEmpty1 = false;
+			}
+			if (!isEmpty1) {
+				json = json.substring(0, json.length() - 2);
+			}
+			rs1.close();
+			st1.close();
+			json += "\n],\n\"Recorded_time\":[";
+
+			stock.clear();
+			Statement st2 = con.createStatement();
+			String sqlSelectStatus2 = "select * from Status where equipment_id = '" + equipment_id + "'";
+			ResultSet rs2 = st2.executeQuery(sqlSelectStatus2);
+			Boolean isEmpty2 = true;
+			while (rs2.next()) {
+				// add status
+				String rubbish = "\"" + rs2.getString("recorded_time") + "\", ";
+				stock.add(rubbish);
+			}
+			for (int i = 0; i < stock.size(); i++) {
+				json += stock.get(stock.size() - i - 1);
+
+				isEmpty2 = false;
+			}
+			if (!isEmpty2) {
+				json = json.substring(0, json.length() - 2);
+			}
+			rs2.close();
+			st2.close();
+
+			json += "\n] }]";
+
+			con.close();
+
+		} catch (Exception ee) {
+			System.out.print("error in SonDraw");
+		}
+		return json;
+	}
+
 }
