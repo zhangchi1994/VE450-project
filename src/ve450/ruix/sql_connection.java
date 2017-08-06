@@ -797,6 +797,8 @@ public class sql_connection {
 			ResultSet rsOut = stOut.executeQuery(sqlOut);
 			json += "[{ \"All\":[";
 			Boolean isEmptyOut = true;
+			SimpleDateFormat formattime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String strCurTime = formattime.format(new java.util.Date());
 			while (rsOut.next()) {
 				String childId = rsOut.getString("equipment_id");
 				Statement st = con.createStatement();
@@ -806,7 +808,19 @@ public class sql_connection {
 				Boolean isEmpty = true;
 				while (rs.next()) {
 					// add status
-					String rubbish = "\n[\"" + rs.getString("recorded_time") + "\", " + rs.getString("temperature") + ", "
+
+					Statement stAhh = con.createStatement();
+					
+					Date recTime = new Date(rs.getTimestamp("recorded_time").getTime());
+					String strRecTime = formattime.format(recTime);
+					String sqlAhh = "select TIMESTAMPDIFF(SECOND,'" + strRecTime + "','" + strCurTime + "')";
+					ResultSet rsAhh = stAhh.executeQuery(sqlAhh);
+					int time = 100;
+					while (rsAhh.next()) {
+						time = rsAhh.getInt(1);
+					}
+
+					String rubbish = "\n[\"" + time + "\", " + rs.getString("temperature") + ", "
 							+ rs.getString("speed") + "],";
 					stock.add(rubbish);
 				}
