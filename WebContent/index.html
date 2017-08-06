@@ -53,15 +53,15 @@
 						Take Out </span>
 			</a></li>
 
-			<li><a href="#"> <i class="fa fa-desktop fa-lg"></i> <span
-					class="nav-text"> Technology </span>
+			<li><a href="javascript:void(0)" id="click3"> <i class="fa fa-desktop fa-lg"></i> <span
+					class="nav-text"> Store New Items </span>
 			</a></li>
-			<li class="has-subnav"><a href="#"> <i
+			<li class="has-subnav"><a href="javascript:void(0)" id="click4"> <i
 					class="fa fa-plane fa-lg"></i> <span class="nav-text">
-						Travel </span>
+						Store Used Items </span>
 			</a></li>
 
-			<li><a href="#"> <i class="fa fa-shopping-cart"></i> <span
+			<li><a href="javascript:void(0)" id="click4"> <i class="fa fa-shopping-cart"></i> <span
 					class="nav-text"> Shopping </span>
 			</a></li>
 			<li><a href="#"> <i class="fa fa-microphone fa-lg"></i> <span
@@ -98,7 +98,7 @@
 	</nav>
 </body>
 
-<div style="LEFT: 260px; POSITION: absolute; TOP: 20px" align=center>
+<div style="LEFT: 150px; TOP: 20px" align=center>
  
 <iframe id="webpage" src="" frameBorder=0 width=1024 style="width:1200px;height:900px;" 
 	scrolling=no  ALLOWTRANSPARENCY="true"></iframe>
@@ -116,6 +116,16 @@
 	$('#click2').on('click',function(event){
 		event.preventDefault();
 		sessionStorage.setItem("warehouseSelection", "take_out");
+		document.getElementById("webpage").src = "./qr_scan.html";
+	});
+	$('#click3').on('click',function(event){
+		event.preventDefault();
+		sessionStorage.setItem("warehouseSelection", "store_new");
+		document.getElementById("webpage").src = "./upload_equipment.html";
+	});
+	$('#click4').on('click',function(event){
+		event.preventDefault();
+		sessionStorage.setItem("warehouseSelection", "store_old");
 		document.getElementById("webpage").src = "./qr_scan.html";
 	});
 </script>
