@@ -128,13 +128,13 @@ window.onload = function() {
 	           items_n.push("</tr>");
 	       });
 	       $("#running").append(items_n.join(""));
-	       $.each(responseText.Comp, function(idx, obj) {
-	           items_h.push("<tr>");
-	           items_h.push("<td id= "+idx+" >" + obj.equipment_id + "</td>");
-	           items_h.push("<td id= "+idx+" >" + obj.name + "</td>");
-	           items_h.push("<td id= "+idx+" >" + obj.temperature + "</td>");
-	           items_h.push("<td id= "+idx+" >" + obj.speed + "</td>");
-	           items_h.push("</tr>");
+	       $.each(responseText.MaintenanceRecord, function(idx, obj) {
+	           items_m.push("<tr>");
+	           items_m.push("<td id= "+idx+" >" + obj.equipment_id + "</td>");
+	           items_m.push("<td id= "+idx+" >" + obj.personnel_id + "</td>");
+	           items_m.push("<td id= "+idx+" >" + obj.problem_id + "</td>");
+	           items_m.push("<td id= "+idx+" >" + obj.status + "</td>");
+	           items_m.push("</tr>");
 	       });
 	       $("#history").append(items_m.join(""));
 	       
