@@ -94,22 +94,21 @@
            <caption>Components</caption>
            <thread>
                <tr>
-                   <th>Name</th>
                    <th>ID</th>
+                   <th>Name</th>
                    <th>Temperature</th>
                    <th>Speed</th>
                </tr>
            </thread>
        </table>
-   
-
+  
        <table class="table table-bordered table-striped table-hover" id="history">
-           <caption>Maintanence History</caption>
+           <caption>Maintenance History</caption>
            <thread>
                <tr>
-                   <th>ID</th>
-                   <th>Recorded Date</th>
-                   <th>Personnel</th>
+                   <th>Equipment ID</th>
+                   <th>Personnel ID</th>
+                   <th>Problem ID</th>
                    <th>Status</th>
                </tr>
            </thread>
@@ -173,6 +172,7 @@ window.onload = function() {
 	       $.each(responseText.Comp, function(idx, obj) {
 	           items_h.push("<tr>");
 	           items_h.push("<td id= "+idx+" >" + obj.equipment_id + "</td>");
+	           items_h.push("<td id= "+idx+" >" + obj.name + "</td>");
 	           items_h.push("<td id= "+idx+" >" + obj.temperature + "</td>");
 	           items_h.push("<td id= "+idx+" >" + obj.speed + "</td>");
 	           items_h.push("</tr>");
@@ -180,9 +180,10 @@ window.onload = function() {
 	       $("#component").append(items_h.join(""));
 	       $.each(responseText.MaintenanceRecord, function(idx, obj) {
 	           items_m.push("<tr>");
-	           items_m.push("<td id= "+idx+" >" + obj.recorded_date + "</td>");
+	           items_m.push("<td id= "+idx+" >" + obj.equipment_id + "</td>");
 	           items_m.push("<td id= "+idx+" >" + obj.personnel_id + "</td>");
-	           items_m.push("<td id= "+idx+" >" + obj.explaination + "</td>");
+	           items_m.push("<td id= "+idx+" >" + obj.problem_id + "</td>");
+	           items_m.push("<td id= "+idx+" >" + obj.status + "</td>");
 	           items_m.push("</tr>");
 	       });
 	       $("#history").append(items_m.join(""));

@@ -39,17 +39,18 @@ public class sql_connection {
 
 			String sql = "SELECT COUNT(*) as trash from Equipment where dad_id = '" + equipment_id + "'";
 			ResultSet rs = st.executeQuery(sql);
-			while(rs.next()){
+			while (rs.next()) {
 				if (rs.getInt("trash") == 0) {
 					level = "third";
 					break;
-				}
-				else{
+				} else {
 					String sqlAgain = "SELECT * from Equipment where equipment_id = '" + equipment_id + "'";
 					Statement stAgain = con.createStatement();
 					ResultSet rsAgain = stAgain.executeQuery(sqlAgain);
-					while(rsAgain.next()){
-						if(rs.getString("dad_id").equals("0"))
+
+					while (rsAgain.next()) {
+						String trash = rsAgain.getString("dad_id");
+						if (trash.equals("0"))
 							level = "first";
 						else
 							level = "second";
@@ -58,7 +59,7 @@ public class sql_connection {
 					stAgain.close();
 				}
 			}
-			
+
 			rs.close();
 			st.close();
 			con.close();
@@ -414,7 +415,7 @@ public class sql_connection {
 						+ "\", \"speed\": \"" + rs.getString("speed") + "\" },";
 				stock.add(rubbish);
 			}
-			for (int i = 0; i < 10 && i < stock.size(); i++) {
+			for (int i = 0; /* i < 10 && */i < stock.size(); i++) {
 				json += stock.get(stock.size() - i - 1);
 
 				isEmpty = false;
@@ -424,17 +425,17 @@ public class sql_connection {
 			}
 			json += "\n],\n\"MaintenanceRecord\":[";
 			rs.close();
-			//System.out.println("mark1");
-			String sqlSelectMaintenanceRecord = "select * from MaintenanceRecord where equipment_id in (select equipment_id from Equipment where dad_id = '"
+			// System.out.println("mark1");
+			String sqlSelectMaintenanceRecord = "select * from Problem where equipment_id in (select equipment_id from Equipment where dad_id = '"
 					+ equipment_id + "' or equipment_id = '" + equipment_id + "') order by equipment_id";
 			ResultSet rss = st.executeQuery(sqlSelectMaintenanceRecord);
 			isEmpty = true;
-			//System.out.println("mark2");
+			// System.out.println("mark2");
 			while (rss.next()) {
 				// add status
-				json += "\n{ \"equipment_id\": \"" + rss.getString("equipment_id") + "\", \"recorded_date\": \""
-						+ rss.getString("recorded_date") + "\", \"personnel_id\": \"" + rss.getString("personnel_id")
-						+ "\", \"explaination\": \"" + rss.getString("explaination") + "\" },";
+				json += "\n{ \"equipment_id\": \"" + rss.getString("equipment_id") + "\", \"personnel_id\": \""
+						+ rss.getString("personnel") + "\", \"problem_id\": \"" + rss.getString("problem_id")
+						+ "\", \"status\": \"" + rss.getString("status") + "\" },";
 				isEmpty = false;
 			}
 			System.out.println("mark3");
@@ -517,8 +518,8 @@ public class sql_connection {
 				stock.add(rubbish);
 				// System.out.println("add OK");
 				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"name\": \""
-						+ rs.getString("name")+ "\", \"manufacturer\": \""
-						+ rs.getString("manufacturer") + "\", \"date_of_birth\": \"" + rs.getString("date_of_birth")
+						+ rs.getString("name") + "\", \"manufacturer\": \"" + rs.getString("manufacturer")
+						+ "\", \"date_of_birth\": \"" + rs.getString("date_of_birth")
 						+ "\", \"last_maintenance_date\": \"" + rs.getString("last_maintenance_date")
 						+ "\", \"size\": \"" + rs.getString("size") + "\" },";
 			}
@@ -664,15 +665,32 @@ public class sql_connection {
 			json += "[";
 			Boolean isEmpty = true;
 			while (rs.next()) {
-				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"temperature\": \""
-						+ rs.getString("temperature") + "\", \"speed\": \"" + rs.getString("speed") + "\" },";
+				System.out.println("z1");
+				Statement stLoop = con.createStatement();
+				System.out.println("z2");
+				String sqlLoop = "select * from Equipment where equipment_id = '" + rs.getString("equipment_id") + "'";
+				ResultSet rsLoop = stLoop.executeQuery(sqlLoop);
+				String trashName = "haha you fail again";
+				System.out.println("z3");
+				if (rsLoop.next())
+					trashName = rsLoop.getString("name");
+				System.out.println("z3.5");
+				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"name\": \"" + trashName
+						+ "\", \"temperature\": \"" + rs.getString("temperature") + "\", \"speed\": \""
+						+ rs.getString("speed") + "\" },";
 				isEmpty = false;
+				System.out.println("z4");
+				rsLoop.close();
+				stLoop.close();
 			}
+			System.out.println("z5");
 			if (!isEmpty)
 				json = json.substring(0, json.length() - 1);
 			json += "\n]";
+
 			rs.close();
 			st.close();
+
 			con.close();
 		} catch (Exception ee) {
 			System.out.print("error in ViewComponents");
