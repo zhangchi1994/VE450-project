@@ -782,4 +782,59 @@ public class sql_connection {
 		return json;
 	}
 
+	// Used by machine operator
+	public String DadDraw(String equipment_id) {
+		ArrayList<String> stock = new ArrayList<String>();
+		String json = "";
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String url = "jdbc:mysql://59547c58081cb.sh.cdb.myqcloud.com:3857/VE450";
+			Connection con = DriverManager.getConnection(url, "cdb_outerroot", "seimens450");
+
+			Statement stOut = con.createStatement();
+			String sqlOut = "select * from Equipment where dad_id = '" + equipment_id + "' or equipment_id = '"
+					+ equipment_id + "'";
+			ResultSet rsOut = stOut.executeQuery(sqlOut);
+			json += "[{ \"All\":[";
+			Boolean isEmptyOut = true;
+			while (rsOut.next()) {
+				String childId = rsOut.getString("equipment_id");
+				Statement st = con.createStatement();
+				String sqlSelectStatus = "select * from Status where equipment_id = '" + childId + "'";
+				ResultSet rs = st.executeQuery(sqlSelectStatus);
+				json += "[";
+				Boolean isEmpty = true;
+				while (rs.next()) {
+					// add status
+					String rubbish = "\n[\"" + rs.getString("recorded_time") + "\", " + rs.getString("temperature") + ", "
+							+ rs.getString("speed") + "],";
+					stock.add(rubbish);
+				}
+				for (int i = 0; i < stock.size(); i++) {
+					json += stock.get(stock.size() - i - 1);
+
+					isEmpty = false;
+				}
+				stock.clear();
+				if (!isEmpty) {
+					json = json.substring(0, json.length() - 1);
+				}
+				rs.close();
+				st.close();
+				json += "],";
+				isEmptyOut = false;
+			}
+			if (!isEmptyOut) {
+				json = json.substring(0, json.length() - 1);
+			}
+			json += "\n ]}]";
+
+			con.close();
+
+		} catch (Exception ee) {
+			System.out.print("error in DadDraw");
+		}
+		return json;
+	}
+
 }
