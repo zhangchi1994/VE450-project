@@ -516,7 +516,8 @@ public class sql_connection {
 				// System.out.println(rubbish);
 				stock.add(rubbish);
 				// System.out.println("add OK");
-				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"manufacturer\": \""
+				json += "\n{ \"equipment_id\": \"" + rs.getString("equipment_id") + "\", \"name\": \""
+						+ rs.getString("name")+ "\", \"manufacturer\": \""
 						+ rs.getString("manufacturer") + "\", \"date_of_birth\": \"" + rs.getString("date_of_birth")
 						+ "\", \"last_maintenance_date\": \"" + rs.getString("last_maintenance_date")
 						+ "\", \"size\": \"" + rs.getString("size") + "\" },";

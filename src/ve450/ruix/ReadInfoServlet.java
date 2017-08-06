@@ -49,6 +49,7 @@ public class ReadInfoServlet extends HttpServlet {
 			}
 		} else if (request.getParameter("name") != null) {
 			name = request.getParameter("name").toString();
+			System.out.println(name);
 			tmp = sql_login.ViewStock(name);
 		}
 		//System.out.println(tmp);

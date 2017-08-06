@@ -1,60 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript" src="./js/update_equipment.js"></script>
-	<title>Upload Page</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/update_equipment.js"></script>
+  <title>Upload Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <style type="text/css">
+     button {
+        margin: 10px;
+     }
+  </style>
+  <style>
+     #logo {
+        background-image: url(images/logoleft.png), url(images/logoright.png);
+        background-position: left top, right top;
+        background-size: 25% 15%, 14% 10%;
+        background-repeat: no-repeat, no-repeat;
+        padding: 50px;
+     }
+  </style>
+
+  <style>
+     .col-center-block {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+     }
+  </style>
 </head>
+
 <body>
+<div id="logo">
 
-<h1> Uploading Page <small>Please upload products infomation</small></h1>
-<form role="form">
+  <div class="page-header text-center" style="padding: 10px 100px 10px;">
 
-<div style="padding: 100px 100px 10px;">
-	<form class="bs-example bs-example-form" role="form">
-		<br>
-		<div class="input-group input-group-lg">
-			<span class="input-group-addon">Product Name</span>
-			<input type="text" class="form-control" id="product_name">
-		</div>
-		<br>
-		<div class="input-group input-group-lg">
-			<span class="input-group-addon">Manufacturer</span>
-			<input type="text" class="form-control" id="manu">
-		</div>
-		<br>
-		<div class="input-group input-group-lg">
-			<span class="input-group-addon">Time</span>
-			<input type="text" class="form-control" id="time">
-		</div>
-		<br>
-		<div class="input-group input-group-lg">
-			<span class="input-group-addon">Size</span>
-			<input type="text" class="form-control" id="size">
-		</div>
-		<br>
+     <h2> Uploading Page <small>  Please upload products infomation</small></h2>
+     <form role="form">
+  </div>
 
-		<button type="button" class="btn btn-default btn-lg" id="upload" onClick="update()">
-		<span class="glyphicon glyphicon-circle-arrow-up"></span> Take picture and upload
-		</button>
 
-	</form>
+  <div class="col-center-block" style="width:30%">
+
+     <div class="form-group">
+        <label for="product_name" >Product Name</label>
+        <input type="text" class="form-control" id="product_name">
+     </div>
+
+     <div class="form-group">
+        <label for="manu" >Manufacturer</label>
+        <input type="text" class="form-control" id="manu">
+     </div>
+
+     <div class="form-group">
+        <label for="time" >Time</label>
+        <input type="text" class="form-control" id="time">
+     </div>
+
+     <div class="form-group">
+        <label for="size" >Size</label>
+        <input type="text" class="form-control" id="size">
+     </div>
+  </div>
+
+
+  <div class="text-center" style="padding: 5px 100px 10px;">
+     <button type="button" class="btn btn-default btn-lg" id="upload" onClick="update()">
+        <span class="glyphicon glyphicon-circle-arrow-up"></span> Take picture and upload
+     </button>
+  </div>
+
+
+  <!--
+       <div class="form-group">
+           <label for="name">User Name</label>
+           <input type="text" class="form-control" id="name">
+       </div>
+       <div class="form-group">
+           <label for="name">Password</label>
+           <input type="text" class="form-control" id=“pswd”>
+       </div>
+       <button type="button" class="btn btn-default btn-lg">
+       <span class="glyphicon glyphicon-user"></span> Login
+   </button>
+   </form>
+   -->
 </div>
-<!--
-	<div class="form-group">
-		<label for="name">User Name</label>
-		<input type="text" class="form-control" id="name">
-	</div>
-	<div class="form-group">
-		<label for="name">Password</label>
-		<input type="text" class="form-control" id=“pswd”>
-	</div>
-	<button type="button" class="btn btn-default btn-lg">
-	<span class="glyphicon glyphicon-user"></span> Login
-</button>
-</form>
--->	
 </body>
 </html>

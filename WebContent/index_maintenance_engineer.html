@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <title>Maintenance Engineer Index</title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-   <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <style type="text/css">
-       button { margin: 10px; }
-   </style>
+  <meta charset="UTF-8">
+  <title>Maintenance Engineer Index</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style type="text/css">
+      button { margin: 10px; }
+  </style>
+  <style>
+      #logo {
+          background-image: url(images/logoleft.png), url(images/logoright.png);
+          background-position: left top, right top;
+          background-size:25% 15%, 14% 10%;
+          background-repeat: no-repeat, no-repeat;
+          background-attachment:fixed;
+          padding: 50px;
+      }
+  </style>
+
    <style>
-       #logo {
-           background-image: url(images/logoleft.png), url(images/logoright.png);
-           background-position: left top, right top;
-           background-size:25% 15%, 14% 10%;
-           background-repeat: no-repeat, no-repeat;
-           background-attachment:fixed;
-           padding: 50px;
+       .col-center-block {
+           float: none;
+           display: block;
+           margin-left: auto;
+           margin-right: auto;
        }
    </style>
 
@@ -28,37 +37,37 @@
 <body>
 <div id="logo">
 
-   <div class="page-header text-center" style="padding: 10px 100px 10px;">
+  <div class="page-header text-center" style="padding: 10px 100px 10px;">
 
-       <h2> Maintenance Engineer   <small>Function Choice</small></h2>
-       <form role="form">
-   </div>
+      <h2> Maintenance Engineer   <small>Function Choice</small></h2>
+      <form role="form">
+  </div>
 
-   <div class="text-center" style="padding: 50px 100px 10px;">
+  <div class="col-center-block" style="width:30%">
 
-		<button type="button" class="btn btn-default btn-lg btn-block" id = "view_all_report">View All Reports</button>
-	    <button type="button" class="btn btn-default btn-lg btn-block" id = "view">View Status</button>
-        <button type="button" class="btn btn-default btn-lg btn-block" id = "replace">Replacement</button>
-        <button type="button" class="btn btn-default btn-lg btn-block" id = "report">Write Report</button>
-      
-   </div>
+     <button type="button" class="btn btn-default btn-lg btn-block" id = "view_all_report">View All Reports</button><br>
+      <button type="button" class="btn btn-default btn-lg btn-block" id = "view">View Status</button><br>
+       <button type="button" class="btn btn-default btn-lg btn-block" id = "replace">Replacement</button><br>
+       <button type="button" class="btn btn-default btn-lg btn-block" id = "report">Write Report</button>
+    
+  </div>
 
 </div>
 </body>
 
 <script>
-   document.onclick=function(e){
-       var evt = e||window.event;
-       var tar = evt.target||evt.srcElement;
-       if((tar.type=="button") || tar.tagName.toLowerCase()=="button"){
-           //alert(tar.id);
-           sessionStorage.setItem("maintenanceSelection", tar.id);
-           if (tar.id == "replace")
-               window.location.href = "./replacement.html";
-           else if (tar.id == "view_all_report")
-        	   window.location.href = "./viewAllReport.html";
-        	   else window.location.href = "./qr_scan.html";
-       }
-   }
+  document.onclick=function(e){
+      var evt = e||window.event;
+      var tar = evt.target||evt.srcElement;
+      if((tar.type=="button") || tar.tagName.toLowerCase()=="button"){
+          //alert(tar.id);
+          sessionStorage.setItem("maintenanceSelection", tar.id);
+          if (tar.id == "replace")
+              window.location.href = "replacement.html";
+          else if (tar.id == "view_all_report")
+             window.location.href = "viewAllReport.html";
+             else window.location.href = "qr_scan.html";
+      }
+  }
 </script>
-</html>
+

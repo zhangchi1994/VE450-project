@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <title>Maintenance Engineer report</title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <style type="text/css">
-       button { margin: 10px; }
-   </style>
+  <meta charset="UTF-8">
+  <title>Maintenance Engineer report</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style type="text/css">
+      button { margin: 10px; }
+  </style>
+  <style>
+      #logo {
+          background-image: url(images/logoleft.png), url(images/logoright.png);
+          background-position: left top, right top;
+          background-size:25% 15%, 14% 10%;
+          background-repeat: no-repeat, no-repeat;
+          padding: 50px;
+      }
+  </style>
+
    <style>
-       #logo {
-           background-image: url(images/logoleft.png), url(images/logoright.png);
-           background-position: left top, right top;
-           background-size:25% 15%, 14% 10%;
-           background-repeat: no-repeat, no-repeat;
-           background-attachment:fixed;
-           padding: 50px;
+       .col-center-block {
+           float: none;
+           display: block;
+           margin-left: auto;
+           margin-right: auto;
        }
    </style>
 
@@ -26,51 +34,53 @@
 <body>
 <div id="logo">
 
-   <div class="page-header text-center" style="padding: 10px 100px 10px;">
+  <div class="page-header text-center" style="padding: 10px 100px 10px;">
 
-       <h2> Maintenance Report </h2>
+      <h2> Maintenance Report </h2>
+      <form role="form">
+  </div>
+
+   <div class="col-center-block" style="width:70%">
        <form role="form">
+         <div class="form-group">
+          <label for="remarks">Remarks</label>
+          <br>
+          <textarea class="form-control" rows="3" id = "problem"></textarea>
+         </div>
+       </form>
    </div>
 
-   <form role="form">
-       <div class="form-group">
-           <label for="remarks">Remarks</label>
-           <br>
-           <textarea class="form-control" rows="3" id = "problem"></textarea>
-       </div>
-   </form>
 
-
-   <div class="text-center" style="padding: 50px 100px 10px;">
-           <button type="button" name = "button" class="btn btn-primary" id="submit" onClick = "reportSubmit()">Submit</button>
-       <a href=" ">
-           <button type="button" name = "button" class="btn btn-primary" id = "return">Return</button>
-       </a >
-   </div>
+  <div class="text-center" style="padding: 5px 100px 10px;">
+          <button type="button" name = "button" class="btn btn-primary" id="submit" onClick = "reportSubmit()">Submit</button>
+      <a href="./index_maintenance_engineer.html">
+          <button type="button" name = "button" class="btn btn-primary" id = "return">Return</button>
+      </a >
+  </div>
 
 </div>
 </body>
 
 <script>
-var url = location.search; 
+var url = location.search;
 var ID = null;
 if (url.indexOf("?") != -1) {
-	var str = url.substr(1); 
-	strs = str.split("=");  	
-	ID = strs[1];
+  var str = url.substr(1);
+  strs = str.split("=");    
+  ID = strs[1];
 }
 function reportSubmit() {
-	var problem = document.getElementById("problem").value;
-	var user = sessionStorage.getItem("whoLogin");
-	alert(user);
-    $.get('GotoServlet', { 
-    	selection : "reportME",
-    	id : ID, 
-    	report : problem, 
-    	user : user,
-    	}, function(responseText){ 
-    		alert("Report OK");
-    });
+  var problem = document.getElementById("problem").value;
+  var user = sessionStorage.getItem("whoLogin");
+  alert(user);
+   $.get('GotoServlet', {
+      selection : "reportME",
+      id : ID,
+      report : problem,
+      user : user,
+      }, function(responseText){
+         alert("Report OK");
+   });
 }
 </script>
 </html>

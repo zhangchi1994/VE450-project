@@ -1,6 +1,7 @@
 function clickbutton_login() {
 	var username = document.getElementById("name").value;
 	var password = document.getElementById("pswd").value;
+	var url = location.search;
 	//alert(username);
 	//alert(password)
 	$.get('ActionServlet', {

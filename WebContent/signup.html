@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <title>Signup</title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <script type="text/javascript"  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-   <script type="text/javascript" src="./js/login_signup.js"></script>
-   <style type="text/css">
-       button { margin: 10px; }
-   </style>
+  <meta charset="UTF-8">
+  <title>Signup</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript"  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/login_signup.js"></script>
+  <style type="text/css">
+      button { margin: 10px; }
+  </style>
+  <style>
+      #logo {
+          background-image: url(images/logoleft.png), url(images/logoright.png);
+          background-position: left top, right top;
+          background-size:25% 15%, 14% 10%;
+          background-repeat: no-repeat, no-repeat;
+          background-attachment:fixed;
+          padding: 50px;
+      }
+  </style>
+
    <style>
-       #logo {
-           background-image: url(images/logoleft.png), url(images/logoright.png);
-           background-position: left top, right top;
-           background-size:25% 15%, 14% 10%;
-           background-repeat: no-repeat, no-repeat;
-           background-attachment:fixed;
-           padding: 50px;
+       .col-center-block {
+           float: none;
+           display: block;
+           margin-left: auto;
+           margin-right: auto;
        }
    </style>
+
 
 </head>
 
@@ -28,48 +38,55 @@
 <body>
 <div id="logo">
 
-   <div class="page-header text-center" style="padding: 10px 100px 10px;">
+  <div class="page-header text-center" style="padding: 10px 100px 10px;">
 
-       <h2> Sign up for our Maintenance System! </h2>
-       <form role="form">
+      <h2> Sign up for our Maintenance System! </h2>
+      <form role="form">
+  </div>
+
+
+
+   <div class="col-center-block" style="width:30%">
+
+  <div class="form-group">
+      <label for="user_name">User Name</label>
+      <input type="text" class="form-control" id="name">
+  </div>
+  <div class="form-group">
+      <label for="pswd">Password</label>
+      <input type="text" class="form-control" id="pswd">
+  </div>
+
+       <br>
+
+  <p>What's your identity?</p>
+
+  <div class="radio">
+      <label for="maintenance_engineer">
+          <input type="radio" name="characteristic" id="radios1" value="me"> Maintenance Engineer
+      </label>
+  </div>
+  <div class="radio">
+      <label for="machine_operator">
+          <input type="radio" name="characteristic" id="radios2" value="eo"> Equipment Operator
+      </label>
+  </div>
+  <div class="radio">
+      <label for="warehouse_manager">
+          <input type="radio" name="characteristic" id="radios3" value="wm"> Warehouse Manager
+      </label>
+  </div>
+
    </div>
 
-   <div class="form-group">
-       <label for="user_name">User Name</label>
-       <input type="text" class="form-control" id="name">
-   </div>
-   <div class="form-group">
-       <label for="pswd">Password</label>
-       <input type="text" class="form-control" id="pswd">
-   </div>
 
-   <p>What's your identity?</p>
+  <div class="text-center" style="padding: 5px 100px 10px;">
 
-   <div class="radio">
-       <label for="maintenance_engineer">
-           <input type="radio" name="characteristic" id="radios1" value="me"> Maintenance Engineer
-       </label>
-   </div>
-   <div class="radio">
-       <label for="machine_operator">
-           <input type="radio" name="characteristic" id="radios2" value="eo"> Equipment Operator
-       </label>
-   </div>
-   <div class="radio">
-       <label for="warehouse_manager">
-           <input type="radio" name="characteristic" id="radios3" value="wm"> Warehouse Manager
-       </label>
-   </div>
+          <button type="button" name = "button" class="btn btn-primary" id = "signup" onClick="clickbutton_signup()">Sign up</button>
 
+  </div>
 
-
-   <div class="text-center" style="padding: 50px 100px 10px;">
-
-           <button type="button" name = "button" class="btn btn-primary" id = "signup" onClick="clickbutton_signup()">Sign up</button>
-
-   </div>
-
-   <div id="welcometext"></div>
+  <div id="welcometext"></div>
 
 </div>
 </body>

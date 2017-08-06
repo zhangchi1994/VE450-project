@@ -10,39 +10,50 @@
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <script
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
 <style type="text/css">
-button {
-	margin: 10px;
-}
-</style>
-<style>
-#logo {
-	background-image: url(images/logoleft.png), url(images/logoright.png);
-	background-position: left top, right top;
-	background-size: 25% 15%, 14% 10%;
-	background-repeat: no-repeat, no-repeat;
-	background-attachment: fixed;
-	padding: 50px;
-}
-</style>
+   body{margin:0; padding:0;}
+   #left{width:800px;height:600px;padding-left:10px;float:left}
+   #right{width:1000px;height:600px;padding-right:10px;float:right}
+   </style>
+   
+   <style type="text/css">
+   .chart{width:800px;height:600px;padding-left:10px;padding-top:800px;float:left}
+   </style>
+   
+   <style type="text/css">
+       button {
+           margin: 10px;
+       }
+   </style>
+   <style>
+     .col-center-block {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+     }
+  </style>
 
 </head>
 <body>
 	<div id="logo">
 		<br> <br> <br>
-		<div align="center">
-			<img src="" width="30%" height="30%" id="img">
-		</div>
-
+	
 		<div class="page-header text-center" style="padding: 10px 100px 10px;">
 
 			<h2>Status</h2>
 			<form role="form">
 		</div>
 
+   <div id="left" style="padding-top: 30px; width:800px;" class="text-center" >
+       <img src="" width="70%" height="70%" id="img">
+   </div>
 
-		<div class="container">
-			<table class="table table-bordered table-striped table-hover" id="running">
+
+   <div id="right" class="container" style="padding-right: 40px; padding-left:10px; width:700px;">
+			<table class="table table-bordered table-striped table-hover"
+				id="running">
 				<caption>Running Information</caption>
 				<thread>
 				<tr>
@@ -53,12 +64,9 @@ button {
 				</tr>
 				</thread>
 			</table>
-		</div>
-
-		<br>
-
-		<div class="container">
-			<table class="table table-bordered table-striped table-hover" id="history">
+		
+			<table class="table table-bordered table-striped table-hover"
+				id="history">
 				<caption>Maintanence History</caption>
 				<thread>
 				<tr>
@@ -79,11 +87,13 @@ button {
 			</a>
 		</div>
 	</div>
+
+	<div id="main" style="height: 400px"></div>
 </body>
 
 <script type="text/javascript">
 var name = sessionStorage.getItem("qr_id_data");
-document.getElementById("img").src = "http://localhost:8080/VE450/pic/" + name + ".jpg";
+document.getElementById("img").src = "../upload_file/" + name + ".jpg";
 	$.getJSON('ReadInfoServlet', {
 		name : name,
 		sele : "viewME"
@@ -109,7 +119,123 @@ document.getElementById("img").src = "http://localhost:8080/VE450/pic/" + name +
 			items_h.push("</tr>");
 		});
 		$("#history").append(items_h.join(""));
-	});
+		
+	       //--------------------------------图表--------------------------------------
+        require.config({
+ paths: {
+     echarts: 'http://echarts.baidu.com/build/dist'
+ }
+});
+
+require(
+ [
+     'echarts',
+     'echarts/chart/line'
+ ],
+ function (ec) {
+     var myChart = ec.init(document.getElementById('main'));                
+     var option = {
+     	    title: {
+     	        text: 'temperature&speed',
+     	        x: 'center'
+     	    },
+     	    tooltip: {
+     	        trigger: 'axis',
+     	        axisPointer: {
+     	            animation: false
+     	        }
+     	    },
+     	    legend: {
+     	        data:['speed','temperature'],
+     	        x: 'left'
+     	    },
+     	    toolbox: {
+     	        feature: {
+     	            dataZoom: {
+     	                yAxisIndex: 'none'
+     	            },
+     	            restore: {},
+     	            saveAsImage: {}
+     	        }
+     	    },
+     	    axisPointer: {
+     	        link: {xAxisIndex: 'all'}
+     	    },
+     	    grid: [{
+     	        left: 50,
+     	        right: 50,
+     	        height: '30%'
+     	    }, {
+     	        left: 50,
+     	        right: 50,
+     	        top: '55%',
+     	        height: '35%'
+     	    }],
+     	    xAxis : [
+     	        {
+     	            type : 'category',
+     	            boundaryGap : false,
+     	            axisLine: {onZero: true},
+     	            data: [responseText[0].Status[0].recorded_time, responseText[0].Status[1].recorded_time, responseText[0].Status[2].recorded_time, responseText[0].Status[3].recorded_time, 
+     	            	responseText[0].Status[4].recorded_time, responseText[0].Status[5].recorded_time, responseText[0].Status[6].recorded_time, responseText[0].Status[7].recorded_time, 
+     	            	responseText[0].Status[8].recorded_time, responseText[0].Status[9].recorded_time]
+     	        },
+     	        {
+     	            gridIndex: 1,
+     	            type : 'category',
+     	            boundaryGap : false,
+     	            axisLine: {onZero: true},
+     	            show: false,
+     	            data: [responseText[0].Status[0].recorded_time, responseText[0].Status[1].recorded_time, responseText[0].Status[2].recorded_time, responseText[0].Status[3].recorded_time, 
+     	            	responseText[0].Status[4].recorded_time, responseText[0].Status[5].recorded_time, responseText[0].Status[6].recorded_time, responseText[0].Status[7].recorded_time, 
+     	            	responseText[0].Status[8].recorded_time, responseText[0].Status[9].recorded_time]
+     	        }
+     	    ],
+     	    yAxis : [
+     	        {
+     	            name : 'speed(x10 m/s)',
+     	            type : 'value',
+     	            max : 150
+     	        },
+     	        {
+     	            //gridIndex: 1,
+     	            name : 'temperature(℃)',
+     	            type : 'value',
+     	            max : 60,
+     	            inverse: true
+     	        }
+     	    ],
+     	    series : [
+     	        {
+     	            name:'temperature',
+     	            type:'line',
+     	            symbolSize: 8,
+     	            hoverAnimation: false,
+     	            data: [responseText[0].Status[0].temperature, responseText[0].Status[1].temperature, responseText[0].Status[2].temperature, responseText[0].Status[3].temperature, 
+     	            	responseText[0].Status[4].temperature, responseText[0].Status[5].temperature, responseText[0].Status[6].temperature, responseText[0].Status[7].temperature, 
+     	            	responseText[0].Status[8].temperature, responseText[0].Status[9].temperature]
+     	        },
+     	        {
+     	            name:'speed',
+     	            type:'line',
+     	            xAxisIndex: 1,
+     	            yAxisIndex: 1,
+     	            symbolSize: 8,
+     	            hoverAnimation: false,
+     	            data: [responseText[0].Status[0].speed/10, responseText[0].Status[1].speed/10, responseText[0].Status[2].speed/10, responseText[0].Status[3].speed/10, 
+     	            	responseText[0].Status[4].speed/10, responseText[0].Status[5].speed/10, responseText[0].Status[6].speed/10, responseText[0].Status[7].speed/10, 
+     	            	responseText[0].Status[8].speed/10, responseText[0].Status[9].speed/10]
+     	        }
+     	    ]
+     	};
+
+     myChart.setOption(option); 
+ }
+);
+//--------------------------------------------------------------------------
+		
+		
+	});	
 </script>
 
 </html>

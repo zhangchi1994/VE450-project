@@ -4,55 +4,86 @@
 <title>QR code Reader</title>
 <meta charset="utf-8">
 <script type="text/javascript"
-	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="./js/html5-qrcode.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+  <style type="text/css">
+     .notshow{display:none}
+  </style>
+
+  <style>
+     #logo {
+        background-image: url(images/logoleft.png), url(images/logoright.png);
+        background-position: left top, right top;
+        background-size: 25% 15%, 14% 10%;
+        background-repeat: no-repeat, no-repeat;
+        background-attachment: fixed;
+        padding: 50px;
+     }
+  </style>
+
 </head>
 
 <body>
-	<div>
-		<input id="qr"
-		onkeypress="if(event.keyCode==13) {btn.click();return false;}" ></input>
-		<button type="button" id="btn" onClick="go()">Submit</button>
-	</div>
+<div id="logo">
+
+  <div class="page-header text-center" style="padding: 10px 100px 10px;">
+
+     <h2>QR Scan</h2>
+     <form role="form">
+  </div>
+
+  <div class="text-center">
+     <input id="qr"
+     onkeypress="if(event.keyCode==13) {btn.click();return false;}" ></input>
+     <br><br>
+     <button type="button" class="btn btn-primary" id="btn" onClick="go()">Submit</button>
+  </div>
+
+</div>
 </body>
 
 <script type="text/javascript">
-	$('#qr').focus();
-	function go() {
-		//alert("button press");
-		var data = document.getElementById("qr").value;
-		console.log(data);
-		sessionStorage.setItem("qr_id_data", data);
-		console.log(sessionStorage.getItem("whoScan"));
-		if (sessionStorage.getItem("whoScan") != null) {
-			var identity = sessionStorage.getItem("whoScan");
-			if(identity == "me") 
-				window.location.href = "./index_maintenance_engineer.html";
-			if(identity == "eo")
-				window.location.href = "./index_equipment_operator.html";
-				
-		}
-		if (sessionStorage.getItem("warehouseSelection") != null) {
-			var warehouse_selection = sessionStorage.getItem("warehouseSelection");
-			//alert(warehouse_selection);
-			sessionStorage.setItem("wmselection", warehouse_selection);
-			window.location.href = "./storeOld_takeOut.html";
-		}
-		if (sessionStorage.getItem("maintenanceSelection") != null) {
-			var equip_selection = sessionStorage
-					.getItem("maintenanceSelection");
-			//alert(equip_selection);
-			if (equip_selection == "replace")
-				window.location.href = "./replacement.html";
-			if (equip_selection == "view")
-				window.location.href = "./viewME.html";
-			if (equip_selection == "report")
-				window.location.href = "./reportME.html?hid="+data;
-		}
-	}
-	//});
-	//var tmp = window.location.href.split(“=”)[1]
-	//alert(tmp);
+  $('#qr').focus();
+  function go() {
+     //alert("button press");
+     var data = document.getElementById("qr").value;
+     console.log(data);
+     sessionStorage.setItem("qr_id_data", data);
+     console.log(sessionStorage.getItem("whoScan"));
+     if (sessionStorage.getItem("whoScan") != null) {
+        var identity = sessionStorage.getItem("whoScan");
+        if(identity == "me")
+           window.location.href = "./index_maintenance_engineer.html";
+        if(identity == "eo")
+           window.location.href = "./index_equipment_operator.html";
+          
+     }
+     if (sessionStorage.getItem("warehouseSelection") != null) {
+        var warehouse_selection = sessionStorage.getItem("warehouseSelection");
+        //alert(warehouse_selection);
+        sessionStorage.setItem("wmselection", warehouse_selection);
+        window.location.href = "storeOld_takeOut.html";
+     }
+     if (sessionStorage.getItem("maintenanceSelection") != null) {
+        var equip_selection = sessionStorage
+              .getItem("maintenanceSelection");
+        //alert(equip_selection);
+        if (equip_selection == "replace")
+           window.location.href = "replacement.html";
+        if (equip_selection == "view")
+           window.location.href = "viewME.html";
+        if (equip_selection == "report")
+           window.location.href = "./reportME.html?hid="+data;
+     }
+  }
+  //});
+  //var tmp = window.location.href.split(“=”)[1]
+  //alert(tmp);
 </script>
 
 </html>

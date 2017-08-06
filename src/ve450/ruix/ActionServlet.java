@@ -11,7 +11,6 @@ import ve450.ruix.sql_id_connection.loginReturn;
 /**
  * Servlet implementation class ActionServlet
  */
-
 public class ActionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

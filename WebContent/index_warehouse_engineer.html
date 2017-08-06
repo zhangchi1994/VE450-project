@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <title>Warehouse Manager beginpage</title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <style type="text/css">
-       button { margin: 10px; }
-   </style>
-   <style>
-       #logo {
-           background-image: url(images/logoleft.png), url(images/logoright.png);
-           background-position: left top, right top;
-           background-size:25% 15%, 14% 10%;
-           background-repeat: no-repeat, no-repeat;
-           background-attachment:fixed;
-           padding: 50px;
-       }
-   </style>
+  <meta charset="UTF-8">
+  <title>Warehouse Manager beginpage</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style type="text/css">
+      button { margin: 10px; }
+  </style>
+  <style>
+      #logo {
+          background-image: url(images/logoleft.png), url(images/logoright.png);
+          background-position: left top, right top;
+          background-size:25% 15%, 14% 10%;
+          background-repeat: no-repeat, no-repeat;
+          background-attachment:fixed;
+          padding: 50px;
+      }
+  </style>
+
+  <style>
+     .col-center-block {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+     }
+  </style>
 
 </head>
 
@@ -28,40 +37,40 @@
 
 <div class="page-header text-center" style="padding: 10px 100px 10px;">
 
-   <h2> Warehouse Manager       <small>Function Choice</small></h2>
-   <form role="form">
+  <h2> Warehouse Manager       <small>Function Choice</small></h2>
+  <form role="form">
 </div>
 
-<div class="text-center" style="padding: 50px 100px 10px;">
-   <a href="./storageList.html?search=">
-       <button type="button" name = "button" class="btn btn-primary" id = "show_list">Show list </button>
-   </a>
+<div class="col-center-block" style="width:30%">
+  <a href="storageList.html?search=">
+      <button type="button" name = "button" class="btn btn-default btn-lg btn-block" id = "show_list">Show list </button>
+  </a>
+  <br>
+  <a href="qr_scan.html">
+      <button type="button" name = "button" class="btn btn-default btn-lg btn-block" id = "take_out">Take Out</button>
+  </a>
+  <br>
+  <a href="upload_equipment.html">
+      <button type="button" name = "button" class="btn btn-default btn-lg btn-block" id = "store_new">Store New Items</button>
+  </a>
+  <br>
+  <a href="qr_scan.html">
+      <button type="button" name = "button" class="btn btn-default btn-lg btn-block" id = "store_used">Store Used Items</button>
+  </a>
 
-   <a href="./qr_scan.html">
-       <button type="button" name = "button" class="btn btn-primary" id = "take_out">Take Out</button>
-   </a>
-
-   <a href="./upload_equipment.html">
-       <button type="button" name = "button" class="btn btn-primary" id = "store_new">Store New Items</button>
-   </a>
-
-   <a href="./qr_scan.html">
-       <button type="button" name = "button" class="btn btn-primary" id = "store_used">Store Used Items</button>
-   </a>
-  
 </div>`
 </div>
 </body>
 
 <script>
-   document.onclick=function(e){
-       var evt = e||window.event;
-       var tar = evt.target||evt.srcElement;
-       if((tar.tagName.toLowerCase()=="input"&&tar.type=="button") || tar.tagName.toLowerCase()=="button"){
-           //alert(tar.id);
-           sessionStorage.setItem("warehouseSelection", tar.id);
-       }
-   }
+  document.onclick=function(e){
+      var evt = e||window.event;
+      var tar = evt.target||evt.srcElement;
+      if((tar.tagName.toLowerCase()=="input"&&tar.type=="button") || tar.tagName.toLowerCase()=="button"){
+          //alert(tar.id);
+          sessionStorage.setItem("warehouseSelection", tar.id);
+      }
+  }
 </script>
 
 </html>

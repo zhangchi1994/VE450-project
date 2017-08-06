@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <title>Maintenance Engineer replacement</title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <style type="text/css">
-       button { margin: 10px; }
-   </style>
+  <meta charset="UTF-8">
+  <title>Maintenance Engineer replacement</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style type="text/css">
+      button { margin: 10px; }
+  </style>
+  <style>
+      #logo {
+          background-image: url(images/logoleft.png), url(images/logoright.png);
+          background-position: left top, right top;
+          background-size:25% 15%, 14% 10%;
+          background-repeat: no-repeat, no-repeat;
+          padding: 50px;
+      }
+  </style>
+
    <style>
-       #logo {
-           background-image: url(images/logoleft.png), url(images/logoright.png);
-           background-position: left top, right top;
-           background-size:25% 15%, 14% 10%;
-           background-repeat: no-repeat, no-repeat;
-           background-attachment:fixed;
-           padding: 50px;
+       .col-center-block {
+           float: none;
+           display: block;
+           margin-left: auto;
+           margin-right: auto;
        }
    </style>
 
@@ -26,26 +34,26 @@
 <body>
 <div id="logo">
 
-   <div class="page-header text-center" style="padding: 10px 100px 10px;">
+  <div class="page-header text-center" style="padding: 10px 100px 10px;">
 
-       <h2> Replacement </h2>
-       <form role="form">
-   </div>
+      <h2> Replacement </h2>
+      <form role="form">
+  </div>
 
-   <div class="text-center" style="padding: 50px 100px 10px;">
+  <div class="col-center-block" style="width:30%">
 
-       <a href="./qr_scan.html">
-           <button type="button" name = "button" class="btn btn-primary" id="scanbroken">Scan the broken component</button>
-       </a >
+      <a href="./qr_scan.html">
+          <button type="button" name = "button" class="btn btn-default btn-lg btn-block" id="scanbroken">Scan the broken component</button>
+      </a ><br>
 
-       <a href="./qr_scan.html">
-           <button type="button" name = "button" class="btn btn-primary" id="scannew">Scan the new component</button>
-       </a >
+      <a href="./qr_scan.html">
+          <button type="button" name = "button" class="btn btn-default btn-lg btn-block" id="scannew">Scan the new component</button>
+      </a ><br>
 
-       <a href="./index_maintenance_engineer.html">
-           <button type="button" name = "button" class="btn btn-primary" id = "return">Return</button>
-       </a >
-   </div>
+      <a href="./index_maintenance_engineer.html">
+          <button type="button" name = "button" class="btn btn-default btn-lg btn-block" id = "return">Return</button>
+      </a >
+  </div>
 
 </div>
 </body>
