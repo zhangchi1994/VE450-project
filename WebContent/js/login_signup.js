@@ -12,10 +12,12 @@ function clickbutton_login() {
 		sessionStorage.setItem("whoLogin", username);
 		$('#welcometext').text(responseText);
 		if(responseText == "wm")
-			window.location.href = "./index_warehouse_engineer.html";
+			window.location.href = "./welcome.html";
+			//window.location.href = "./index_warehouse_engineer.html";
 		if(responseText == "me"){
 			sessionStorage.setItem("whoScan", "me");
-			window.location.href = "./index_maintenance_engineer.html";
+			window.location.href = "./welcome.html";
+			//window.location.href = "./index_maintenance_engineer.html";
 		}
 		if(responseText == "eo") {
 			sessionStorage.setItem("whoScan", "eo");

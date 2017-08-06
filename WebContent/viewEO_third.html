@@ -139,7 +139,7 @@ window.onload = function() {
 	       });
 	       $("#history").append(items_m.join(""));
 	       
-	   
+	   		console.log(responseText.Speed);
 	       //--------------------------------图表--------------------------------------
                 var myChart = echarts.init(document.getElementById('main'));                
                 var option = {
@@ -184,18 +184,14 @@ window.onload = function() {
                 	            type : 'category',
                 	            boundaryGap : false,
                 	            axisLine: {onZero: true},
-                	            data: [responseText.Status[0].recorded_time, responseText.Status[1].recorded_time, responseText.Status[2].recorded_time, responseText.Status[3].recorded_time, 
-                	            	responseText.Status[4].recorded_time, responseText.Status[5].recorded_time, responseText.Status[6].recorded_time, responseText.Status[7].recorded_time, 
-                	            	responseText.Status[8].recorded_time, responseText.Status[9].recorded_time]
+                	            data: responseText.Recorded_time
                 	        },
                 	        {
                 	            gridIndex: 1,
                 	            type : 'category',
                 	            boundaryGap : false,
                 	            axisLine: {onZero: true},
-                	            data: [responseText.Status[0].recorded_time, responseText.Status[1].recorded_time, responseText.Status[2].recorded_time, responseText.Status[3].recorded_time, 
-                	            	responseText.Status[4].recorded_time, responseText.Status[5].recorded_time, responseText.Status[6].recorded_time, responseText.Status[7].recorded_time, 
-                	            	responseText.Status[8].recorded_time, responseText.Status[9].recorded_time],
+                	            data: responseText.Recorded_time,
                 	            position: 'top'
                 	        }
                 	    ],
@@ -203,7 +199,7 @@ window.onload = function() {
                 	        {
                 	            name : 'speed(x10 m/s)',
                 	            type : 'value',
-                	            max : 150
+                	            max : 2000
                 	        },
                 	        {
                 	            gridIndex: 1,
@@ -215,24 +211,20 @@ window.onload = function() {
                 	    ],
                 	    series : [
                 	        {
-                	            name:'temperature',
+                	            name:'speed',
                 	            type:'line',
                 	            symbolSize: 8,
                 	            hoverAnimation: false,
-                	            data: [responseText.Status[0].speed/10, responseText.Status[1].speed/10, responseText.Status[2].speed/10, responseText.Status[3].speed/10, 
-                	            	responseText.Status[4].speed/10, responseText.Status[5].speed/10, responseText.Status[6].speed/10, responseText.Status[7].speed/10, 
-                	            	responseText.Status[8].speed/10, responseText.Status[9].speed/10]
+                	            data: responseText.Speed
                 	        },
                 	        {
-                	            name:'speed',
+                	            name:'temperature',
                 	            type:'line',
                 	            xAxisIndex: 1,
                 	            yAxisIndex: 1,
                 	            symbolSize: 8,
                 	            hoverAnimation: false,
-                	            data: [responseText.Status[0].temperature, responseText.Status[1].temperature, responseText.Status[2].temperature, responseText.Status[3].temperature, 
-                	            	responseText.Status[4].temperature, responseText.Status[5].temperature, responseText.Status[6].temperature, responseText.Status[7].temperature, 
-                	            	responseText.Status[8].temperature, responseText.Status[9].temperature]
+                	            data: responseText.Temperature
                 	        }
                 	    ]
                 	};
