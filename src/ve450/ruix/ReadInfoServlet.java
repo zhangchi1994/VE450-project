@@ -41,9 +41,10 @@ public class ReadInfoServlet extends HttpServlet {
 				String tmp_2 = sql_login.ViewComponents(id);
 				String tmp_3 = sql_login.ViewStatus(id);
 				String tmp_4 = sql_login.SonDraw(id);
+				String tmp_5 = sql_login.DadDraw(id);
 				//tmp = "{ \"Basic\":" + tmp_1 + ",\n \"Comp\":" + tmp_2 + ",\n" + tmp_3.substring(2, tmp_3.length() - 1);
 				tmp = "{ \"Basic\":" + tmp_1 + ",\n \"Comp\":" + tmp_2 + ",\n" + tmp_3.substring(2, tmp_3.length() - 3)
-						+ ",\n" + tmp_4.substring(2, tmp_4.length() - 1);
+						+ ",\n" + tmp_4.substring(2, tmp_4.length() - 2)+ ",\n" + tmp_5.substring(2, tmp_5.length() - 1);
 				System.out.println("******************************************");
 				System.out.println(tmp);
 				System.out.println("******************************************");
