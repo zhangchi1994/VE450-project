@@ -38,17 +38,17 @@
 </head>
 <body>
 <div id="logo">
-   <br> <br> <br>
-  
+   <br> 
+   <div class="page-header text-center" style="padding: 10px 10px 10px;">
 
-   <div class="page-header text-center" style="padding: 10px 100px 10px;">
-
-       <h2>Information of Subsubsystem</h2>
+       <h1>Information of Subsubsystem</h1>
        <form role="form">
    </div>
 
-   <div id="left" style="padding-top: 30px;" class="text-center" >
-       <img src="" width="70%" height="70%" id="img">
+   <div id="left" style="padding-top: 1px;" class="text-center" >
+       <img src="" width="22%" height="22%" id="img">
+       <br><br>
+        <div id="main"  style="height:400px; width:70%; " class="col-center-block"></div>
    </div>
 
 
@@ -93,7 +93,7 @@
    </div>
 </div>
 
- <div id="main"  style="height:400px; width:70%; " class="col-center-block"></div>
+
  
 </body>
 <script type="text/javascript">
@@ -139,14 +139,10 @@ window.onload = function() {
 	       });
 	       $("#history").append(items_m.join(""));
 	       
-	   		console.log(responseText.Speed);
+	   		console.log(responseText.Recorded_time);
 	       //--------------------------------图表--------------------------------------
                 var myChart = echarts.init(document.getElementById('main'));                
                 var option = {
-                	    title: {
-                	        text: 'temperature&speed',
-                	        x: 'center'
-                	    },
                 	    tooltip: {
                 	        trigger: 'axis',
                 	        axisPointer: {
@@ -179,24 +175,22 @@ window.onload = function() {
                 	        top: '55%',
                 	        height: '35%'
                 	    }],
-                	    xAxis: {
-                	        type: 'value',
-                	        name: '日期',
-                	        nameGap: 16,
-                	        nameTextStyle: {
-                	            color: '#fff',
-                	            fontSize: 14
+                	    xAxis : [
+                	        {
+                	            type : 'category',
+                	            boundaryGap : false,
+                	            axisLine: {onZero: true},
+                	            data: responseText.Recorded_time
                 	        },
-                	        max: 31,
-                	        splitLine: {
-                	            show: false
-                	        },
-                	        axisLine: {
-                	            lineStyle: {
-                	                color: '#eee'
-                	            }
+                	        {
+                	            gridIndex: 1,
+                	            type : 'category',
+                	            boundaryGap : false,
+                	            axisLine: {onZero: true},
+                	            data: responseText.Recorded_time,
+                	            position: 'top'
                 	        }
-                	    },
+                	    ],
                 	    yAxis : [
                 	        {
                 	            name : 'speed(x10 m/s)',
@@ -207,7 +201,8 @@ window.onload = function() {
                 	            gridIndex: 1,
                 	            name : 'temperature(℃)',
                 	            type : 'value',
-                	            max : 60,
+                	            min: 50,
+                	            max : 100,
                 	            inverse: true
                 	        }
                 	    ],

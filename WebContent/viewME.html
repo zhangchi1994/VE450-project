@@ -38,16 +38,18 @@
 </head>
 <body>
 	<div id="logo">
-		<br> <br> <br>
+		<br> 
 	
-		<div class="page-header text-center" style="padding: 10px 100px 10px;">
+		<div class="page-header text-center" style="padding: 10px 10px 10px;">
 
-			<h2>Status</h2>
+			<h1>Status</h1>
 			<form role="form">
 		</div>
 
-   <div id="left" style="padding-top: 30px;" class="text-center" >
-       <img src="" width="70%" height="70%" id="img">
+   <div id="left" style="padding-top: 1px;" class="text-center" >
+       <img src="" width="22%" height="22%" id="img">
+       <br><br>
+       <div id="main" style="height: 400px"></div>
    </div>
 
 
@@ -79,16 +81,10 @@
 			</table>
 		</div>
 
-		<div class="text-center" style="padding: 50px 100px 10px;">
-
-			<a href="./index_maintenance_engineer.html">
-				<button type="button" name="button" class="btn btn-primary"
-					id="return">Return</button>
-			</a>
-		</div>
+		
 	</div>
 
-	<div id="main" style="height: 400px"></div>
+	
 </body>
 
 <script type="text/javascript">
@@ -123,117 +119,92 @@ document.getElementById("img").src = "../upload_file/" + name + ".jpg";
 		$("#history").append(items_h.join(""));
 		
 	       //--------------------------------图表--------------------------------------
-        require.config({
- paths: {
-     echarts: 'http://echarts.baidu.com/build/dist'
- }
-});
-
-require(
- [
-     'echarts',
-     'echarts/chart/line'
- ],
- function (ec) {
-     var myChart = ec.init(document.getElementById('main'));                
-     var option = {
-     	    title: {
-     	        text: 'temperature&speed',
-     	        x: 'center'
-     	    },
-     	    tooltip: {
-     	        trigger: 'axis',
-     	        axisPointer: {
-     	            animation: false
-     	        }
-     	    },
-     	    legend: {
-     	        data:['speed','temperature'],
-     	        x: 'left'
-     	    },
-     	    toolbox: {
-     	        feature: {
-     	            dataZoom: {
-     	                yAxisIndex: 'none'
-     	            },
-     	            restore: {},
-     	            saveAsImage: {}
-     	        }
-     	    },
-     	    axisPointer: {
-     	        link: {xAxisIndex: 'all'}
-     	    },
-     	    grid: [{
-     	        left: 50,
-     	        right: 50,
-     	        height: '30%'
-     	    }, {
-     	        left: 50,
-     	        right: 50,
-     	        top: '55%',
-     	        height: '35%'
-     	    }],
-     	    xAxis : [
-     	        {
-     	            type : 'category',
-     	            boundaryGap : false,
-     	            axisLine: {onZero: true},
-     	            data: [responseText[0].Status[0].recorded_time, responseText[0].Status[1].recorded_time, responseText[0].Status[2].recorded_time, responseText[0].Status[3].recorded_time, 
-     	            	responseText[0].Status[4].recorded_time, responseText[0].Status[5].recorded_time, responseText[0].Status[6].recorded_time, responseText[0].Status[7].recorded_time, 
-     	            	responseText[0].Status[8].recorded_time, responseText[0].Status[9].recorded_time]
-     	        },
-     	        {
-     	            gridIndex: 1,
-     	            type : 'category',
-     	            boundaryGap : false,
-     	            axisLine: {onZero: true},
-     	            show: false,
-     	            data: [responseText[0].Status[0].recorded_time, responseText[0].Status[1].recorded_time, responseText[0].Status[2].recorded_time, responseText[0].Status[3].recorded_time, 
-     	            	responseText[0].Status[4].recorded_time, responseText[0].Status[5].recorded_time, responseText[0].Status[6].recorded_time, responseText[0].Status[7].recorded_time, 
-     	            	responseText[0].Status[8].recorded_time, responseText[0].Status[9].recorded_time]
-     	        }
-     	    ],
-     	    yAxis : [
-     	        {
-     	            name : 'speed(x10 m/s)',
-     	            type : 'value',
-     	            max : 150
-     	        },
-     	        {
-     	            //gridIndex: 1,
-     	            name : 'temperature(℃)',
-     	            type : 'value',
-     	            max : 60,
-     	            inverse: true
-     	        }
-     	    ],
-     	    series : [
-     	        {
-     	            name:'temperature',
-     	            type:'line',
-     	            symbolSize: 8,
-     	            hoverAnimation: false,
-     	            data: [responseText[0].Status[0].temperature, responseText[0].Status[1].temperature, responseText[0].Status[2].temperature, responseText[0].Status[3].temperature, 
-     	            	responseText[0].Status[4].temperature, responseText[0].Status[5].temperature, responseText[0].Status[6].temperature, responseText[0].Status[7].temperature, 
-     	            	responseText[0].Status[8].temperature, responseText[0].Status[9].temperature]
-     	        },
-     	        {
-     	            name:'speed',
-     	            type:'line',
-     	            xAxisIndex: 1,
-     	            yAxisIndex: 1,
-     	            symbolSize: 8,
-     	            hoverAnimation: false,
-     	            data: [responseText[0].Status[0].speed/10, responseText[0].Status[1].speed/10, responseText[0].Status[2].speed/10, responseText[0].Status[3].speed/10, 
-     	            	responseText[0].Status[4].speed/10, responseText[0].Status[5].speed/10, responseText[0].Status[6].speed/10, responseText[0].Status[7].speed/10, 
-     	            	responseText[0].Status[8].speed/10, responseText[0].Status[9].speed/10]
-     	        }
-     	    ]
-     	};
-
-     myChart.setOption(option); 
- }
-);
+                var myChart = echarts.init(document.getElementById('main'));                
+                var option = {
+                	    tooltip: {
+                	        trigger: 'axis',
+                	        axisPointer: {
+                	            animation: false
+                	        }
+                	    },
+                	    legend: {
+                	        data:['speed','temperature'],
+                	        x: 'left'
+                	    },
+                	    toolbox: {
+                	        feature: {
+                	            dataZoom: {
+                	                yAxisIndex: 'none'
+                	            },
+                	            restore: {},
+                	            saveAsImage: {}
+                	        }
+                	    },
+                	    axisPointer: {
+                	        link: {xAxisIndex: 'all'}
+                	    },
+                	    grid: [{
+                	        left: 50,
+                	        right: 50,
+                	        height: '30%'
+                	    }, {
+                	        left: 50,
+                	        right: 50,
+                	        top: '55%',
+                	        height: '35%'
+                	    }],
+                	    xAxis : [
+                	        {
+                	            type : 'category',
+                	            boundaryGap : false,
+                	            axisLine: {onZero: true},
+                	            data: responseText.Recorded_time
+                	        },
+                	        {
+                	            gridIndex: 1,
+                	            type : 'category',
+                	            boundaryGap : false,
+                	            axisLine: {onZero: true},
+                	            data: responseText.Recorded_time,
+                	            position: 'top'
+                	        }
+                	    ],
+                	    yAxis : [
+                	        {
+                	            name : 'speed(x10 m/s)',
+                	            type : 'value',
+                	            max : 2000
+                	        },
+                	        {
+                	            gridIndex: 1,
+                	            name : 'temperature(℃)',
+                	            type : 'value',
+                	            min: 50,
+                	            max : 100,
+                	            inverse: true
+                	        }
+                	    ],
+                	    series : [
+                	        {
+                	            name:'speed',
+                	            type:'line',
+                	            symbolSize: 8,
+                	            hoverAnimation: false,
+                	            data: responseText.Speed
+                	        },
+                	        {
+                	            name:'temperature',
+                	            type:'line',
+                	            xAxisIndex: 1,
+                	            yAxisIndex: 1,
+                	            symbolSize: 8,
+                	            hoverAnimation: false,
+                	            data: responseText.Temperature
+                	        }
+                	    ]
+                	};
+        
+                myChart.setOption(option); 
 //--------------------------------------------------------------------------
 		
 		

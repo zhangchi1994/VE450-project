@@ -1,183 +1,158 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <script type="text/javascript"
-	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="./js/jquery.qrcode.min.js"></script>
 <script type="text/javascript" src="./js/webcam.js"></script>
 <script language="javascript" src="./js/LodopFuncs.js"></script>
 <title>web camera</title>
-<style type="text/css">
-   body{margin:0; padding:0;}
-   #left{width:50%;height:400px;padding-left:5px;padding-top:50px;float:left}
-   #right{width:50%;height:400px;padding-right:10px;padding-top:50px;float:right}
-   </style>
-   
-   <style type="text/css">
-       button {
-           margin: 10px;
-       }
-   </style>
-   <style>
-     .col-center-block {
-        float: none;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-     }
-  </style>
-   
 <script type="text/javascript">
-	window.onload = function() {
-		try {
-			//动态创建一个canvas元 ，并获取他2Dcontext。如果出现异常则表示不支持
-			document.createElement("canvas").getContext("2d");
-			document.getElementById("support").innerHTML = " ";
-		} catch (e) {
-			document.getElementById("support").innerHTML = " ";
-		}
-	};
+  window.onload = function() {
+     try {
+        //动态创建一个canvas元 ，并获取他2Dcontext。如果出现异常则表示不支持
+        document.createElement("canvas").getContext("2d");
+        document.getElementById("support").innerHTML = " ";
+     } catch (e) {
+        document.getElementById("support").innerHTML = " ";
+     }
+  };
 
-	//这段代 主要是获取摄像头的视频流并显示在Video 签中
-	window.addEventListener("DOMContentLoaded", function() {
-		var video = document.getElementById("video");
-		var videoObj = {
-			"video" : true
-		};
-		var errBack = function(error) {
-			console.log("Video capture error: " + error.message, error.code);
-		};
+  //这段代 主要是获取摄像头的视频流并显示在Video 签中
+  window.addEventListener("DOMContentLoaded", function() {
+     var video = document.getElementById("video");
+     var videoObj = {
+        "video" : true
+     };
+     var errBack = function(error) {
+        console.log("Video capture error: " + error.message, error.code);
+     };
 
-		if (navigator.getUserMedia) {
-			navigator.getUserMedia(videoObj, function(stream) {
-				video.src = stream;
-				video.play();
-			}, errBack);
-		} else if (navigator.webkitGetUserMedia) {
-			navigator.webkitGetUserMedia(videoObj, function(stream) {
-				video.src = window.URL.createObjectURL(stream);
-				video.play();
-			}, errBack);
-		} else if (navigator.mozGetUserMedia) {
-			navigator.mozGetUserMedia(videoObj, function(stream) {
-				video.src = window.URL.createObjectURL(stream);
-				video.play();
-			}, errBack);
-		}
+     if (navigator.getUserMedia) {
+        navigator.getUserMedia(videoObj, function(stream) {
+           video.src = stream;
+           video.play();
+        }, errBack);
+     } else if (navigator.webkitGetUserMedia) {
+        navigator.webkitGetUserMedia(videoObj, function(stream) {
+           video.src = window.URL.createObjectURL(stream);
+           video.play();
+        }, errBack);
+     } else if (navigator.mozGetUserMedia) {
+        navigator.mozGetUserMedia(videoObj, function(stream) {
+           video.src = window.URL.createObjectURL(stream);
+           video.play();
+        }, errBack);
+     }
 
-		//这个是拍照按钮的事件，
-		document.getElementById("snap").addEventListener("click", function() {
-			CatchCode();
-		});
-	}, false);
+     //这个是拍照按钮的事件，
+     document.getElementById("snap").addEventListener("click", function() {
+        CatchCode();
+     });
+  }, false);
 </script>
 </head>
 <body>
-	<div id="support"></div>
-	
-	<div id="contentHolder">
-		<video id="video" width="200" height="150"
-			style="border: 1px solid red" autoplay></video>
-		<button id="snap">Take Photo</button>
-		<canvas style="border: 1px solid red" id="canvas" width="200" height="150"></canvas>
-	</div>
-	
-	
-	<div id="left" style="padding-top: 30px;" class="text-center" >
-    <div id="qrcode"></div>
-    <div id="output"></div>
-    <input type="text" id="getval"/> 
-    <a href="javascript:Preview1()">Click to print</a>  
-   </div>
+  <div id="support"></div>
+  <div id="contentHolder">
+     <video id="video" width="160" height="120"
+        style="border: 1px solid red" autoplay></video>
+     <button id="snap">Take Photo</button>
+     <canvas style="border: 1px solid red" id="canvas"></canvas>
+  </div>
+  <div id="output"></div>
+  <br>
+  <br>
+  
+  <div id="qrcode">
+</div>
 
-
-	
-
-
+<input type="text" id="getval"/>
+   
+  
+<p><font size="3"><b>Print QR Code</b></font></p>        
+<p> <a href="javascript:Preview1()">Click to print</a></p>                                             
+ 
                                          
+<p><a href="javascript:Preview2()"></a></p>              
+     
+ 
+                                       
 
-<script language="javascript" type="text/javascript"> 
-        var LODOP; //声明为全局变量  
-	function Preview1() {	
-		LODOP=getLodop();  
-		LODOP.PRINT_INITA(0,0,522,333,"打印控件功能演示_Lodop功能_自定义纸张1");	
-		LODOP.SET_PRINT_PAGESIZE(0,document.getElementById('W1').value,document.getElementById('H1').value,"A4");
-		AddPrintContent(document.getElementById("getval").value);
-		LODOP.PRINT();	
-	  	//LODOP.PREVIEW();
-		window.location.href = "./index_warehouse_engineer.html";
-	};
-	function Preview2() {		
-		LODOP=getLodop();  
-		LODOP.PRINT_INITA(0,0,522,333,"打印控件功能演示_Lodop功能_自定义纸张2");
-		LODOP.SET_PRINTER_INDEX(getSelectedPrintIndex());		
-		LODOP.SET_PRINT_PAGESIZE(1,document.getElementById('W1').value,document.getElementById('H1').value,"");
-		AddPrintContent(document.getElementById("getval").value);
-	  	LODOP.PREVIEW();		
-	};
-	
-	function AddPrintContent(strCode) {		
-		
-		LODOP.ADD_PRINT_BARCODE("0.2cm","0.2cm","2.8cm","2.8cm","QRCode",strCode);
-		//LODOP.SET_PRINT_STYLEA(0,"Angle",-90);
-		
-		
-	};
-	function getSelectedPrintIndex(){
-		if (document.getElementById("Radio2").checked) 
-		return document.getElementById("PrinterList").value;
-		else return -1; 		
-	};
-	function getSelectedPageSize(){
-		if (document.getElementById("Radio4").checked) 
-		return document.getElementById("PagSizeList").value;
-		else return ""; 		
-	};	
-	function CreatePrinterList(){
-	    if (document.getElementById('PrinterList').innerHTML!="") return;
-		LODOP=getLodop(); 
-		var iPrinterCount=LODOP.GET_PRINTER_COUNT();
-		for(var i=0;i<iPrinterCount;i++){
+<script language="javascript" type="text/javascript">
+       var LODOP; //声明为全局变量 
+  function Preview1() { 
+     LODOP=getLodop(); 
+     LODOP.PRINT_INITA(0,0,522,333,"打印控件功能演示_Lodop功能_自定义纸张1"); 
+     LODOP.SET_PRINT_PAGESIZE(0,document.getElementById('W1').value,document.getElementById('H1').value,"A4");
+     AddPrintContent(document.getElementById("getval").value);
+     LODOP.PRINT();
+     //LODOP.PREVIEW();
+  };
+  function Preview2() {    
+     LODOP=getLodop(); 
+     LODOP.PRINT_INITA(0,0,522,333,"打印控件功能演示_Lodop功能_自定义纸张2");
+     LODOP.SET_PRINTER_INDEX(getSelectedPrintIndex());    
+     LODOP.SET_PRINT_PAGESIZE(1,document.getElementById('W1').value,document.getElementById('H1').value,"");
+     AddPrintContent(document.getElementById("getval").value);
+     LODOP.PREVIEW();     
+  };
 
-   			var option=document.createElement('option');
-   			option.innerHTML=LODOP.GET_PRINTER_NAME(i);
-   			option.value=i;
-			document.getElementById('PrinterList').appendChild(option);
-		};	
-	};
-	function clearPageListChild(){
-	   var PagSizeList =document.getElementById('PagSizeList'); 
-	   while(PagSizeList.childNodes.length>0){
-  		   var children = PagSizeList.childNodes;	
-	  		 for(i=0;i<children.length;i++){		
-			PagSizeList.removeChild(children[i]);	
-	  	  };	   
-	   };	   
-	}
-	function CreatePagSizeList(){
-	   LODOP=getLodop(); 
-	   clearPageListChild();
-	   var strPageSizeList=LODOP.GET_PAGESIZES_LIST(getSelectedPrintIndex(),"\n");
-	   var Options=new Array(); 
- 	   Options=strPageSizeList.split("\n");       
-	   for (i in Options)    
-	   {    
-	     var option=document.createElement('option');   
-		 option.innerHTML=Options[i];
-		 option.value=Options[i];
-   		 document.getElementById('PagSizeList').appendChild(option);
-	   }  
-	}	
-		
-</script> 
+  function AddPrintContent(strCode) {      
+    
+     LODOP.ADD_PRINT_BARCODE("0.2cm","0.2cm","2.8cm","2.8cm","QRCode",strCode);
+    
+    
+  };
+  function getSelectedPrintIndex(){
+     if (document.getElementById("Radio2").checked)
+     return document.getElementById("PrinterList").value;
+     else return -1;      
+  };
+  function getSelectedPageSize(){
+     if (document.getElementById("Radio4").checked)
+     return document.getElementById("PagSizeList").value;
+     else return "";      
+  };
+  function CreatePrinterList(){
+      if (document.getElementById('PrinterList').innerHTML!="") return;
+     LODOP=getLodop();
+     var iPrinterCount=LODOP.GET_PRINTER_COUNT();
+     for(var i=0;i<iPrinterCount;i++){
+
+            var option=document.createElement('option');
+            option.innerHTML=LODOP.GET_PRINTER_NAME(i);
+            option.value=i;
+        document.getElementById('PrinterList').appendChild(option);
+     };
+  };
+  function clearPageListChild(){
+     var PagSizeList =document.getElementById('PagSizeList');
+     while(PagSizeList.childNodes.length>0){
+        var children = PagSizeList.childNodes; 
+         for(i=0;i<children.length;i++){     
+        PagSizeList.removeChild(children[i]); 
+       };     
+     };    
+  }
+  function CreatePagSizeList(){
+     LODOP=getLodop();
+     clearPageListChild();
+     var strPageSizeList=LODOP.GET_PAGESIZES_LIST(getSelectedPrintIndex(),"\n");
+     var Options=new Array();
+     Options=strPageSizeList.split("\n");      
+     for (i in Options)   
+     {   
+       var option=document.createElement('option');  
+      option.innerHTML=Options[i];
+      option.value=Options[i];
+          document.getElementById('PagSizeList').appendChild(option);
+     } 
+  } 
+    
+</script>
 </body>
 </body>
 </html>
-
-
-
-
-
-
-

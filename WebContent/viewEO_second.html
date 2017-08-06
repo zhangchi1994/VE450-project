@@ -38,20 +38,22 @@
 </head>
 <body>
 <div id="logo">
-   <br> <br> <br>
+   <br>
 
-   <div class="page-header text-center" style="padding: 10px 100px 10px;">
+   <div class="page-header text-center" style="padding: 10px 10px 10px;">
 
-       <h2>Information of Subsystem</h2>
+       <h1>Information of Subsystem</h1>
        <form role="form">
    </div>
 
-   <div id="left" style="padding-top: 30px;" class="text-center" >
-       <img src="" width="70%" height="70%" id="img">
+   <div id="left" style="padding-top: 1px;" class="text-center" >
+       <img src="" width="22%" height="22%" id="img">
+       <br><br>
+       <div id="main"  style="height:400px; width:70%; " class="col-center-block"></div>
    </div>
 
 
-   <div id="right" class="container" style="padding-right: 40px; padding-left:10px;">
+   <div id="right" class="container" style="padding-right: 20px; padding-left:10px;">
        <table class="table table-bordered table-striped table-hover" id="basic">
            <caption>Basic Information</caption>
            <thread>
@@ -106,17 +108,8 @@
        </table>
    </div>
 
-<div class="text-center">
 
-       <a href=" ">
-           <button type="button" name = "button" class="btn btn-primary" id = "return">Return</button>
-       </a >
-
-   </div>
-</div>
-
-
- <div id="main"  style="height:400px; width:70%; " class="col-center-block"></div>
+ 
 </body>
 <script type="text/javascript">
 window.onload = function() {
@@ -179,15 +172,20 @@ window.onload = function() {
 	       });
 	       $("#history").append(items_m.join(""));
 	       //-----------------------------------------------图表---------------------------------------------
+	       var tmp = null;
+	      $.each(responseText.All[0], function(idx, obj) {
+	    	  tmp = obj[0];
+	       }); 
+	      //console.log(tmp);
 	 var myChart = echarts.init(document.getElementById('main'));                
 	 var dataBJ = responseText.All[0];
 	 var dataGZ = responseText.All[1];
 	 var dataSH = responseText.All[2];
 
 		var schema = [
-		    {name: 'date', index: 0, text: 'Date'},
-		    {name: 'Speed', index: 1, text: 'Speed'},
-		    {name: 'Temperature', text: 'Temperature'},
+		    {name: 'time', index: 0, text: 'Time'},
+		    {name: 'Temperature', index: 1,text: 'Temperature'},
+		    {name: 'Speed', index: 2, text: 'Speed'}
 		];
 
 
@@ -208,7 +206,7 @@ window.onload = function() {
 		    ],
 		    legend: {
 		        y: 'top',
-		        data: [responseText.Basic.name, responseText.Comp[0].name, responseText.Comp[1].name],
+		        data: [responseText.Basic[0].name, responseText.Comp[0].name, responseText.Comp[1].name],
 		        textStyle: {
 		            color: '#fff',
 		            fontSize: 16
@@ -229,7 +227,7 @@ window.onload = function() {
 		            var value = obj.value;
 		            console
 		            return '<div style="border-bottom: 1px solid rgba(255,255,255,.3); font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">'
-		                + obj.seriesName + ' ' + value[0]
+		                + obj.seriesName + ' ' + value[0]+"s before"
 		                + '</div>'
 		                + schema[1].text + '：' + value[1] + '<br>'
 		                + schema[2].text + '：' + value[2] + '<br>';
@@ -237,13 +235,14 @@ window.onload = function() {
 		    },
 		    xAxis: {
 		        type: 'value',
-		        name: 'Date',
-		        nameGap: 16,
+		        name: 'time',
+		        nameGap: 2,
+		        max: tmp,
+		        min: tmp-45,
 		        nameTextStyle: {
 		            color: '#fff',
 		            fontSize: 14
 		        },
-		        max: 31,
 		        splitLine: {
 		            show: false
 		        },
@@ -255,9 +254,11 @@ window.onload = function() {
 		    },
 		    yAxis: {
 		        type: 'value',
-		        name: 'Speed',
+		        name: 'Temperature',
 		        nameLocation: 'end',
 		        nameGap: 20,
+		        min: 45,
+		        max: 100,
 		        nameTextStyle: {
 		            color: '#fff',
 		            fontSize: 16
@@ -276,22 +277,22 @@ window.onload = function() {
 		            left: 'right',
 		            top: '10%',
 		            dimension: 2,
-		            min: 0,
-		            max: 250,
+		            min: 1150,
+		            max: 1400,
 		            itemWidth: 30,
 		            itemHeight: 120,
 		            calculable: true,
 		            precision: 0.1,
-		            text: ['Circle Size：Temperature'],
+		            text: ['Circle Size：Speed'],
 		            textGap: 30,
 		            textStyle: {
 		                color: '#fff'
 		            },
 		            inRange: {
-		                symbolSize: [10, 70]
+		                symbolSize: [10, 50]
 		            },
 		            outOfRange: {
-		                symbolSize: [10, 70],
+		                symbolSize: [10, 50],
 		                color: ['rgba(255,255,255,.2)']
 		            },
 		            controller: {
@@ -306,19 +307,19 @@ window.onload = function() {
 		    ],
 		    series: [
 		        {
-		            name: '北京',
+		            name: responseText.Basic[0].name,
 		            type: 'scatter',
 		            itemStyle: itemStyle,
 		            data: dataBJ
 		        },
 		        {
-		            name: '上海',
+		            name: responseText.Comp[0].name,
 		            type: 'scatter',
 		            itemStyle: itemStyle,
 		            data: dataSH
 		        },
 		        {
-		            name: '广州',
+		            name: responseText.Comp[1].name,
 		            type: 'scatter',
 		            itemStyle: itemStyle,
 		            data: dataGZ

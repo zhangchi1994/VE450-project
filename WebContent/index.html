@@ -50,7 +50,7 @@
 			</a></li>
 			<li class="has-subnav"><a href="#"> <i
 					class="fa fa-clock-o fa-lg"></i> <span class="nav-text">
-						Warehouse Manager </span>
+						<b>Warehouse Manager</b> </span>
 			</a></li>
 
 			<li class="has-subnav"><a href="javascript:void(0)" id="click2"> <i
@@ -66,31 +66,47 @@
 						Store Used Items </span>
 			</a></li>
 
-			<li><a href="javascript:void(0)" id="click4"> <i class="fa fa-shopping-cart"></i> <span
-					class="nav-text"> Shopping </span>
+			<li class="has-subnav"><a href="javascript:void(0)" id="click5"> <i
+					class="fa fa-lg"></i> <span class="nav-text">
+						Show List </span>
 			</a></li>
 			<li><a href="#"> <i class="fa fa-microphone fa-lg"></i> <span
-					class="nav-text"> Film & Music </span>
+					class="nav-text"> <b>Equipment Operator</b> </span>
 			</a></li>
-			<li><a href="#"> <i class="fa fa-flask fa-lg"></i> <span
-					class="nav-text"> Web Tools </span>
+			<li class="has-subnav"><a href="javascript:void(0)" id="click6"> <i
+					class="fa fa-lg"></i> <span class="nav-text">
+						Start to Work </span>
 			</a></li>
-
-			<li><a href="#"> <i class="fa fa-picture-o fa-lg"></i> <span
-					class="nav-text"> Art & Design </span>
+			<li class="has-subnav"><a href="javascript:void(0)" id="click7"> <i
+					class="fa fa-lg"></i> <span class="nav-text">
+						Stop Working </span>
 			</a></li>
-			<li><a href="#"> <i class="fa fa-align-left fa-lg"></i> <span
-					class="nav-text"> Magazines </span>
+			<li class="has-subnav"><a href="javascript:void(0)" id="click8"> <i
+					class="fa fa-lg"></i> <span class="nav-text">
+						View Status </span>
 			</a></li>
-			<li><a href="#"> <i class="fa fa-gamepad fa-lg"></i> <span
-					class="nav-text"> Games </span>
+			<li class="has-subnav"><a href="javascript:void(0)" id="click9"> <i
+					class="fa fa-lg"></i> <span class="nav-text">
+						Report for Repairs </span>
 			</a></li>
-			<li><a href="#"> <i class="fa fa-glass fa-lg"></i> <span
-					class="nav-text"> Life & Style </span>
+			<li><a href="#"> <i class="fa fa-rocket fa-lg"></i> <span
+					class="nav-text"> <b>Maintenance Engineer</b> </span>
 			</a></li>
-			<li class="has-subnav"><a href="#"> <i
-					class="fa fa-rocket fa-lg"></i> <span class="nav-text"> Fun
-				</span>
+			<li class="has-subnav"><a href="javascript:void(0)" id="click10"> <i
+					class="fa fa-lg"></i> <span class="nav-text">
+						View All Reports </span>
+			</a></li>
+			<li class="has-subnav"><a href="javascript:void(0)" id="click11"> <i
+					class="fa fa-lg"></i> <span class="nav-text">
+						View Status </span>
+			</a></li>
+			<li class="has-subnav"><a href="javascript:void(0)" id="click12"> <i
+					class="fa fa-lg"></i> <span class="nav-text">
+						Replacement </span>
+			</a></li>
+			<li class="has-subnav"><a href="javascript:void(0)" id="click13"> <i
+					class="fa fa-lg"></i> <span class="nav-text">
+						Write Report </span>
 			</a></li>
 		</ul>
 
@@ -105,7 +121,7 @@
 
 <div style="LEFT: 150px; TOP: 20px" align=center>
  
-<iframe id="webpage" src="./login.html" frameBorder=0 width=1024 style="width:1200px;height:900px;" 
+<iframe id="webpage" src="./login.html" frameBorder=0 width=1024 style="width:1200px;height:2400px;" 
 	scrolling=no  ALLOWTRANSPARENCY="true"></iframe>
  
 </div>
@@ -118,15 +134,16 @@
 		event.preventDefault();
 		document.getElementById("webpage").src = "./login.html";
 	});
+//-----------------------------------Warehouse Manager-----------------------------------------	
 	$('#click2').on('click',function(event){
 		event.preventDefault();
 		if(sessionStorage.getItem("whoScan") == "wm") {
 			sessionStorage.setItem("warehouseSelection", "take_out");
 			document.getElementById("webpage").src = "./qr_scan.html";
 		} else if (sessionStorage.getItem("whoScan") == null)
-				console.log("Login first, please!");
+			alert("Login first, please!");
 		else 
-			console.log("Wrong working type!");
+			alert("Wrong working type!");
 	});
 	$('#click3').on('click',function(event){
 		event.preventDefault();
@@ -134,9 +151,9 @@
 			sessionStorage.setItem("warehouseSelection", "store_new");
 			document.getElementById("webpage").src = "./upload_equipment.html";
 		} else if (sessionStorage.getItem("whoScan") == null)
-				console.log("Login first, please!");
+			alert("Login first, please!");
 		else 
-			console.log("Wrong working type!");
+			alert("Wrong working type!");
 	});
 	$('#click4').on('click',function(event){
 		event.preventDefault();
@@ -144,10 +161,118 @@
 			sessionStorage.setItem("warehouseSelection", "store_old");
 			document.getElementById("webpage").src = "./qr_scan.html";
 		} else if (sessionStorage.getItem("whoScan") == null)
-				console.log("Login first, please!");
+			alert("Login first, please!");
 		else 
-			console.log("Wrong working type!");
+			alert("Wrong working type!");
 	});
+	$('#click5').on('click',function(event){
+		event.preventDefault();
+		if(sessionStorage.getItem("whoScan") == "wm") {
+			sessionStorage.setItem("warehouseSelection", "show_list");
+			document.getElementById("webpage").src = "./storageList.html";
+		} else if (sessionStorage.getItem("whoScan") == null)
+				alert("Login first, please!");
+		else 
+			alert("Wrong working type!");
+	});
+	
+//-------------------------------------------Equipment Operator-------------------------------------
+	$('#click6').on('click',function(event){
+		event.preventDefault();
+		var operateID = sessionStorage.getItem("qr_id_data");
+		if(sessionStorage.getItem("whoScan") == "eo") {
+            $.post('GotoServlet', {
+                startORstop : "start",
+                id : operateID
+            }, function(responseText) {
+                alert(responseText);
+            });
+		} else if (sessionStorage.getItem("whoScan") == null)
+				alert("Login first, please!");
+		else 
+			alert("Wrong working type!");
+	});
+	$('#click7').on('click',function(event){
+		event.preventDefault();
+		var operateID = sessionStorage.getItem("qr_id_data");
+		if(sessionStorage.getItem("whoScan") == "eo") {
+            $.post('GotoServlet', {
+                startORstop : "finish",
+                id : operateID
+            }, function(responseText) {
+                alert(responseText);
+            });
+		} else if (sessionStorage.getItem("whoScan") == null)
+				alert("Login first, please!");
+		else 
+			alert("Wrong working type!");
+	});
+	$('#click8').on('click',function(event){
+		event.preventDefault();
+		var operateID = sessionStorage.getItem("qr_id_data");
+		if(sessionStorage.getItem("whoScan") == "eo") {
+            $.get('GotoServlet', {
+                selection : "whereToview",
+                id : operateID
+            }, function(responseText) {
+            	document.getElementById("webpage").src = "./viewEO_" + responseText + ".html";
+            });
+		} else if (sessionStorage.getItem("whoScan") == null)
+				alert("Login first, please!");
+		else 
+			alert("Wrong working type!");
+	});
+	$('#click9').on('click',function(event){
+		event.preventDefault();
+		var operateID = sessionStorage.getItem("qr_id_data");
+		if(sessionStorage.getItem("whoScan") == "eo") {
+			document.getElementById("webpage").src = "./webcam.html?hid=fromreport=" + operateID;
+		} else if (sessionStorage.getItem("whoScan") == null)
+				alert("Login first, please!");
+		else 
+			alert("Wrong working type!");
+	});
+//--------------------------------------------------------maintenance engineer------------------------------------------
+	$('#click10').on('click',function(event){
+		event.preventDefault();
+		if(sessionStorage.getItem("whoScan") == "me") {
+			document.getElementById("webpage").src = "viewAllReport.html";
+		} else if (sessionStorage.getItem("whoScan") == null)
+				alert("Login first, please!");
+		else 
+			alert("Wrong working type!");
+	});
+	$('#click11').on('click',function(event){
+		event.preventDefault();
+		if(sessionStorage.getItem("whoScan") == "me") {
+			sessionStorage.setItem("maintenanceSelection", "view");
+			document.getElementById("webpage").src = "./qr_scan.html";
+		} else if (sessionStorage.getItem("whoScan") == null)
+				alert("Login first, please!");
+		else 
+			alert("Wrong working type!");
+	});
+	$('#click12').on('click',function(event){
+		event.preventDefault();
+		if(sessionStorage.getItem("whoScan") == "me") {
+			sessionStorage.setItem("maintenanceSelection", "replace");
+			document.getElementById("webpage").src = "./replacement.html";
+		} else if (sessionStorage.getItem("whoScan") == null)
+				alert("Login first, please!");
+		else 
+			alert("Wrong working type!");
+	});
+	$('#click13').on('click',function(event){
+		event.preventDefault();
+		if(sessionStorage.getItem("whoScan") == "me") {
+			sessionStorage.setItem("maintenanceSelection", "report");
+			document.getElementById("webpage").src = "./qr_scan.html";
+		} else if (sessionStorage.getItem("whoScan") == null)
+				alert("Login first, please!");
+		else 
+			alert("Wrong working type!");
+	});
+	
 	$('#click_out').on('click',function(event){
 		event.preventDefault();
 		sessionStorage.clear();

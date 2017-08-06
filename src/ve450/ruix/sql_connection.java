@@ -820,7 +820,7 @@ public class sql_connection {
 						time = rsAhh.getInt(1);
 					}
 
-					String rubbish = "\n[\"" + time + "\", " + rs.getString("temperature") + ", "
+					String rubbish = "\n[" + time + ", " + rs.getString("temperature") + ", "
 							+ rs.getString("speed") + "],";
 					stock.add(rubbish);
 				}
