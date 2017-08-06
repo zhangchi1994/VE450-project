@@ -36,11 +36,17 @@ public class ReadInfoServlet extends HttpServlet {
 				tmp = sql_login.ViewDetailedProblem(id);
 			} else if (request.getParameter("sele").equals("viewEO")) {
 				id = request.getParameter("name");
-				//System.out.println(id);
+				// System.out.println(id);
 				String tmp_1 = sql_login.Read(id);
 				String tmp_2 = sql_login.ViewComponents(id);
 				String tmp_3 = sql_login.ViewStatus(id);
-				tmp = "{ \"Basic\":" + tmp_1 + ",\n \"Comp\":" + tmp_2 + ",\n" + tmp_3.substring(2, tmp_3.length()-1);
+				String tmp_4 = sql_login.SonDraw(id);
+				//tmp = "{ \"Basic\":" + tmp_1 + ",\n \"Comp\":" + tmp_2 + ",\n" + tmp_3.substring(2, tmp_3.length() - 1);
+				tmp = "{ \"Basic\":" + tmp_1 + ",\n \"Comp\":" + tmp_2 + ",\n" + tmp_3.substring(2, tmp_3.length() - 3)
+						+ ",\n" + tmp_4.substring(2, tmp_4.length() - 1);
+				System.out.println("******************************************");
+				System.out.println(tmp);
+				System.out.println("******************************************");
 			}
 		} else if (request.getParameter("sel") != null) {
 			if (request.getParameter("sel").equals("take_out") || request.getParameter("sel").equals("store_used")) {
