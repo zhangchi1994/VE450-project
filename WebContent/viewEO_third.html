@@ -9,7 +9,7 @@
          crossorigin="anonymous">
    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+ <script src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
    <style type="text/css">
    body{margin:0; padding:0;}
    #left{width:60%;height:600px;padding-left:5px;float:left}
@@ -83,7 +83,7 @@
            <caption>Maintenance History</caption>
            <thread>
                <tr>
-                   <th>Equipment ID</th>
+               	   <th>Date</th>
                    <th>Personnel ID</th>
                    <th>Problem ID</th>
                    <th>Status</th>
@@ -141,19 +141,7 @@ window.onload = function() {
 	       
 	   
 	       //--------------------------------图表--------------------------------------
-	               require.config({
-            paths: {
-                echarts: 'http://echarts.baidu.com/build/dist'
-            }
-        });
-        
-        require(
-            [
-                'echarts',
-                'echarts/chart/line'
-            ],
-            function (ec) {
-                var myChart = ec.init(document.getElementById('main'));                
+                var myChart = echarts.init(document.getElementById('main'));                
                 var option = {
                 	    title: {
                 	        text: 'temperature&speed',
@@ -205,10 +193,10 @@ window.onload = function() {
                 	            type : 'category',
                 	            boundaryGap : false,
                 	            axisLine: {onZero: true},
-                	            show: false,
                 	            data: [responseText.Status[0].recorded_time, responseText.Status[1].recorded_time, responseText.Status[2].recorded_time, responseText.Status[3].recorded_time, 
                 	            	responseText.Status[4].recorded_time, responseText.Status[5].recorded_time, responseText.Status[6].recorded_time, responseText.Status[7].recorded_time, 
-                	            	responseText.Status[8].recorded_time, responseText.Status[9].recorded_time]
+                	            	responseText.Status[8].recorded_time, responseText.Status[9].recorded_time],
+                	            position: 'top'
                 	        }
                 	    ],
                 	    yAxis : [
@@ -218,7 +206,7 @@ window.onload = function() {
                 	            max : 150
                 	        },
                 	        {
-                	            //gridIndex: 1,
+                	            gridIndex: 1,
                 	            name : 'temperature(℃)',
                 	            type : 'value',
                 	            max : 60,
@@ -231,9 +219,9 @@ window.onload = function() {
                 	            type:'line',
                 	            symbolSize: 8,
                 	            hoverAnimation: false,
-                	            data: [responseText.Status[0].temperature, responseText.Status[1].temperature, responseText.Status[2].temperature, responseText.Status[3].temperature, 
-                	            	responseText.Status[4].temperature, responseText.Status[5].temperature, responseText.Status[6].temperature, responseText.Status[7].temperature, 
-                	            	responseText.Status[8].temperature, responseText.Status[9].temperature]
+                	            data: [responseText.Status[0].speed/10, responseText.Status[1].speed/10, responseText.Status[2].speed/10, responseText.Status[3].speed/10, 
+                	            	responseText.Status[4].speed/10, responseText.Status[5].speed/10, responseText.Status[6].speed/10, responseText.Status[7].speed/10, 
+                	            	responseText.Status[8].speed/10, responseText.Status[9].speed/10]
                 	        },
                 	        {
                 	            name:'speed',
@@ -242,16 +230,14 @@ window.onload = function() {
                 	            yAxisIndex: 1,
                 	            symbolSize: 8,
                 	            hoverAnimation: false,
-                	            data: [responseText.Status[0].speed/10, responseText.Status[1].speed/10, responseText.Status[2].speed/10, responseText.Status[3].speed/10, 
-                	            	responseText.Status[4].speed/10, responseText.Status[5].speed/10, responseText.Status[6].speed/10, responseText.Status[7].speed/10, 
-                	            	responseText.Status[8].speed/10, responseText.Status[9].speed/10]
+                	            data: [responseText.Status[0].temperature, responseText.Status[1].temperature, responseText.Status[2].temperature, responseText.Status[3].temperature, 
+                	            	responseText.Status[4].temperature, responseText.Status[5].temperature, responseText.Status[6].temperature, responseText.Status[7].temperature, 
+                	            	responseText.Status[8].temperature, responseText.Status[9].temperature]
                 	        }
                 	    ]
                 	};
         
                 myChart.setOption(option); 
-            }
-        );
 	       //--------------------------------------------------------------------------
 	   });	
 }
