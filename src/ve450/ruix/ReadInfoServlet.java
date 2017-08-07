@@ -28,7 +28,12 @@ public class ReadInfoServlet extends HttpServlet {
 		if (request.getParameter("sele") != null) {
 			if (request.getParameter("sele").equals("viewME")) {
 				id = request.getParameter("name");
-				tmp = sql_login.ViewStatus(id);
+				String tmp_1 = sql_login.ViewStatus(id);
+				String tmp_2 = sql_login.SonDraw(id);
+				tmp = "{" + tmp_1.substring(2, tmp_1.length() - 3) + ",\n" + tmp_2.substring(2, tmp_2.length() - 1);
+				System.out.println("******************************************");
+				System.out.println(tmp);
+				System.out.println("******************************************");
 			} else if (request.getParameter("sele").equals("allreport")) {
 				tmp = sql_login.ViewProblemList();
 			} else if (request.getParameter("sele").equals("viewDetail")) {
@@ -42,12 +47,12 @@ public class ReadInfoServlet extends HttpServlet {
 				String tmp_3 = sql_login.ViewStatus(id);
 				String tmp_4 = sql_login.SonDraw(id);
 				String tmp_5 = sql_login.DadDraw(id);
-				//tmp = "{ \"Basic\":" + tmp_1 + ",\n \"Comp\":" + tmp_2 + ",\n" + tmp_3.substring(2, tmp_3.length() - 1);
+				// tmp = "{ \"Basic\":" + tmp_1 + ",\n \"Comp\":" + tmp_2 +
+				// ",\n" + tmp_3.substring(2, tmp_3.length() - 1);
 				tmp = "{ \"Basic\":" + tmp_1 + ",\n \"Comp\":" + tmp_2 + ",\n" + tmp_3.substring(2, tmp_3.length() - 3)
-						+ ",\n" + tmp_4.substring(2, tmp_4.length() - 2)+ ",\n" + tmp_5.substring(2, tmp_5.length() - 1);
-				System.out.println("******************************************");
-				System.out.println(tmp);
-				System.out.println("******************************************");
+						+ ",\n" + tmp_4.substring(2, tmp_4.length() - 2) + ",\n"
+						+ tmp_5.substring(2, tmp_5.length() - 1);
+				
 			}
 		} else if (request.getParameter("sel") != null) {
 			if (request.getParameter("sel").equals("take_out") || request.getParameter("sel").equals("store_used")) {
@@ -59,7 +64,7 @@ public class ReadInfoServlet extends HttpServlet {
 			System.out.println(name);
 			tmp = sql_login.ViewStock(name);
 		}
-		//System.out.println(tmp);
+		// System.out.println(tmp);
 		response.setContentType("text/plain;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
